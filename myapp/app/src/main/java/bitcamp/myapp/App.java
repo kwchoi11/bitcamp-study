@@ -55,7 +55,7 @@ public class App {
         // } else if (menuNo.equals("2")) {
         //   gender[i] = 'W';
         //   break;
-        // } else {
+        // } else { 
         //   System.out.println("무효한 번호입니다.");
         // }
 
