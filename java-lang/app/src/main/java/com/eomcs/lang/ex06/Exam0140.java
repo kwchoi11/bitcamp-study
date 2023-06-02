@@ -37,6 +37,7 @@ public class Exam0140 {
       System.out.println("미성년입니다.4");
     
     // 한 문장일 때는 블록으로 묶지 않아도 된다.
+    // 그래도 그냥 묶는 걸 권장함.
     if (age >= 19)
       System.out.println("성인입니다.5");
     else {
