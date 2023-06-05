@@ -16,7 +16,7 @@ public class App {
         break;
       }
     }
-
+  
     MemberHandler.printMembers();
 
     scanner.close();
