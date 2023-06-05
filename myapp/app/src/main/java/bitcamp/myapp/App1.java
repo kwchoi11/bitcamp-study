@@ -15,8 +15,8 @@ public class App {
   static int userId = 1;
   static int length = 0;
 
-  static final char MALE = "M";
-  static final char FEMALE = "W";
+  static final char MALE = 'M';
+  static final char FEMALE = 'W';
   
   public static void main(String[] args) {
 
@@ -45,8 +45,7 @@ public class App {
     password[length] = prompt("암호? ");
 
     loop: while (true) {
-      String title = 
-      String menuNo = prompt("성별: \n" +
+      String menuNo = prompt("성별:\n" +
       "  1. 남자\n" +
       "  2. 여자\n" +
       "> ");
@@ -68,7 +67,6 @@ public class App {
   }
 
   static boolean promptContinue() {
-    System.out.print();
     String response = prompt("계속 하시겠습니까?(Y/n) ");
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
@@ -88,7 +86,7 @@ public class App {
 
   static String prompt(String title) {
     System.out.print(title);
-    return scanner.nextline();
+    return scanner.nextLine();
   }
 
 }
