@@ -34,7 +34,7 @@ public class App06 {
         System.out.println("  3. 떡볶이 9.0");
         System.out.println("  4. 감자튀김 10.0");
         System.out.println("> ");
-        String menuNo = scanner.netc();
+        String menuNo = scanner.next();
 
         switch (menuNo) {
           case "1": 
@@ -53,8 +53,27 @@ public class App06 {
             System.out.println("무효한 번호입니다.");
         }
       }
+      
       no[i] = tableNo++;
       length++;
+
+      System.out.print("계속 하시겠습니까?(Y/n) ");
+      scanner.nextLing();
+      String response = scanner.nextLine();
+      if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
+        break;
+      }
     }
+
+    System.out.println("------------------------------------");
+
+    System.out.println("테이블 번호, 손님 수, 안주 1, 안주 2, 소주, 맥주");
+    System.out.println("------------------------------------");
+
+    for (int i = 0; i < length; i++) {
+      System.out.printf("%d, %d, %c, %c, %c, %s\n", tableNo[i], personsNo[i],
+        food1[i], food2[i], soju[i], beer[i]);
+    }
+    scanner.close();
   }
 }
