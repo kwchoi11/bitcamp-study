@@ -21,9 +21,6 @@ public class App07 {
     for (int i = 0; i < MAX_SIZE; i++) {
       inputMember(scanner, i, tableNo, personsNo, food1, food2, soju, beer);
       length++;
-      if (!promptContinue(scanner)) {
-        break;
-      }
     }
 
     printMembers(length, tableNo, personsNo, food1, food2, soju, beer);
@@ -225,9 +222,10 @@ public class App07 {
           System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
       }
     }
-  }
 
-  System.out.println("주문해주셔서 감사합니다! 맛있게 만들어드릴게요 :)");
+    System.out.println("주문해주셔서 감사합니다! 맛있게 만들어드릴게요 :)");
+
+  }
 
   static void printMembers(int length, String[] tableNo, String[] personsNo, 
     String[] food1, String[] food2, String[] soju, String[] beer) {
