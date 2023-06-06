@@ -10,7 +10,7 @@ public class App06 {
     Scanner scanner = new Scanner(System.in);
 
     final int MAX_SIZE = 3;
-    int tableNo = 1;
+    int userId = 1;
     int length = 0;
 
     int[] tableNo = new int[MAX_SIZE];
@@ -21,11 +21,11 @@ public class App06 {
     String[] beer = new String[MAX_SIZE];
 
     for (int i = 0; i < MAX_SIZE; i++) {
-      System.out.print("테이블 번호? ");
-      tableNo[i] = scanner.next();
+      // System.out.print("테이블 번호? ");
+      // tableNo[i] = scanner.next();
 
-      System.out.print("손님 수? ");
-      personsNo[i] = scanner.next();
+      // System.out.print("손님 수? ");
+      // personsNo[i] = scanner.next();
 
       loop1: while (true) {
         System.out.println("안주 1: ");
@@ -39,26 +39,26 @@ public class App06 {
         switch (menuNo) {
           case "1": 
             food1[i] = 'O';
-            break loop;
+            break loop1;
           case "2":
             food1[i] = 'H';
-            break loop;
+            break loop1;
           case "3":
             food1[i] = 'D';
-            break loop;
+            break loop1;
           case "4":
             food1[i] = 'G';
-            break loop;
+            break loop1;
           default:
             System.out.println("무효한 번호입니다.");
         }
       }
       
-      no[i] = tableNo++;
+      no[i] = userId++;
       length++;
 
       System.out.print("계속 하시겠습니까?(Y/n) ");
-      scanner.nextLing();
+      scanner.nextLine();
       String response = scanner.nextLine();
       if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
         break;
