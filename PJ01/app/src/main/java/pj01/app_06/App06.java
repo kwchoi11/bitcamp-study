@@ -29,8 +29,32 @@ public class App06 {
 
       loop1: while (true) {
         System.out.println("안주 1: ");
-        System.out.println("  1. 오뎅탕 11.0(O), 화채 8.0(H), 떡볶이 9.0(D), 감자튀김 10.0(G)")
+        System.out.println("  1. 오뎅탕 11.0");
+        System.out.println("  2. 화채 8.0");
+        System.out.println("  3. 떡볶이 9.0");
+        System.out.println("  4. 감자튀김 10.0");
+        System.out.println("> ");
+        String menuNo = scanner.netc();
+
+        switch (menuNo) {
+          case "1": 
+            food1[i] = 'O';
+            break loop;
+          case "2":
+            food1[i] = 'H';
+            break loop;
+          case "3":
+            food1[i] = 'D';
+            break loop;
+          case "4":
+            food1[i] = 'G';
+            break loop;
+          default:
+            System.out.println("무효한 번호입니다.");
+        }
       }
+      no[i] = userId++;
+      length++;
     }
   }
 }
