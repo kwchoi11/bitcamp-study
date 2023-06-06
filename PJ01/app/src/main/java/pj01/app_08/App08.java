@@ -7,14 +7,14 @@ public class App08 {
   static Scanner scanner = new Scanner(System.in);
 
   static final int MAX_SIZE = 1;
-  int length = 0;
+  static int length = 0;
 
-  String[] tableNo = new String[MAX_SIZE];
-  String[] personsNo = new String[MAX_SIZE];
-  String[] food1 = new String[MAX_SIZE];
-  String[] food2 = new String[MAX_SIZE];
-  String[] soju = new String[MAX_SIZE];
-  String[] beer = new String[MAX_SIZE];
+  static String[] tableNo = new String[MAX_SIZE];
+  static String[] personsNo = new String[MAX_SIZE];
+  static String[] food1 = new String[MAX_SIZE];
+  static String[] food2 = new String[MAX_SIZE];
+  static String[] soju = new String[MAX_SIZE];
+  static String[] beer = new String[MAX_SIZE];
 
   public static void main(String[] args) {
 
@@ -22,11 +22,8 @@ public class App08 {
 
     while (length < MAX_SIZE) {
       inputMember();
-      if (!promptContinue()) {
-        break;
       }
-    }
-
+    
     printMembers();
 
     scanner.close();
@@ -55,45 +52,44 @@ public class App08 {
 
       switch (noTable) {
         case "1":
-          tableNo[length] = 1번 테이블;
+          tableNo[length] = "1번 테이블";
           break loop;
         case "2":
-          tableNo[length] = 2번 테이블;
+          tableNo[length] = "2번 테이블";
           break loop;
         case "3":
-          tableNo[length] = 3번 테이블;
+          tableNo[length] = "3번 테이블";
           break loop;
         case "4":
-          tableNo[length] = 4번 테이블;
+          tableNo[length] = "4번 테이블";
           break loop;
         case "5":
-          tableNo[length] = 5번 테이블;
+          tableNo[length] = "5번 테이블";
           break loop;
         case "6":
-          tableNo[length] = 6번 테이블;
+          tableNo[length] = "6번 테이블";
           break loop;
         case "7":
-          tableNo[length] = 7번 테이블;
+          tableNo[length] = "7번 테이블";
           break loop;
         case "8":
-          tableNo[length] = 8번 테이블;
+          tableNo[length] = "8번 테이블";
           break loop;
         case "9":
-          tableNo[length] = 9번 테이블;
+          tableNo[length] = "9번 테이블";
           break loop;
         case "10":
-          tableNo[length] = 10번 테이블;
+          tableNo[length] = "10번 테이블";
           break loop;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
       }
     }
 
-    System.out.print("몇 분이세요? ");
-    personsNo[i] = scanner.next();
+    personsNo[length] = prompt("몇 분이세요?");
 
     loop1: while (true) {
-      String menuNo = prompt("음식을 선택해주세요.\n" +
+      String menuNo1 = prompt("음식을 선택해주세요.\n" +
       "  1. 오뎅탕 11.0\n" +
       "  2. 화채 8.0\n" +
       "  3. 떡볶이 9.0\n" +
@@ -104,22 +100,22 @@ public class App08 {
 
       switch (menuNo1) {
         case "1": 
-          food1[length] = 오뎅탕;
+          food1[length] = "오뎅탕";
           break loop1;
         case "2":
-          food1[length] = 화채;
+          food1[length] = "화채";
           break loop1;
         case "3":
-          food1[length] = 떡볶이;
+          food1[length] = "떡볶이";
           break loop1;
         case "4":
-          food1[length] = 감자튀김;
+          food1[length] = "감자튀김";
           break loop1;
         case "5":
-          food1[length] = 후라이드치킨;
+          food1[length] = "후라이드치킨";
           break loop1;
         case "6":
-          food1[length] = 양념치킨;
+          food1[length] = "양념치킨";
           break loop1;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
@@ -139,25 +135,25 @@ public class App08 {
 
       switch (menuNo2) {
         case "1":
-          food2[length] = 오뎅탕;
+          food2[length] = "오뎅탕";
           break loop2;
         case "2":
-          food2[length] = 화채;
+          food2[length] = "화채";
           break loop2;
         case "3":
-          food2[length] = 떡볶이;
+          food2[length] = "떡볶이";
           break loop2;
         case "4":
-          food2[length] = 감자튀김;
+          food2[length] = "감자튀김";
           break loop2;
         case "5":
-          food1[length] = 후라이드치킨;
+          food1[length] = "후라이드치킨";
           break loop2;
         case "6":
-          food1[length] = 양념치킨;
+          food1[length] = "양념치킨";
           break loop2;
         case "7":
-          food2[length] = 주문 없음;
+          food2[length] = "주문 없음";
           break loop2;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해주세요.");
@@ -175,19 +171,19 @@ public class App08 {
 
       switch (sojuNo) {
         case "1":
-          soju[length] = 진로;
+          soju[length] = "진로";
           break loop3;
         case "2":
-          soju[length] = 참이슬;
+          soju[length] = "참이슬";
           break loop3;
         case "3":
-          soju[length] = 처음처럼;
+          soju[length] = "처음처럼";
           break loop3;
         case "4":
-          soju[length] = 새로;
+          soju[length] = "새로";
           break loop3;
         case "5":
-          soju[length] = 소주 주문 없음;
+          soju[length] = "소주 주문 없음";
           break loop3;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
@@ -204,16 +200,16 @@ public class App08 {
 
       switch (beerNo) {
         case "1":
-          beer[length] = 카스;
+          beer[length] = "카스";
           break loop4;
         case "2":
-          beer[length] = 테라;
+          beer[length] = "테라";
           break loop4;
         case "3":
-          beer[length] = 켈리;
+          beer[length] = "켈리";
           break loop4;
         case "4":
-          beer[length] = 맥주 주문 없음;
+          beer[length] = "맥주 주문 없음";
           break loop4;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
