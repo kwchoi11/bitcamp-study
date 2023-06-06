@@ -53,7 +53,7 @@ public class App06 {
             System.out.println("무효한 번호입니다.");
         }
       }
-      no[i] = userId++;
+      no[i] = tableNo++;
       length++;
     }
   }
