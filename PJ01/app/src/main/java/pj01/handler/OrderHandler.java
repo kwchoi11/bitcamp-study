@@ -1,6 +1,6 @@
 package pj01;
 
-import pj01.app_09.util.Prompt;
+import pj01.util.prompt;
 
 public class OrderHandler {
   
