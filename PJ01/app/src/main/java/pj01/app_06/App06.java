@@ -14,7 +14,7 @@ public class App06 {
     int length = 0;
 
     int[] tableNo = new int[MAX_SIZE];
-    int[] personsNo = new int[MAX_SIZE];
+    String[] personsNo = new String[MAX_SIZE];
     char[] food1 = new char[MAX_SIZE];
     char[] food2 = new char[MAX_SIZE];
     char[] soju = new char[MAX_SIZE];
@@ -24,8 +24,8 @@ public class App06 {
       // System.out.print("테이블 번호? ");
       // tableNo[i] = scanner.next();
 
-      // System.out.print("손님 수? ");
-      // personsNo[i] = scanner.next();
+      System.out.print("손님 수? ");
+      personsNo[i] = scanner.next();
 
       loop1: while (true) {
         System.out.println("안주 1: ");
@@ -54,7 +54,7 @@ public class App06 {
         }
       }
       
-      no[i] = userId++;
+      tableNo[i] = userId++;
       length++;
 
       System.out.print("계속 하시겠습니까?(Y/n) ");
