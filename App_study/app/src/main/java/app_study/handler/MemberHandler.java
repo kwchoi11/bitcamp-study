@@ -77,6 +77,66 @@ public class MemberHandler {
     System.out.println("해당 번호의 회원이 없습니다.");
   }
 
-  
+  private static char inputGender(char gender) {
+    String label;
+    if (gender == 0) {
+      label = "성별?\n";
+    } else {
+      label = String.format("성별(%s)?\n", toGenderString(gender));
+    }
+    loop: while (true) {
+      String menuNo = Prompt.inputString(label +
+      "  1. 남자\n" +
+      "  2. 여자\n" +
+      "> ");
 
+      switch (menuNo) {
+        case "1":
+          return MALE;
+        case "2":
+          return FEMALE;
+        default:
+          System.out.println("무효한 번호입니다.");
+      }
+    }
+  }
+
+  public static void deleteMember() {
+    int memberNo = Prompt.inputInt("번호? ");
+
+    int deletedIndex = indexOf(memberNo);
+    if (deletedIndex == -1) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    for (int i = deletedIndex; 1 < length - 1; i++) {
+      no[i] = no[i + 1];
+      name[i] = name[i + 1];
+      email[i] = email[i + 1];
+      password[i] = password[i + 1];
+      gender[i] = gender[i + 1];
+    }
+
+    no[length - 1] = 0;
+    name[length - 1] = null;
+    email[length - 1] = null;
+    password[length - 1] = null;
+    gender[length - 1] = (char) 0;
+
+    length --;
+  }
+
+  private static int indexOf(int memberNo) {
+    for (int i = 0; i < length; i++) {
+      if (no[i] == memberNo) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  
+  private static boolean available() {
+    return length < MAX_SIZE;
+  }
 }
