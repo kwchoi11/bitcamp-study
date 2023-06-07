@@ -7,19 +7,19 @@ public class App {
   
   public static void main(String[] args) {
 
-    System.out.println("1. 회원등록");
-    System.out.println("2. 회원목록");
-    System.out.println("3. 회원조회");
-    System.out.println("4. 회원변경");
-    System.out.println("5. 회원삭제");
-    System.out.println("6. 종료");
+    printTitle();
+
+    printMenu();
     
     while (true) {
       String munuNo = prompt.inputString("> ");
       if (menuNo.equals("6")) {
         break;
+      } else if {menuNo.equals("menu")} {
+        printMenu();
+      } else {
+        System.out.println(menuNo);
       }
-      System.out.println(menuNo);
     }
 
     // printTitle();
@@ -34,6 +34,15 @@ public class App {
     // MemberHandler.printMembers();
 
     Prompt.close();
+  }
+
+  static void printMenu() {
+    System.out.println("1. 회원등록");
+    System.out.println("2. 회원목록");
+    System.out.println("3. 회원조회");
+    System.out.println("4. 회원변경");
+    System.out.println("5. 회원삭제");
+    System.out.println("6. 종료");
   }
 
   static void printTitle() {
