@@ -12,12 +12,18 @@ public class App {
     printMenu();
     
     while (true) {
-      String munuNo = prompt.inputString("> ");
+      String munuNo = prompt.inputString("메인> ");
       if (menuNo.equals("6")) {
         break;
       } else if {menuNo.equals("menu")} {
         printMenu();
+      } else if (menuNo.equals("1")) {
+        MemberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        MemberHandler.printMembers();
       } else {
+        System.out.println(menuNo);
+      }
         System.out.println(menuNo);
       }
     }
