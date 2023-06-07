@@ -1,7 +1,7 @@
-package bitcamp.myapp.myapp;
+package app_study;
 
-import bitcamp.myapp.handler.MemberHandler;
-import bitcamp.util.Prompt;
+import app_study.handler.MemberHandler;
+import app_study.util.Prompt;
 
 public class App {
   
@@ -31,26 +31,25 @@ public class App {
         System.out.println(menuNo);
       }
     }
-
     Prompt.close();
   }
 
   static void printMenu() {
     System.out.println("1. 회원등록");
-    System.out.println("2. 회원목록");
-    System.out.println("3. 회원조회");
-    System.out.println("4. 회원변경");
-    System.out.println("5. 회원삭제");
+    System.out.println("2. 회원 목록");
+    System.out.println("3. 회원 조회");
+    System.out.println("4. 회원 변경");
+    System.out.println("5. 회원 삭제");
     System.out.println("6. 종료");
   }
 
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
-    System.out.println("----------------------------------");
+    System.out.println("--------------------------------------");
   }
 
   static boolean promptContinue() {
-    String response = Prompt.inputString("계속 하시겠습니까?(Y/n) ");
+    String response = Prompt.inputString("계속 하시겠습니까?(Y/n)");
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
     }
