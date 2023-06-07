@@ -103,6 +103,15 @@ public class MemberHandler {
       gender[targetIndex] = (char) 0;
     } else {
       // 그 밖에는 해당 인덱스부터 반복하면서 다음 항목의 값을 당겨온다.
+      for (int i = targetIndex; i < length - 1; i++) {
+        no[i] = no[i + 1];
+        name[i] = name[i + 1];
+        email[i] = email[i + 1];
+        password[i] = password[i + 1];
+        gender[i] = gender[i + 1];
+      }
+
+      
 
     }
     
