@@ -1,6 +1,6 @@
-package pj01;
+package pj01.app_09.handler;
 
-import pj01.prompt;
+import pj01.util.Prompt;
 
 public class OrderHandler {
   
@@ -15,20 +15,19 @@ public class OrderHandler {
   static String[] beer = new String[MAX_SIZE];
 
   public static void inputMember() {
-   
     loop: while (true) {
-      String noTable = prompt("테이블 번호를 선택해주세요.\n" + 
-      "  1. 1번\n" +
-      "  2. 2번\n" +
-      "  3. 3번\n" +
-      "  4. 4번\n" +
-      "  5. 5번\n" +
-      "  6. 6번\n" +
-      "  7. 7번\n" +
-      "  8. 8번\n" +
-      "  9. 9번\n" +
-      "  10. 10번\n" +
-      "> ");
+      String noTable = Prompt.inputString("테이블 번호를 선택해주세요.\n" + 
+        "  1. 1번\n" +
+        "  2. 2번\n" +
+        "  3. 3번\n" +
+        "  4. 4번\n" +
+        "  5. 5번\n" +
+        "  6. 6번\n" +
+        "  7. 7번\n" +
+        "  8. 8번\n" +
+        "  9. 9번\n" +
+        "  10. 10번\n" +
+        "> ");
 
       switch (noTable) {
         case "1":
@@ -66,17 +65,17 @@ public class OrderHandler {
       }
     }
 
-    personsNo[length] = prompt.inputString("몇 분이세요?");
+    personsNo[length] = Prompt.inputString("몇 분이세요?");
 
     loop1: while (true) {
-      String menuNo1 = prompt("음식을 선택해주세요.\n" +
-      "  1. 오뎅탕 11.0\n" +
-      "  2. 화채 8.0\n" +
-      "  3. 떡볶이 9.0\n" +
-      "  4. 감자튀김 10.0\n" +
-      "  5. 후라이드치킨 17.0\n" +
-      "  6. 양념치킨 18.0\n" +
-      "> ");
+      String menuNo1 = Prompt.inputString("음식을 선택해주세요.\n" +
+        "  1. 오뎅탕 11.0\n" +
+        "  2. 화채 8.0\n" +
+        "  3. 떡볶이 9.0\n" +
+        "  4. 감자튀김 10.0\n" +
+        "  5. 후라이드치킨 17.0\n" +
+        "  6. 양념치킨 18.0\n" +
+        "> ");
 
       switch (menuNo1) {
         case "1": 
@@ -103,15 +102,15 @@ public class OrderHandler {
     }
 
     loop2: while (true) {
-      String menuNo2 = prompt("두 번째 음식을 선택해주세요.\n" +
-      "  1. 오뎅탕 11.0\n" +
-      "  2. 화채 8.0\n" +
-      "  3. 떡볶이 9.0\n" +
-      "  4. 감자튀김 10.0\n" +
-      "  5. 후라이드치킨 17.0\n" +
-      "  6. 양념치킨 18.0\n" +
-      "  7. 하나만 주문할게요.\n" +
-      "> ");
+      String menuNo2 = Prompt.inputString("두 번째 음식을 선택해주세요.\n" +
+        "  1. 오뎅탕 11.0\n" +
+        "  2. 화채 8.0\n" +
+        "  3. 떡볶이 9.0\n" +
+        "  4. 감자튀김 10.0\n" +
+        "  5. 후라이드치킨 17.0\n" +
+        "  6. 양념치킨 18.0\n" +
+        "  7. 하나만 주문할게요.\n" +
+        "> ");
 
       switch (menuNo2) {
         case "1":
@@ -141,13 +140,13 @@ public class OrderHandler {
     }
 
     loop3: while (true) {
-      String sojuNo = prompt("소주를 선택해주세요. (종류 상관없이 6.0)\n" +
-      "  1. 진로\n" +
-      "  2. 참이슬\n" +
-      "  3. 처음처럼\n" +
-      "  4. 새로\n" +
-      "  5. 소주 주문을 안 할래요.\n" +
-      "> ");
+      String sojuNo = Prompt.inputString("소주를 선택해주세요. (종류 상관없이 6.0)\n" +
+        "  1. 진로\n" +
+        "  2. 참이슬\n" +
+        "  3. 처음처럼\n" +
+        "  4. 새로\n" +
+        "  5. 소주 주문을 안 할래요.\n" +
+        "> ");
 
       switch (sojuNo) {
         case "1":
@@ -171,12 +170,12 @@ public class OrderHandler {
     }
 
     loop4: while (true) {
-      String beerNo = prompt("맥주를 선택해주세요. (종류 상관없이 7.0)\n" +
-      "  1. 카스\n" +
-      "  2. 테라\n" +
-      "  3. 켈리\n" +
-      "  4. 맥주 주문 안 할래요.\n" +
-      "> ");
+      String beerNo = Prompt.inputString("맥주를 선택해주세요. (종류 상관없이 7.0)\n" +
+        "  1. 카스\n" +
+        "  2. 테라\n" +
+        "  3. 켈리\n" +
+        "  4. 맥주 주문 안 할래요.\n" +
+        "> ");
 
       switch (beerNo) {
         case "1":
@@ -215,3 +214,4 @@ public class OrderHandler {
     return length < MAX_SIZE;
   }
 }
+

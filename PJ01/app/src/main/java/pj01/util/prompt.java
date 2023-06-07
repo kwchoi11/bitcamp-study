@@ -1,8 +1,8 @@
-package pj01;
+package pj01.util;
 
 import java.util.Scanner;
 
-public class prompt {
+public class Prompt {
   
   static Scanner scanner = new Scanner(System.in);
 
@@ -14,6 +14,5 @@ public class prompt {
   public static void close() {
     scanner.close();
   }
-
 }
-
+ 

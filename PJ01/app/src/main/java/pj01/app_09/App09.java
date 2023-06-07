@@ -1,7 +1,7 @@
-package pj01;
+package pj01.app_09;
 
-import pj01.handler.OrderHandler;
-import pj01.util.prompt;
+import pj01.app_09.handler.OrderHandler;
+import pj01.util.Prompt;
 
 public class App09 {
   
@@ -18,7 +18,7 @@ public class App09 {
     Prompt.close();
   }
 
-  static void printTitles() {
+  static void printTitle() {
     System.out.println("테이블별 주문 내역");
     System.out.println("----------------------------------");
   }
