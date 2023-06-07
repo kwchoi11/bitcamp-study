@@ -25,24 +25,8 @@ public class MemberHandler {
     name[length] = Prompt.inputString("이름? ");
     email[length] = Prompt.inputString("이메일? ");
     password[length] = Prompt.inputString("암호? ");
-
-    loop: while (true) {
-      String menuNo = Prompt.inputString("성별:\n" + 
-      "  1. 남자\n" + 
-      "  2. 여자\n" + 
-      "> ");
-
-      switch (menuNo) {
-        case "1":
-          gender[length] = MALE;
-          break loop;
-        case "2":
-          gender[length] = FEMALE;
-          break loop;
-        default:
-          System.out.println("무효한 번호입니다.");
-      }
-    }
+    gender[length] = inputGender((char)0);
+    
 
     no[length] = userId++;
     length++;
@@ -81,23 +65,46 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("번호? ");
     for (int i = 0; i < length; i++) {
       if (no[i] == Integer.parseInt(memberNo)) {
-        String newName = Prompt.inputString("새로운 이름: ");
-        String newEmail = Prompt.inputString("새로운 이메일: ");
-        String newGender = Prompt.inputString("새로운 성별(M/F): ");
-
-        // 회원 정보 업데이트
-        name[i] = newName;
-        email[i] = newEmail;
-        gender[i] = newGender.charAt(0);
-
-        System.out.println("해당 번호의 회원 정보가 업데이트 되었습니다.");
+        System.out.printf("이름(%s)? ", name[i]);
+        name[i] = Prompt.inputString("");
+        System.out.printf("이메일(%s)? ", email[i]);
+        name[i] = Prompt.inputString("");
+        System.out.printf("새암호? ");
+        password[i] = Prompt.inputString("");
+        gender[i] = inputGender(gender[i]);
         return;
       }
     }
-
     System.out.println("해당 번호의 회원이 없습니다.");
-
   }
+
+  private static char inputGender(char gender) {
+    String label;
+    if (default == 0) {
+      label = "성별?\n";
+    } else { 
+      label = "성별(" + toGenderString(gender) + ")?\n";
+      // label = String.format("성별(%s)?\n", toGenderString(gender));
+    }
+    loop: while (true) {
+      String menuNo = Prompt.inputString(lebel + 
+      "  1. 남자\n" + 
+      "  2. 여자\n" + 
+      "> ");
+
+      switch (menuNo) {
+        case "1":
+          return MALE;
+          break loop;
+        case "2":
+          return FEMALE;
+          break loop;
+        default:
+          System.out.println("무효한 번호입니다.");
+      }
+    }
+  }
+
 
   private static boolean available() {
     return length < MAX_SIZE;
