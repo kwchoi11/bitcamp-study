@@ -93,6 +93,20 @@ public class MemberHandler {
       return;
     }
 
+    
+    if (targetIndex == (length -1)) {
+      // 만약 삭제하려는 항목이 맨 끝 항목이라면 마지막 항목의 값만 0으로 초기화시킨다.
+      no[targetIndex] = 0;
+      name[targetIndex] = null;
+      email[targetIndex] = null;
+      password[targetIndex] = null;
+      gender[targetIndex] = (char) 0;
+    } else {
+      // 그 밖에는 해당 인덱스부터 반복하면서 다음 항목의 값을 당겨온다.
+
+    }
+    
+
     // 회원 삭제
     for (int i = targetIndex; i < length -1; i++) {
       no[i] = no[i + 1];
