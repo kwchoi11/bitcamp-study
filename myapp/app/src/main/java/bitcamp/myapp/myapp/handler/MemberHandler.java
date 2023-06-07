@@ -1,4 +1,4 @@
-package bitcamp.myapp.handler;
+package bitcamp.myapp.myapp.handler;
 
 import bitcamp.util.Prompt;
 
@@ -17,6 +17,11 @@ public class MemberHandler {
   static final char FEMALE = 'W';
 
   public static void inputMember() {
+    if (!available()) {
+      System.out.println("더이상 입력할 수 없습니다!");
+      return;
+    }
+
     name[length] = Prompt.inputString("이름? ");
     email[length] = Prompt.inputString("이메일? ");
     password[length] = Prompt.inputString("암호? ");
@@ -49,23 +54,52 @@ public class MemberHandler {
     System.out.println("---------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
+      System.out.printf("%d, %s, %s, %s\n", 
+        no[i], name[i], email[i], 
+        toGenderString(gender[i]));
     }
   }
 
   public static void viewMember() {
     String memberNo = Prompt.inputString("번호? ");
-    // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
     for (int i = 0; i < length; i++) {
       if (no[i] == Integer.parseInt(memberNo)) {
-        // i 번째 항목에 저장된 회원 정보 출력
+        System.out.printf("이름: %s\n", name[i]);
+        System.out.printf("이메일: %s\n", email[i]);
+        System.out.printf("성별: %s\n", toGenderString(gender[i]));
         return;
       }
     }
-    System.out.println("해당 번호의 회원이 없습니다.");
+    System.out.println("해당 번호의 회원이 없습니다!");
   }
 
-  public static boolean available() {
+  public static String toGenderString(char gender) {
+    return gender == 'M' ? "남성" : "여성";
+  }
+
+  public static void updateMember() {
+    String memberNo = Prompt.inputString("번호? ");
+    for (int i = 0; i < length; i++) {
+      if (no[i] == Integer.parseInt(memberNo)) {
+        String newName = Prompt.inputString("새로운 이름: ");
+        String newEmail = Prompt.inputString("새로운 이메일: ");
+        String newGender = Prompt.inputString("새로운 성별(M/F): ");
+
+        // 회원 정보 업데이트
+        name[i] = newName;
+        email[i] = newEmail;
+        gender[i] = newGender.charAt(0);
+
+        System.out.println("해당 번호의 회원 정보가 업데이트 되었습니다.");
+        return;
+      }
+    }
+
+    System.out.println("해당 번호의 회원이 없습니다.");
+
+  }
+
+  private static boolean available() {
     return length < MAX_SIZE;
   }
 }

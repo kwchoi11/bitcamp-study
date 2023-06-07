@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package bitcamp.myapp.myapp;
 
 import bitcamp.myapp.handler.MemberHandler;
 import bitcamp.util.Prompt;
@@ -10,12 +10,12 @@ public class App {
     printTitle();
 
     printMenu();
-    
+
     while (true) {
-      String munuNo = prompt.inputString("메인> ");
+      String menuNo = Prompt.inputString("메인> ");
       if (menuNo.equals("6")) {
         break;
-      } else if {menuNo.equals("menu")} {
+      } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
         MemberHandler.inputMember();
@@ -23,25 +23,12 @@ public class App {
         MemberHandler.printMembers();
       } else if (menuNo.equals("3")) {
         MemberHandler.viewMember();
+      } else if (menuNo.equals("4")) {
+        MemberHandler.updateMember();
       } else {
         System.out.println(menuNo);
       }
-        System.out.println(menuNo);
-      }
-
-      prompt close();
     }
-
-    // printTitle();
-
-    // while (MemberHandler.available()) {
-    //   MemberHandler.inputMember();
-    //   if (!promptContinue()) {
-    //     break;
-    //   }
-    // }
-
-    // MemberHandler.printMembers();
 
     Prompt.close();
   }
