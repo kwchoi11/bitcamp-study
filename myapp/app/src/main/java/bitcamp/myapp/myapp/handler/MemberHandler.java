@@ -78,6 +78,41 @@ public class MemberHandler {
     System.out.println("해당 번호의 회원이 없습니다.");
   }
 
+  public static void deleteMember() {
+    String memberNo = Prompt.inputString("삭제할 회원의 번호? ");
+    int targetIndex = -1;
+    for (int i = 0; i < length; i++) {
+      if (no[i] == Integer.parseInt(memberNo)) {
+        targetIndex = i;
+        break;
+      }
+    }
+    
+    if (targetIndex == -1) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    // 회원 삭제
+    for (int i = targetIndex; i < length -1; i++) {
+      no[i] = no[i + 1];
+      name[i] = name[i + 1];
+      email[i] = email[i +1];
+      password[i] = password[i + 1];
+      gender[i] = gender[i + 1];
+    }
+
+    // 마지막 요소 초기화
+    no[length -1] = 0;
+    name[length -1] = null;
+    email[length -1] = null;
+    password[length -1] = null;
+    gender[length -1] = 0;
+
+    length--; // 회원 수 감소
+    System.out.println("회원이 삭제되었습니다.");
+  }
+
   private static char inputGender(char gender) {
     String label;
     if (default == 0) {
@@ -104,7 +139,6 @@ public class MemberHandler {
       }
     }
   }
-
 
   private static boolean available() {
     return length < MAX_SIZE;
