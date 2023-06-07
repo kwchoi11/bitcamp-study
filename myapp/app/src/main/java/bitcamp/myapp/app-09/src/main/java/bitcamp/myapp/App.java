@@ -21,11 +21,15 @@ public class App {
         MemberHandler.inputMember();
       } else if (menuNo.equals("2")) {
         MemberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        MemberHandler.viewMember();
       } else {
         System.out.println(menuNo);
       }
         System.out.println(menuNo);
       }
+
+      prompt close();
     }
 
     // printTitle();
