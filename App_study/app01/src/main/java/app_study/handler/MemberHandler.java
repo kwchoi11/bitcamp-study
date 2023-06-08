@@ -118,14 +118,13 @@ public class MemberHandler {
       members[i] = members[i + 1];
     }
 
-    members[length - 1] = null;
-
-    length --;
+    members[--length] = null;
   }
 
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
-      if (no[i] == memberNo) {
+      Memebr m = members[i];
+      if (m.no == memberNo) {
         return i;
       }
     }
