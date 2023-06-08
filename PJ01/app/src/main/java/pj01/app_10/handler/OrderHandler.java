@@ -20,6 +20,8 @@ public class OrderHandler {
       return;
     }
 
+    
+
     loop: while (true) {
       String noTable = Prompt.inputString("테이블 번호를 선택해주세요.\n" + 
         "  1. 1번\n" +
@@ -215,7 +217,7 @@ public class OrderHandler {
     }
   }
 
-  public static void viewOrder() {
+  public static void viewOrder(String noTable) {
     String tableNo = Prompt.inputString("테이블 번호를 입력해주세요.");
     for (int i = 0; i < length; i++) {
       if (tableNo[i].equals(noTable)) {
@@ -251,9 +253,9 @@ public class OrderHandler {
   }
 
   public static void deleteOrder() {
-    int tableNo = Prompt.inputInt("테이블 번호를 입력해주세요.");
+    String tableNo = Prompt.inputString("테이블 번호를 입력해주세요.");
 
-    int deletedIndex = indexOf(tableNo);
+    String deletedIndex = indexOf(tableNo);
     if (deletedIndex == -1) {
       System.out.println("해당 테이블의 주문이 없습니다.");
       return;
