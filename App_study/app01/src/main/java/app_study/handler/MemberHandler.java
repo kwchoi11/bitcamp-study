@@ -6,12 +6,7 @@ import app_study.vo.Member;
 public class MemberHandler {
   
   static final int MAX_SIZE = 100;
-
-  static int[] no = new int[MAX_SIZE];
-  static String[] name = new String[MAX_SIZE];
-  static String[] email = new String[MAX_SIZE];
-  static String[] password = new String[MAX_SIZE];
-  static char[] gender = new char[MAX_SIZE];
+  static Member[] members = new Member[MAX_SIZE];
   static int userID = 1;
   static int length = 0;
 
@@ -24,13 +19,16 @@ public class MemberHandler {
       return;
     }
 
-    name[length] = Prompt.inputString("이름? ");
-    email[length] = Prompt.inputString("이메일? ");
-    password[length] = Prompt.inputString("암호? ");
-    gender[length] = inputGender((char)0);
+    Member m = new Member();
+    m.name = Prompt.inputString("이름? ");
+    m.email = Prompt.inputString("이메일? ");
+    m.password = Prompt.inputString("암호? ");
+    m.gender = inputGender((char)0);
+    m.no = userID++;
 
-    no[length] = userID++;
-    length++;
+    // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게
+    // 레퍼런스 배열에 담는다. 
+    members[length++] = m;
   }
 
   public static void printMembers() {
@@ -39,21 +37,21 @@ public class MemberHandler {
     System.out.println("--------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      Members m = members[i];
+      Member m = members[i];
       System.out.printf("%d, %s, %s, %s\n",
-      m.no[i], m.name[i], m.email[i],
-      toGenderString(m.gender[i]));
+      m.no, m.name, m.email,
+      toGenderString(m.gender));
     }
   }
 
   public static void viewMember() {
     String memberNo = Prompt.inputString("번호? ");
     for (int i = 0; i < length; i++) {
-      Members m = members[i];
-      if (m.no[i] == Integer.parseInt(memberNo)) {
-        System.out.printf("이름: %s\n", m.name[i]);
-        System.out.printf("이메일: %s\n", m.email[i]);
-        System.out.printf("성별: %s\n", toGenderString(m.gender[i]));
+      Member m = members[i];
+      if (m.no == Integer.parseInt(memberNo)) {
+        System.out.printf("이름: %s\n", m.name);
+        System.out.printf("이메일: %s\n", m.email);
+        System.out.printf("성별: %s\n", toGenderString(m.gender));
         return;
       }
     }
@@ -124,7 +122,7 @@ public class MemberHandler {
 
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
-      Memebr m = members[i];
+      Member m = members[i];
       if (m.no == memberNo) {
         return i;
       }
