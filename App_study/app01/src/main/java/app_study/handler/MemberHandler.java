@@ -1,6 +1,7 @@
 package app_study.handler;
 
 import app_study.util.Prompt;
+import app_study.vo.Member;
 
 public class MemberHandler {
   

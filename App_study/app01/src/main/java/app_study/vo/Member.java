@@ -1,9 +1,9 @@
 package app_study.vo;
 
 public class Member {
-  int no;
-  String name;
-  String email;
-  String password;
-  char gender;
+  public int no;
+  public String name;
+  public String email;
+  public String password;
+  public char gender;
 }
