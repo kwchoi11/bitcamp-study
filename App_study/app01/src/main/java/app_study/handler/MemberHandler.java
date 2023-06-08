@@ -5,6 +5,7 @@ import app_study.util.Prompt;
 public class MemberHandler {
   
   static final int MAX_SIZE = 100;
+
   static int[] no = new int[MAX_SIZE];
   static String[] name = new String[MAX_SIZE];
   static String[] email = new String[MAX_SIZE];
@@ -37,19 +38,21 @@ public class MemberHandler {
     System.out.println("--------------------------------------");
 
     for (int i = 0; i < length; i++) {
+      Members m = members[i];
       System.out.printf("%d, %s, %s, %s\n",
-      no[i], name[i], email[i],
-      toGenderString(gender[i]));
+      m.no[i], m.name[i], m.email[i],
+      toGenderString(m.gender[i]));
     }
   }
 
   public static void viewMember() {
     String memberNo = Prompt.inputString("번호? ");
     for (int i = 0; i < length; i++) {
-      if (no[i] == Integer.parseInt(memberNo)) {
-        System.out.printf("이름: %s\n", name[i]);
-        System.out.printf("이메일: %s\n", email[i]);
-        System.out.printf("성별: %s\n", toGenderString(gender[i]));
+      Members m = members[i];
+      if (m.no[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("이름: %s\n", m.name[i]);
+        System.out.printf("이메일: %s\n", m.email[i]);
+        System.out.printf("성별: %s\n", toGenderString(m.gender[i]));
         return;
       }
     }
@@ -63,14 +66,15 @@ public class MemberHandler {
   public static void updateMember() {
     String memberNo = Prompt.inputString("번호? ");
     for (int i = 0; i < length; i++) {
-      if (no[i] == Integer.parseInt(memberNo)) {
-        System.out.printf("이름(%s)? ", name[i]);
-        name[i] = Prompt.inputString("");
-        System.out.printf("이메일(%s)? ", email[i]);
-        email[i] = Prompt.inputString("");
+      Member m = members[i];
+      if (m.no == Integer.parseInt(memberNo)) {
+        System.out.printf("이름(%s)? ", m.name);
+        m.name = Prompt.inputString("");
+        System.out.printf("이메일(%s)? ", m.email);
+        m.email = Prompt.inputString("");
         System.out.printf("새암호? ");
-        password[i] = Prompt.inputString("");
-        gender[i] = inputGender(gender[i]);
+        m.password = Prompt.inputString("");
+        m.gender = inputGender(m.gender);
         return;
       }
     }
@@ -111,18 +115,10 @@ public class MemberHandler {
     }
 
     for (int i = deletedIndex; 1 < length - 1; i++) {
-      no[i] = no[i + 1];
-      name[i] = name[i + 1];
-      email[i] = email[i + 1];
-      password[i] = password[i + 1];
-      gender[i] = gender[i + 1];
+      members[i] = members[i + 1];
     }
 
-    no[length - 1] = 0;
-    name[length - 1] = null;
-    email[length - 1] = null;
-    password[length - 1] = null;
-    gender[length - 1] = (char) 0;
+    members[length - 1] = null;
 
     length --;
   }
