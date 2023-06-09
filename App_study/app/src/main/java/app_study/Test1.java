@@ -9,34 +9,14 @@ public class Test1 {
     // 2 * 3 + 7 - 2 / 2 = ?
     // => 연산자 우선 순위를 고려하지 않고 앞에서부터 뒤로 순차적으로 계산한다.
 
-    init(2);
-    multiple(3);
-    plus(7);
-    minus(2);
-    divide(2);
+    app_study.util.Calculator.init(2);
+    app_study.util.Calculator.multiple(3);
+    app_study.util.Calculator.plus(7);
+    app_study.util.Calculator.minus(2);
+    app_study.util.Calculator.divide(2);
     
-    System.out.println(result);
+    System.out.println(app_study.util.Calculator.getResult());
   }
   
-  static int result = 0;
-
-  static void init(int a) {
-    result = a;
-  }
-
-  static void plus(int a) {
-    result += a;
-  }
-
-  static void minus(int a) {
-    result -= a;
-  }
-
-  static void multiple(int a) {
-    result *= a;
-  }
-
-  static void divide(int a) {
-    result /= a;
-  }
+  
 }
