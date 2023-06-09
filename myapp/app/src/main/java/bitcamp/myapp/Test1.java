@@ -20,6 +20,10 @@ public class Test1 {
   
   int result = 0;
 
+  static void init(int a) {
+    result = a;
+  }
+
   static void plus(int a) {
     result += a;
   }
