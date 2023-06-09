@@ -7,10 +7,9 @@ package bitcamp.test.step04;
 public class App {
   
   public static void main(String[] args) {
-    
     class Score {
-      String neme;
-      int kore;
+      String name;
+      int kor;
       int eng;
       int math;
       int sum;
@@ -18,7 +17,7 @@ public class App {
     }
 
     final int MAX_SIZE = 10;
-    Score scores = new Score[MAX_SIZE];
+    Score[] scores = new Score[MAX_SIZE];
     int length = 0;
 
     Score s = new Score();
@@ -29,9 +28,8 @@ public class App {
     s.sum = s.kor + s.eng + s.math;
     s.aver = s.sum / 3f;
     scores[length++] = s;
-    length++;
 
-    Score s = new Score()
+    s = new Score();
     s.name = "임꺽정";
     s.kor = 90;
     s.eng = 90;
@@ -39,7 +37,6 @@ public class App {
     s.sum = s.kor + s.eng + s.math;
     s.aver = s.sum / 3f;
     scores[length++] = s;
-    length++;
 
     s = new Score();
     s.name = "유관순";
@@ -49,11 +46,11 @@ public class App {
     s.sum = s.kor + s.eng + s.math;
     s.aver = s.sum / 3f;
     scores[length++] = s;
-    length++;
 
     for (int i = 0; i < length; i++) {
+      s = scores[i];
       System.out.printf("%s: 합계=%d, 평균=%.1f\n", 
-        name[i], sum[i], aver[i]);
+        s.name, s.sum, s.aver);
     }
 
   }
