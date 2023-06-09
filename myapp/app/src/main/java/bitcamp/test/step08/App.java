@@ -1,4 +1,4 @@
-package bitcamp.test.step07;
+package bitcamp.test.step08;
 
 // 1) 낱개의 변수 사용
 // 2) 낱개의 변수 재사용
@@ -7,6 +7,7 @@ package bitcamp.test.step07;
 // 5) 출력 기능을 별도의 메서드로 분리(중첩클래스; 스태틱 중첩 클래스) 
 // 6) 합계 및 평균을 계산하는 기능을 메서드로 분리
 // 7) GRASP 패턴: Information Expert(정보를 갖고 있는 클래스가 그 정보를 다룬다.)
+// 8) 인스턴스 메서드 도입
 
 public class App {
   
@@ -18,9 +19,9 @@ public class App {
     int sum;
     float aver;
 
-    static void compute (Score s) {
-    s.sum = s.kor + s.eng + s.math;
-    s.aver = s.sum / 3f;
+    void compute () {
+    this.sum = this.kor + this.eng + this.math;
+    this.aver = this.sum / 3f;
    }
   }
   
@@ -35,7 +36,7 @@ public class App {
     s.kor = 100;
     s.eng = 100;
     s.math = 100;
-    Score.compute(s);
+    s.compute();
     scores[length++] = s;
 
     s = new Score();
@@ -43,7 +44,7 @@ public class App {
     s.kor = 90;
     s.eng = 90;
     s.math = 90;
-    Score.compute(s);
+    s.compute();
     scores[length++] = s;
 
     s = new Score();
@@ -51,7 +52,7 @@ public class App {
     s.kor = 80;
     s.eng = 80;
     s.math = 80;
-    Score.compute(s);
+    s.compute();
     scores[length++] = s;
 
     for (int i = 0; i < length; i++) {
