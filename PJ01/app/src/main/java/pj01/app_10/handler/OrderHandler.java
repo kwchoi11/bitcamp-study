@@ -154,7 +154,7 @@ public class OrderHandler {
            "  2. 참이슬\n" +
            "  3. 처음처럼\n" +
            "  4. 새로\n" +
-           "  5. 소주 주문을 안 할래요.\n" +
+           "  5. 소주 주문 안 할래요.\n" +
            "> ");
 
         switch (sojuNo) {
@@ -325,7 +325,7 @@ public class OrderHandler {
                   "  2. 참이슬\n" +
                   "  3. 처음처럼\n" +
                   "  4. 새로\n" +
-                  "  5. 소주 주문을 안 할래요.\n" +
+                  "  5. 소주 주문 안 할래요.\n" +
                   "> ");
 
                switch (sojuNo) {
