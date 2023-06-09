@@ -35,8 +35,10 @@ public class App {
     //    즉, 데이터에 결함이 발생한다.
     // 국영수 점수를 변경한 후에 compute()를 호출하면 되지 않을까?
     // => 만약 개발자가 compute() 호출하는 것을 잊어버린다면 아무 소용이 없다.
-    scores[0].kor = 70;
-    scores[0].compute();
+    // 만약 유효하지 않은 국영수 점수를 입력한다면?
+    // => 흠... 이건 도저히 막을 길이 없다.
+    scores[0].kor = 7000; // 이렇게 무효한 점수를 입력하는 것을 막을 수 없다.
+    scores[0].compute(); // 호출하지 않으면 아무 소용이 없다.
 
     for (int i = 0; i < length; i++) {
       printScore(scores[i]);
