@@ -1,6 +1,6 @@
-package bitcamp.test.step14;
+package bitcamp.test.step15;
 
-import bitcamp.test.step14.vo.Score;
+import bitcamp.test.step15.vo.Score;
 
 // 1) 낱개의 변수 사용
 // 2) 낱개의 변수 재사용
@@ -16,6 +16,7 @@ import bitcamp.test.step14.vo.Score;
 // 12) 클래스를 유지보수 하기 쉽게 별도 소스 파일로 분리
 // 13) 클래스를 유지보수 하기 쉽게 패키지로 분류: import, public
 // 14) 외부접근 차단과 값 꺼내기: private, getter
+// 15) 프로그래밍의 일관성을 위해 보통 다른 필드에 대해서도 getter를 만들고 사용한다. 
 public class App {
   
   public static void main(String[] args) {
@@ -39,7 +40,7 @@ public class App {
 
   static void printScore(Score s) {
     System.out.printf("%s: 합계=%d, 평균=%.1f\n", 
-      s.name, s.getSum(), s.getAver());
+      s.getName(), s.getSum(), s.getAver());
   }
 
 }

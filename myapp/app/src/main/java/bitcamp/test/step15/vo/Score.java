@@ -1,7 +1,7 @@
-package bitcamp.test.step14.vo;
+package bitcamp.test.step15.vo;
 
 public class Score {
-  public String name;
+  private String name;
   int kor;
   int eng;
   int math;
@@ -30,4 +30,9 @@ public class Score {
   public float getAver() {
     return this.aver;
   }
+
+  public String getName() {
+    return this.name;
+  }
+
 }
