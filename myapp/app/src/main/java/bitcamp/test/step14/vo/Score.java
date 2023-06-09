@@ -1,14 +1,14 @@
-package bitcamp.test.step12;
+package bitcamp.test.step14.vo;
 
-class Score {
-  String name;
+public class Score {
+  public String name;
   int kor;
   int eng;
   int math;
-  int sum;
-  float aver;
+  public int sum;
+  public float aver;
 
-  Score(String name, int kor, int eng, int math) {
+  public Score(String name, int kor, int eng, int math) {
     this.name = name;
     this.kor = kor;
     this.eng = eng;

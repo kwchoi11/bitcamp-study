@@ -1,4 +1,6 @@
-package bitcamp.test.step12;
+package bitcamp.test.step14;
+
+import bitcamp.test.step14.vo.Score;
 
 // 1) 낱개의 변수 사용
 // 2) 낱개의 변수 재사용
@@ -12,6 +14,8 @@ package bitcamp.test.step12;
 // 10) GRASP 패턴: Information Expert
 // 11) 생성자 도입: 인스턴스 변수를 보다 쉽게 초기화시키기
 // 12) 클래스를 유지보수 하기 쉽게 별도 소스 파일로 분리
+// 13) 클래스를 유지보수 하기 쉽게 패키지로 분류: import, public
+// 14) 외부접근 차단과 값 꺼내기: private, getter
 public class App {
   
   public static void main(String[] args) {
