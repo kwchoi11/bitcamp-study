@@ -231,9 +231,9 @@ public class OrderHandler {
            System.out.printf("손님 수(%s): ", personsNo[i]);
            personsNo[i] = Prompt.inputString("");
            System.out.printf("안주 1(%s): ", food1[i]);
-           loop5:
+           loop1:
             while (true) {
-               String menuNo3 = Prompt.inputString("음식을 선택해주세요.\n" +
+               String menuNo1 = Prompt.inputString("음식을 선택해주세요.\n" +
                   "  1. 오뎅탕 11.0\n" +
                   "  2. 화채 8.0\n" +
                   "  3. 떡볶이 9.0\n" +
@@ -242,29 +242,28 @@ public class OrderHandler {
                   "  6. 양념치킨 18.0\n" +
                   "> ");
 
-               switch (menuNo3) {
+               switch (menuNo1) {
                   case "1":
                      food1[length] = "오뎅탕";
-                     break loop5;
+                     break loop1;
                   case "2":
                      food1[length] = "화채";
-                     break loop5;
+                     break loop1;
                   case "3":
                      food1[length] = "떡볶이";
-                     break loop5;
+                     break loop1;
                   case "4":
                      food1[length] = "감자튀김";
-                     break loop5;
+                     break loop1;
                   case "5":
                      food1[length] = "후라이드치킨";
-                     break loop5;
+                     break loop1;
                   case "6":
                      food1[length] = "양념치킨";
-                     break loop5;
+                     break loop1;
                   default:
                      System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
                }
-               food1[i] += menuNo3;
             }
           //   food1[i] = Prompt.inputString("");
            System.out.printf("안주 2(%s): ", food2[i]);

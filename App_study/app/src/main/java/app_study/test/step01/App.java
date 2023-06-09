@@ -4,7 +4,7 @@ package app_study;
 
 import app_study.util.Calculator;
 
-public class Test1 {
+public class App {
 
   public static void main(String[] args) {
     // 2 * 3 + 7 - 2 / 2 = ?
