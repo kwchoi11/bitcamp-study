@@ -242,13 +242,141 @@ public class OrderHandler {
            System.out.printf("손님 수(%s): ", personsNo[i]);
            personsNo[i] = Prompt.inputString("");
            System.out.printf("안주 1(%s): ", food1[i]);
-           food1[i] = Prompt.inputString("");
+           loop1:
+            while (true) {
+               String menuNo1 = Prompt.inputString("음식을 선택해주세요.\n" +
+                  "  1. 오뎅탕 11.0\n" +
+                  "  2. 화채 8.0\n" +
+                  "  3. 떡볶이 9.0\n" +
+                  "  4. 감자튀김 10.0\n" +
+                  "  5. 후라이드치킨 17.0\n" +
+                  "  6. 양념치킨 18.0\n" +
+                  "> ");
+
+               switch (menuNo1) {
+                  case "1":
+                     food1[length] = "오뎅탕";
+                     break loop1;
+                  case "2":
+                     food1[length] = "화채";
+                     break loop1;
+                  case "3":
+                     food1[length] = "떡볶이";
+                     break loop1;
+                  case "4":
+                     food1[length] = "감자튀김";
+                     break loop1;
+                  case "5":
+                     food1[length] = "후라이드치킨";
+                     break loop1;
+                  case "6":
+                     food1[length] = "양념치킨";
+                     break loop1;
+                  default:
+                     System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
+               }
+            }
+         //   food1[i] = Prompt.inputString("");
            System.out.printf("안주 2(%s): ", food2[i]);
-           food2[i] = Prompt.inputString("");
+           loop2:
+            while (true) {
+               String menuNo2 = Prompt.inputString("두 번째 음식을 선택해주세요.\n" +
+                  "  1. 오뎅탕 11.0\n" +
+                  "  2. 화채 8.0\n" +
+                  "  3. 떡볶이 9.0\n" +
+                  "  4. 감자튀김 10.0\n" +
+                  "  5. 후라이드치킨 17.0\n" +
+                  "  6. 양념치킨 18.0\n" +
+                  "  7. 하나만 주문할게요.\n" +
+                  "> ");
+
+               switch (menuNo2) {
+                  case "1":
+                     food2[length] = "오뎅탕";
+                     break loop2;
+                  case "2":
+                     food2[length] = "화채";
+                     break loop2;
+                  case "3":
+                     food2[length] = "떡볶이";
+                     break loop2;
+                  case "4":
+                     food2[length] = "감자튀김";
+                     break loop2;
+                  case "5":
+                     food1[length] = "후라이드치킨";
+                     break loop2;
+                  case "6":
+                     food1[length] = "양념치킨";
+                     break loop2;
+                  case "7":
+                     food2[length] = "주문 없음";
+                     break loop2;
+                  default:
+                     System.out.println("무효한 번호입니다. 다시 선택해주세요.");
+               }
+            }
+         //   food2[i] = Prompt.inputString("");
            System.out.printf("소주(%s): ", soju[i]);
-           soju[i] = Prompt.inputString("");
+            loop3:
+            while (true) {
+               String sojuNo = Prompt.inputString("소주를 선택해주세요. (종류 상관없이 6.0)\n" +
+                  "  1. 진로\n" +
+                  "  2. 참이슬\n" +
+                  "  3. 처음처럼\n" +
+                  "  4. 새로\n" +
+                  "  5. 소주 주문을 안 할래요.\n" +
+                  "> ");
+
+               switch (sojuNo) {
+                  case "1":
+                     soju[length] = "진로";
+                     break loop3;
+                  case "2":
+                     soju[length] = "참이슬";
+                     break loop3;
+                  case "3":
+                     soju[length] = "처음처럼";
+                     break loop3;
+                  case "4":
+                     soju[length] = "새로";
+                     break loop3;
+                  case "5":
+                     soju[length] = "소주 주문 없음";
+                     break loop3;
+                  default:
+                     System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
+               }
+            }
+         //   soju[i] = Prompt.inputString("");
            System.out.printf("맥주(%s): ", beer[i]);
-           beer[i] = Prompt.inputString("");
+           loop4:
+            while (true) {
+               String beerNo = Prompt.inputString("맥주를 선택해주세요. (종류 상관없이 7.0)\n" +
+                  "  1. 카스\n" +
+                  "  2. 테라\n" +
+                  "  3. 켈리\n" +
+                  "  4. 맥주 주문 안 할래요.\n" +
+                  "> ");
+
+               switch (beerNo) {
+                  case "1":
+                     beer[length] = "카스";
+                     break loop4;
+                  case "2":
+                     beer[length] = "테라";
+                     break loop4;
+                  case "3":
+                     beer[length] = "켈리";
+                     break loop4;
+                  case "4":
+                     beer[length] = "맥주 주문 없음";
+                     break loop4;
+                  default:
+                     System.out.println("무효한 번호입니다. 다시 선택해 주세요.");
+               }
+            }
+         //   beer[i] = Prompt.inputString("");
            return;
         }
      }
