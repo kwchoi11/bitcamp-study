@@ -1,4 +1,4 @@
-package bitcamp.test.step11;
+package bitcamp.test.step12;
 
 // 1) 낱개의 변수 사용
 // 2) 낱개의 변수 재사용
@@ -12,6 +12,7 @@ package bitcamp.test.step11;
 // 10) GRASP 패턴: Information Expert
 //    - createScore() 를 Score 클래스로 이동
 // 11) 생성자 도입: 인스턴스 변수를 보다 쉽게 초기화시키기.
+// 12) 
 
 public class App {
   
