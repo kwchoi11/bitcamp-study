@@ -12,7 +12,7 @@ package bitcamp.test.step12;
 // 10) GRASP 패턴: Information Expert
 //    - createScore() 를 Score 클래스로 이동
 // 11) 생성자 도입: 인스턴스 변수를 보다 쉽게 초기화시키기.
-// 12) 
+// 12) 클래스를 유지보수 하기 쉽게 별도 소스 파일로 분리
 
 public class App {
   
@@ -21,8 +21,8 @@ public class App {
     int kor;
     int eng;
     int math;
-    int sum;
-    float aver;
+    private int sum;
+    private float aver;
 
     // 생성자: 인스턴스를 생성한 직후 호출하는 메서드'
     Score(String name, int kor, int eng, int math) {
@@ -53,6 +53,9 @@ public class App {
     scores[length++] = new Score("홍길동", 100, 100, 100);
     scores[length++] = new Score("임꺽정", 90, 90, 90);
     scores[length++] = new Score("유관순", 80, 80, 80);
+
+    // 이렇게 개발자가 인스턴스 필드에 직접 접근하는 것을 막을 수 없다.
+    scores[0].sum = 600;
 
     for (int i = 0; i < length; i++) {
       printScore(scores[i]);
