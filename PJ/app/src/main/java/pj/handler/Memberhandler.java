@@ -24,9 +24,7 @@ public class Memberhandler {
     Member m = new Member();
     m.name = Prompt.inputString("선수 이름을 입력하세요.");
     m.pos = inputPosition((char)0);
-    m.era = Prompt.inputString("선수의 평균자책점을 입력하세요. (투수)");
     m.sk = Prompt.inputString("선수의 탈삼진을 입력하세요. (투수)");
-    m.ba = Prompt.inputString("선수의 타율을 입력하세요. (타자)");
     m.hr = Prompot.inputString("선수의 홈런 수를 입력하세요. (타자)");
     m.hand = inputHand((char)0);
     m.no = userId++;
@@ -34,7 +32,63 @@ public class Memberhandler {
     members[length++] = m;
   }
 
+  public static void printMembers() {
+    System.out.println("=================================================");
+    System.out.println("번호, 이름, 포지션, 탈삼진(투수), 홈런 수(타자), 주 사용 손");
+    System.out.println("=================================================");
 
+    for (int i = 0; i < length; i++) {
+      Member m = members[i];
+      System.out.printf("%d, %s, %s, %s, %s, %s\n", 
+      m.no, m.name, 
+      toPositionString(m.pos),
+      m.sk, m.hr, 
+      toHandString(m.hand));
+    }
+  }
+
+  public static void viewMember() {
+    String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
+    for (int i = 0; i < length; i++) {
+      Member m = members[i];
+      if (m.no == Integer.parseInt(memberNo)) {
+        System.out.printf("이름: %s\n", m.name);
+        System.out.printf("포지션: %s\n", toPositionString(m.pos));
+        System.out.printf("탈삼진(투수): %s\n", m.sk);
+        System.out.printf("홈런 수(타자): %s\n", m.hr);
+        System.out.printf("주 사용 손: %s\n", toHandString(m.hand));
+        return;
+      }
+    }
+    System.out.println("해당 번호의 선수가 없습니다.");
+  }
+
+  public static String toPositionString(char position) {
+    return position == 'P' ? "투수" : "타자";
+  }
+
+  public static String toHandString(char hand) {
+    return hand == 'L' ? "좌완(타)" : "우완(타)";
+  }
+
+  public static void updateMember() {
+    String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
+    for (int i = 0; i < length; i++) {
+      Member m = members[i];
+      if (m.no == Integer.parseInt(memberNo)) {
+        System.out.printf("이름(%s): ", m.name);
+        m.name = Prompt.inputString("");
+        m.pos = inputPosition(m.pos);
+        System.out.printf("탈삼진(투수)(%s): ", m.sk);
+        m.sk = Prompt.inputString("");
+        System.out.printf("홈런 수(타자)(%s): ", m.hr);
+        m.hr = Prompt.inputString("");
+        m.hand = inputHand(m.hand);
+        return;
+      }
+    }
+    System.out.println("해당 번호의 선수가 없습니다.");
+  }
   
 
   private static char inputPosition(char position) {
@@ -86,6 +140,33 @@ public class Memberhandler {
     }
   }
 
+  public static void deleteMember() {
+    int memberNo = Prompt.inputInt("등록 번호를 입력해주세요.");
 
+    int deletedIndex = indexOf(memberNo);
+    if (deletedIndex == -1) {
+      System.out.println("해당 번호의 선수가 없습니다.");
+      return;
+    }
 
+    for (int i = deletedIndex; i < length - 1; i++) {
+      members[i] = members[i + 1];
+    }
+
+    members[--length] = null;
+  }
+
+  private static int indexOf(int memberNo) {
+    for (int i = 0; i < length; i++) {
+      Member m = members[i];
+      if (m.no == memberNo) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private static boolean available() {
+    return length < MAX_SIZE;
+  }
 }
