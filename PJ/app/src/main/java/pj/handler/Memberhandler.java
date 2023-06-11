@@ -22,10 +22,10 @@ public class Memberhandler {
     }
 
     Member m = new Member();
-    m.name = Prompt.inputString("선수 이름을 입력하세요.");
+    m.name = Prompt.inputString("선수 이름을 입력하세요.\n");
     m.position = inputPosition((char)0);
-    m.strikeOuts = Prompt.inputString("선수의 탈삼진을 입력하세요. (투수)");
-    m.homeRuns = Prompt.inputString("선수의 홈런 수를 입력하세요. (타자)");
+    m.strikeOuts = Prompt.inputString("선수의 탈삼진을 입력하세요. (투수)\n");
+    m.homeRuns = Prompt.inputString("선수의 홈런 수를 입력하세요. (타자)\n");
     m.hand = inputHand((char)0);
     m.no = userId++;
 
@@ -119,7 +119,7 @@ public class Memberhandler {
   private static char inputHand(char hand) {
     String label;
     if (hand == 0) {
-      label = "좌완(타)/우완(타)";
+      label = "좌완(타)/우완(타)\n";
     } else {
       label = String.format("좌완(타)/우완(타)(%s)\n", toHandString(hand));
     }
