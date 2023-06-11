@@ -12,7 +12,7 @@ public class App {
     printMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("메인> ")
+      String menuNo = Prompt.inputString("메인> ");
       if (menuNo.equals("6")) {
         break;
       } else if (menuNo.equals("menu")) {

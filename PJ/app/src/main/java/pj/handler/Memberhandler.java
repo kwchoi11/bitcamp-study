@@ -23,9 +23,9 @@ public class Memberhandler {
 
     Member m = new Member();
     m.name = Prompt.inputString("선수 이름을 입력하세요.");
-    m.pos = inputPosition((char)0);
-    m.sk = Prompt.inputString("선수의 탈삼진을 입력하세요. (투수)");
-    m.hr = Prompot.inputString("선수의 홈런 수를 입력하세요. (타자)");
+    m.position = inputPosition((char)0);
+    m.strikeOuts = Prompt.inputString("선수의 탈삼진을 입력하세요. (투수)");
+    m.homeRuns = Prompt.inputString("선수의 홈런 수를 입력하세요. (타자)");
     m.hand = inputHand((char)0);
     m.no = userId++;
 
@@ -41,8 +41,8 @@ public class Memberhandler {
       Member m = members[i];
       System.out.printf("%d, %s, %s, %s, %s, %s\n", 
       m.no, m.name, 
-      toPositionString(m.pos),
-      m.sk, m.hr, 
+      toPositionString(m.position),
+      m.strikeOuts, m.homeRuns, 
       toHandString(m.hand));
     }
   }
@@ -53,9 +53,9 @@ public class Memberhandler {
       Member m = members[i];
       if (m.no == Integer.parseInt(memberNo)) {
         System.out.printf("이름: %s\n", m.name);
-        System.out.printf("포지션: %s\n", toPositionString(m.pos));
-        System.out.printf("탈삼진(투수): %s\n", m.sk);
-        System.out.printf("홈런 수(타자): %s\n", m.hr);
+        System.out.printf("포지션: %s\n", toPositionString(m.position));
+        System.out.printf("탈삼진(투수): %s\n", m.strikeOuts);
+        System.out.printf("홈런 수(타자): %s\n", m.homeRuns);
         System.out.printf("주 사용 손: %s\n", toHandString(m.hand));
         return;
       }
@@ -78,11 +78,11 @@ public class Memberhandler {
       if (m.no == Integer.parseInt(memberNo)) {
         System.out.printf("이름(%s): ", m.name);
         m.name = Prompt.inputString("");
-        m.pos = inputPosition(m.pos);
-        System.out.printf("탈삼진(투수)(%s): ", m.sk);
-        m.sk = Prompt.inputString("");
-        System.out.printf("홈런 수(타자)(%s): ", m.hr);
-        m.hr = Prompt.inputString("");
+        m.position = inputPosition(m.position);
+        System.out.printf("탈삼진(투수)(%s): ", m.strikeOuts);
+        m.strikeOuts = Prompt.inputString("");
+        System.out.printf("홈런 수(타자)(%s): ", m.homeRuns);
+        m.homeRuns = Prompt.inputString("");
         m.hand = inputHand(m.hand);
         return;
       }
