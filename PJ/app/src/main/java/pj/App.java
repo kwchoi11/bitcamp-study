@@ -18,15 +18,15 @@ public class App {
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        MemberHandler.inputMember();
+        Memberhandler.inputMember();
       } else if (menuNo.equals("2")) {
-        MemberHandler.printMember();
+        Memberhandler.printMember();
       } else if (menuNo.equals("3")) {
-        MemberHandler.viewMember();
+        Memberhandler.viewMember();
       } else if (menuNo.equals("4")) {
-        MemberHandler.updateMember();
+        Memberhandler.updateMember();
       } else if (menuNo.equals("5")) {
-        MemberHandler.deleteMember();
+        Memberhandler.deleteMember();
       } else {
         System.out.println(menuNo);
       }

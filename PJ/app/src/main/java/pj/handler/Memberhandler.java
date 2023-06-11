@@ -32,7 +32,7 @@ public class Memberhandler {
     members[length++] = m;
   }
 
-  public static void printMembers() {
+  public static void printMember() {
     System.out.println("=================================================");
     System.out.println("번호, 이름, 포지션, 탈삼진(투수), 홈런 수(타자), 주 사용 손");
     System.out.println("=================================================");
@@ -124,7 +124,7 @@ public class Memberhandler {
       label = String.format("좌완(타)/우완(타)(%s)\n", toHandString(hand));
     }
     loop: while (true) {
-      String menuNo = Prompt.inputString(lebel +
+      String menuNo = Prompt.inputString(label +
       " 1. 좌완(타)\n" +
       " 2. 우완(타)\n" +
       "> ");
