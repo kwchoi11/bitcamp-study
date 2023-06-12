@@ -9,10 +9,10 @@ public class Member {
   // 정보를 다룰 때는 그 정보를 갖고 있는 클래스에 그 기능을 둔다.
   // 필드도 마찬가지이다.
   // => GRASP 패턴: Information Expert
-  static final char LEFT = 'L';
-  static final char RIGHT = 'R';
-  static final char PITCHER = 'P';
-  static final char BATTER = 'B';
+  public static final char LEFT = 'L';
+  public static final char RIGHT = 'R';
+  public static final char PITCHER = 'P';
+  public static final char BATTER = 'B';
 
   // 인스턴스 필드는 각각 개별적으로 유지해야 하는 값을 저장할 때 사용한다.
   // new 명령을 통해 변수를 Heap 영역에 생성한다.
