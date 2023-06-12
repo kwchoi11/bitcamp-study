@@ -33,9 +33,9 @@ public class Memberhandler {
   }
 
   public static void printMember() {
-    System.out.println("=================================================");
+    System.out.println("============================================================");
     System.out.println("번호, 이름, 포지션, 탈삼진(투수), 홈런 수(타자), 주 사용 손");
-    System.out.println("=================================================");
+    System.out.println("============================================================");
 
     for (int i = 0; i < length; i++) {
       Member m = members[i];
