@@ -10,7 +10,7 @@ public class Member {
   // 필드도 마찬가지이다.
   // => GRASP 패턴: Information Expert
   static final char LEFT = 'L';
-  static final char RIGHT = 'W';
+  static final char RIGHT = 'R';
   static final char PITCHER = 'P';
   static final char BATTER = 'B';
 

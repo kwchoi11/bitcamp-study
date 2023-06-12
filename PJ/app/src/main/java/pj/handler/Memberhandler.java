@@ -116,14 +116,14 @@ public class Memberhandler {
     } else {
       label = String.format("좌완(타)/우완(타)(%s)\n", toHandString(hand));
     }
-    loop: while (true) {
+    while (true) {
       String menuNo = Prompt.inputString(label + " 1. 좌완(타)\n" + " 2. 우완(타)\n" + "> ");
 
       switch (menuNo) {
         case "1":
-          return LEFT;
+          return Member.LEFT;
         case "2":
-          return RIGHT;
+          return Member.RIGHT;
         default:
           System.out.println("무효한 번호입니다.");
       }
@@ -149,7 +149,7 @@ public class Memberhandler {
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == memberNo) {
+      if (m.getNo() == memberNo) {
         return i;
       }
     }
