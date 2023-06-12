@@ -39,7 +39,7 @@ public class MemberHandler {
     for (int i = 0; i < length; i++) {
       Member m = members[i];
       System.out.printf("%d, %s, %s, %s\n",
-        m.getNo(), m.getName(), m.getEmai()l,
+        m.getNo(), m.getName(), m.getEmai(),
         toGenderString(m.getGender()));
     }
   }
