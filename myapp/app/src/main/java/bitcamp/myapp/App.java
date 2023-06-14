@@ -38,12 +38,23 @@ public class App {
         BoardHandler.updateBoard();
       } else if (menuNo.equals("10")) {
         BoardHandler.deleteBoard();
-      }else {
-        System.out.println(menuNo);
+      } else if (menuNo.equals("11")) {
+        BoardHandler.inputBoard();
+      } else if (menuNo.equals("12")) {
+        BoardHandler.printBoards();
+      } else if (menuNo.equals("13")) {
+        BoardHandler.viewBoard();
+      } else if (menuNo.equals("14")) {
+        BoardHandler.updateBoard();
+      } else if (menuNo.equals("15")) {
+        BoardHandler.deleteBoard();
       }
+      System.out.println(menuNo);
     }
+  }
 
-    Prompt.close();
+  Prompt.close();
+
   }
 
   static void printMenu() {
@@ -57,6 +68,11 @@ public class App {
     System.out.println("8. 게시글조회");
     System.out.println("9. 게시글변경");
     System.out.println("10. 게시글삭제");
+    System.out.println("11. 독서록등록");
+    System.out.println("12. 독서록목록");
+    System.out.println("13. 독서록조회");
+    System.out.println("14. 독서록변경");
+    System.out.println("15. 독서록삭제");
     System.out.println("99. 종료");
   }
 
