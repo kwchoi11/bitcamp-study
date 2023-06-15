@@ -16,31 +16,34 @@ public class MemberHandler {
 
   private int length;
 
+  private String title;
+
   // 생성자: 인스턴스를 사용할 수 있도록 유효한 값으로 초기화시키는 일을 한다.
   // => 필요한 값을 외부에서 받고 싶으면 파라미터를 선언하라.
-  public MemberHandler(Prompt prompt) {
+  public MemberHandler(Prompt prompt, String title) {
     this.prompt = prompt;
+    this.title = title;
   }
 
   public void execute() {
     printMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("회원> ");
+      String menuNo = prompt.inputString("%s> ", this.title);
       if (menuNo.equals("0")) {
         return;
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        // memberHandler.inputMember();
+        this.inputMember();
       } else if (menuNo.equals("2")) {
-        // memberHandler.printMembers();
+        this.printMembers();
       } else if (menuNo.equals("3")) {
-        // memberHandler.viewMember();
+        this.viewMember();
       } else if (menuNo.equals("4")) {
-        // memberHandler.viewMember();
+        this.viewMember();
       } else if (menuNo.equals("5")) {
-        // memberHandler.viewMember();
+        this.viewMember();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
@@ -57,7 +60,7 @@ public class MemberHandler {
   }
 
 
-  public void inputMember() {
+  private void inputMember() {
     if (!this.available()) {
       System.out.println("더이상 입력할 수 없습니다!");
       return;
@@ -72,7 +75,7 @@ public class MemberHandler {
     this.members[this.length++] = m;
   }
 
-  public void printMembers() {
+  private void printMembers() {
     System.out.println("---------------------------------------");
     System.out.println("번호, 이름, 이메일, 성별");
     System.out.println("---------------------------------------");
@@ -84,7 +87,7 @@ public class MemberHandler {
     }
   }
 
-  public void viewMember() {
+  private void viewMember() {
     String memberNo = this.prompt.inputString("번호? ");
     for (int i = 0; i < this.length; i++) {
       Member m = this.members[i];
@@ -98,11 +101,11 @@ public class MemberHandler {
     System.out.println("해당 번호의 회원이 없습니다!");
   }
 
-  public static String toGenderString(char gender) {
+  private static String toGenderString(char gender) {
     return gender == 'M' ? "남성" : "여성";
   }
 
-  public void updateMember() {
+  private void updateMember() {
     String memberNo = this.prompt.inputString("번호? ");
     for (int i = 0; i < this.length; i++) {
       Member m = this.members[i];
