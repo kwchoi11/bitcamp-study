@@ -6,7 +6,7 @@ import bitcamp.util.Prompt;
 public class MemberHandler {
 
   private static final int MAX_SIZE = 100;
-  //variable initializer(변수초기화 문장) => static 블록으로 이동
+  // variable initializer(변수초기화 문장) => static 블록으로 이동
   // 단 final 변수는 static 블록에서 값을 할당하지 않고 그냥 상수로 취급한다.
 
   private Prompt prompt;
@@ -22,6 +22,41 @@ public class MemberHandler {
     this.prompt = prompt;
   }
 
+  public void execute() {
+    printMenu();
+
+    while (true) {
+      String menuNo = prompt.inputString("회원> ");
+      if (menuNo.equals("0")) {
+        return;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        // memberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        // memberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        // memberHandler.viewMember();
+      } else if (menuNo.equals("4")) {
+        // memberHandler.viewMember();
+      } else if (menuNo.equals("5")) {
+        // memberHandler.viewMember();
+      } else {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
+      }
+    }
+  }
+
+  private static void printMenu() {
+    System.out.println("1. 등록");
+    System.out.println("2. 목록");
+    System.out.println("3. 조회");
+    System.out.println("4. 변경");
+    System.out.println("5. 삭제");
+    System.out.println("0. 메인");
+  }
+
+
   public void inputMember() {
     if (!this.available()) {
       System.out.println("더이상 입력할 수 없습니다!");
@@ -32,7 +67,7 @@ public class MemberHandler {
     m.setName(this.prompt.inputString("이름? "));
     m.setEmail(this.prompt.inputString("이메일? "));
     m.setPassword(this.prompt.inputString("암호? "));
-    m.setGender(inputGender((char)0));
+    m.setGender(inputGender((char) 0));
 
     this.members[this.length++] = m;
   }
@@ -44,8 +79,7 @@ public class MemberHandler {
 
     for (int i = 0; i < this.length; i++) {
       Member m = this.members[i];
-      System.out.printf("%d, %s, %s, %s\n",
-          m.getNo(), m.getName(), m.getEmail(),
+      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
   }
@@ -92,10 +126,7 @@ public class MemberHandler {
     }
 
     while (true) {
-      String menuNo = this.prompt.inputString(label +
-          "  1. 남자\n" +
-          "  2. 여자\n" +
-          "> ");
+      String menuNo = this.prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
 
       switch (menuNo) {
         case "1":
