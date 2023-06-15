@@ -3,7 +3,9 @@ package bitcamp.myapp.handler;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
 
-public class MemberHandler {
+// MemberHandler는 Handler 규칙에 따라 메서드를 구현했다.
+// 즉, Handler 인터페이스에 선언된
+public class MemberHandler implements Handler {
 
   private static final int MAX_SIZE = 100;
   // variable initializer(변수초기화 문장) => static 블록으로 이동
@@ -25,6 +27,8 @@ public class MemberHandler {
     this.title = title;
   }
 
+  // Handler 인터페이스에 선언된 대로 메서드를 정의했다. 수퍼 클래스의 메서드를 재정의 했다.
+  // "Handler 인터페이스를 구현했다. 라고 표현한다."
   public void execute() {
     printMenu();
 

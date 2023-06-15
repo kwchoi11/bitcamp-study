@@ -3,7 +3,7 @@ package bitcamp.myapp.handler;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
-public class BoardHandler {
+public class BoardHandler implements Handler {
 
   // 인스턴스에 상관없이 공통으로 사용하는 필드라면 스태틱 필드로 선언한다.
   private static final int MAX_SIZE = 100;
@@ -13,9 +13,38 @@ public class BoardHandler {
   private Board[] boards = new Board[MAX_SIZE];
   private int length = 0;
 
-  public BoardHandler(Prompt prompt) {
+  private String title;
+
+  public BoardHandler(Prompt prompt, String title) {
     this.prompt = prompt;
+    this.title = title;
   }
+
+  public void service() {
+    printMenu();
+
+    while (true) {
+      String menuNo = prompt.inputString("%s> ", this.title);
+      if (menuNo.equals("0")) {
+        return;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        this.inputMember();
+      } else if (menuNo.equals("2")) {
+        this.printMembers();
+      } else if (menuNo.equals("3")) {
+        this.viewMember();
+      } else if (menuNo.equals("4")) {
+        this.viewMember();
+      } else if (menuNo.equals("5")) {
+        this.viewMember();
+      } else {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
+      }
+    }
+  }
+
 
   // 인스턴스 멤버(필드나 메서드)를 사용하는 경우 인스턴스 메서드로 정의해야 한다.
   public void inputBoard() {
@@ -41,12 +70,8 @@ public class BoardHandler {
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
 
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
