@@ -5,12 +5,14 @@ import bitcamp.util.Prompt;
 
 public class BoardHandler implements Handler {
 
+  private BoardList list = new BoardList();
+  private Prompt prompt;
+  private String title;
+
   private static final int MAX_SIZE = 100;
 
-  private Prompt prompt;
   private Board[] boards = new Board[MAX_SIZE];
   private int length = 0;
-  private String title;
 
   public BoardHandler(Prompt prompt, String title) {
     this.prompt = prompt;
@@ -74,12 +76,8 @@ public class BoardHandler implements Handler {
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
 
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
