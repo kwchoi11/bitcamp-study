@@ -20,6 +20,8 @@ public class BoardHandler implements Handler {
     this.title = title;
   }
 
+
+
   public void service() {
     printMenu();
 
@@ -137,4 +139,13 @@ public class BoardHandler implements Handler {
   private boolean available() {
     return this.length < MAX_SIZE;
   }
+
+  public class MemberList {
+    private static final int MAX_SIZE = 100;
+
+    private Member[] members = new Member[MAX_SIZE];
+    private int length;
+
+  public void add(Member m)
+}
 }
