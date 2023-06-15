@@ -5,14 +5,11 @@ import bitcamp.util.Prompt;
 
 public class BoardHandler implements Handler {
 
-  // 인스턴스에 상관없이 공통으로 사용하는 필드라면 스태틱 필드로 선언한다.
   private static final int MAX_SIZE = 100;
 
-  // 인스턴스 마다 별개로 관리해야 할 데이터라면 논스태틱 필드(인스턴스 필드)로 선언한다.
   private Prompt prompt;
   private Board[] boards = new Board[MAX_SIZE];
   private int length = 0;
-
   private String title;
 
   public BoardHandler(Prompt prompt, String title) {
@@ -20,9 +17,7 @@ public class BoardHandler implements Handler {
     this.title = title;
   }
 
-
-
-  public void service() {
+  public void execute() {
     printMenu();
 
     while (true) {
@@ -32,24 +27,31 @@ public class BoardHandler implements Handler {
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        this.inputMember();
+        this.inputBoard();
       } else if (menuNo.equals("2")) {
-        this.printMembers();
+        this.printBoards();
       } else if (menuNo.equals("3")) {
-        this.viewMember();
+        this.viewBoard();
       } else if (menuNo.equals("4")) {
-        this.viewMember();
+        this.updateBoard();
       } else if (menuNo.equals("5")) {
-        this.viewMember();
+        this.deleteBoard();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
 
+  private static void printMenu() {
+    System.out.println("1. 등록");
+    System.out.println("2. 목록");
+    System.out.println("3. 조회");
+    System.out.println("4. 변경");
+    System.out.println("5. 삭제");
+    System.out.println("0. 메인");
+  }
 
-  // 인스턴스 멤버(필드나 메서드)를 사용하는 경우 인스턴스 메서드로 정의해야 한다.
-  public void inputBoard() {
+  private void inputBoard() {
     if (!this.available()) {
       System.out.println("더이상 입력할 수 없습니다!");
       return;
@@ -64,7 +66,7 @@ public class BoardHandler implements Handler {
     this.boards[this.length++] = board;
   }
 
-  public void printBoards() {
+  private void printBoards() {
     System.out.println("---------------------------------------");
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
@@ -72,12 +74,16 @@ public class BoardHandler implements Handler {
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
 
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
-          board.getWriter(), board.getViewCount(), board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
+          board.getNo(),
+          board.getTitle(),
+          board.getWriter(),
+          board.getViewCount(),
+          board.getCreatedDate());
     }
   }
 
-  public void viewBoard() {
+  private void viewBoard() {
     String boardNo = this.prompt.inputString("번호? ");
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
@@ -94,7 +100,7 @@ public class BoardHandler implements Handler {
     System.out.println("해당 번호의 게시글이 없습니다!");
   }
 
-  public void updateBoard() {
+  private void updateBoard() {
     String boardNo = this.prompt.inputString("번호? ");
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
@@ -111,8 +117,7 @@ public class BoardHandler implements Handler {
     System.out.println("해당 번호의 게시글이 없습니다!");
   }
 
-
-  public void deleteBoard() {
+  private void deleteBoard() {
     int deletedIndex = indexOf(this.prompt.inputInt("번호? "));
     if (deletedIndex == -1) {
       System.out.println("해당 번호의 게시글이 없습니다!");
@@ -139,13 +144,4 @@ public class BoardHandler implements Handler {
   private boolean available() {
     return this.length < MAX_SIZE;
   }
-
-  public class MemberList {
-    private static final int MAX_SIZE = 100;
-
-    private Member[] members = new Member[MAX_SIZE];
-    private int length;
-
-  public void add(Member m)
-}
 }
