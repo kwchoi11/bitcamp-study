@@ -24,16 +24,10 @@ public class ArrayList {
   }
 
   public Object[] list() {
-    // 리턴할 값을 담을 배열을 생성
     Object[] arr = new Object[this.length];
-
-    // 원본 배열에서 입력된 인스턴스 주소를 꺼내
-    // 새 배열에 담는다.
     for (int i = 0; i < this.length; i++) {
       arr[i] = this.list[i];
     }
-
-    // 새 배열을 리턴한다.
     return arr;
   }
 

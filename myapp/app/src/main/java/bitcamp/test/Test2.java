@@ -16,7 +16,7 @@ public class Test2 {
     m2.setName("유관순");
     m2.setEmail("yoo@test.com");
     m2.setPassword("2222");
-    m2.setGender('F');
+    m2.setGender('W');
 
     System.out.println(m1 == m2); // 각 레퍼런스에 저장된 인스턴스 주소를 비교
     System.out.println(m1.equals(m2));
@@ -30,8 +30,8 @@ public class Test2 {
     // 다형적 변수의 규칙
     // => 컴파일이 통과되면,
     // JVM이 메서드를 호출할 때,
-    // 다형적 변수가 실제 가리키는 인스턴스의 클래스부터 찾아 올라간다.
-    // => 메서드를 호출할 때 다형적 변수가 실제 가리키는 인스턴스의 클래스부터 찾아 올라간다.
+    // 다형적 변수가 실제 가리키는 인스턴스의 클래스부터 찾아 올라 간다.
+
 
   }
 }
