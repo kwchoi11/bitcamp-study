@@ -1,11 +1,9 @@
 package bitcamp.myapp.handler;
 
-import bitcamp.myapp.vo.Member;
-
 public class ArrayList {
   private static final int DEFAULT_SIZE = 3;
 
-  private Member[] list = new Member[DEFAULT_SIZE];
+  private Object[] list = new Object[DEFAULT_SIZE];
   private int length;
 
   public boolean add(Object obj) {
