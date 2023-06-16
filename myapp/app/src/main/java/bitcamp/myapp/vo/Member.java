@@ -56,21 +56,21 @@ public class Member {
       return false;
     }
 
-    if (this.getName() != null && !this.getName().equals(m.getName())) {
-      return false;
-    }
-
-    if (this.getEmail() != null && !this.getEmail().equals(m.getEmail())) {
-      return false;
-    }
-
-    if (this.getPassword() != null && !this.getPassword().equals(m.getPassword())) {
-      return false;
-    }
-
-    if (this.getGender() != m.getGender()) {
-      return false;
-    }
+    // if (this.getName() != null && !this.getName().equals(m.getName())) {
+    // return false;
+    // }
+    //
+    // if (this.getEmail() != null && !this.getEmail().equals(m.getEmail())) {
+    // return false;
+    // }
+    //
+    // if (this.getPassword() != null && !this.getPassword().equals(m.getPassword())) {
+    // return false;
+    // }
+    //
+    // if (this.getGender() != m.getGender()) {
+    // return false;
+    // }
 
   }
 

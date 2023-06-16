@@ -13,10 +13,10 @@ public class Test2 {
 
     Member m2 = new Member();
     m2.setNo(1);
-    m2.setName("홍길동");
-    m2.setEmail("hong@test.com");
-    m2.setPassword("1111");
-    m2.setGender('M');
+    m2.setName("유관순");
+    m2.setEmail("yoo@test.com");
+    m2.setPassword("2222");
+    m2.setGender('F');
 
     System.out.println(m1 == m2); // 각 레퍼런스에 저장된 인스턴스 주소를 비교
     System.out.println(m1.equals(m2));
