@@ -23,5 +23,15 @@ public class Test2 {
     // equals()는 수퍼 클래스 Object의 메서드이다.
     // Object의 equals()는 두 인스턴스가 같은지 비교한다.
 
+    Object obj1 = m1;
+    Object obj2 = m2;
+
+    System.out.println(obj1.equals(obj2));
+    // 다형적 변수의 규칙
+    // => 컴파일이 통과되면,
+    // JVM이 메서드를 호출할 때,
+    // 다형적 변수가 실제 가리키는 인스턴스의 클래스부터 찾아 올라간다.
+    // => 메서드를 호출할 때 다형적 변수가 실제 가리키는 인스턴스의 클래스부터 찾아 올라간다.
+
   }
 }
