@@ -30,6 +30,7 @@ public class Member {
   }
 
 
+
   // Object의 equals()는 Member 인스턴스를 비교하는데 적합하지 않다.
   // 왜? Object의 equals()는 단순히 인스턴스 주소가 같은지 비교하기 때문이다.
   // 우리가 원하는 것은 인스턴스 주소가 다르더라도
