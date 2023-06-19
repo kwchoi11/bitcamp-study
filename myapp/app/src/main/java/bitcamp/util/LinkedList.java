@@ -24,13 +24,26 @@ public class LinkedList {
   public Object[] getList() {
     Object[] arr = new Object[this.size];
 
-    Node node = this.head;
+    Node cursor = this.head;
     for (int i = 0; i < this.size; i++) {
-      arr[i] = node.value;
-      node = node.next;
+      arr[i] = cursor.value;
+      cursor = cursor.next;
     }
 
     return arr;
+  }
+
+  public Object retrieve(Object value) {
+    Node cursor = this.head;
+
+    while (cursor != null) {
+      if (cursor.value.equals(value)) {
+        return cursor.value;
+      }
+      cursor = cursor.next;
+    }
+
+    return null;
   }
 }
 
