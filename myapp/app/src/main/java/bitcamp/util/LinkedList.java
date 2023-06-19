@@ -23,6 +23,14 @@ public class LinkedList {
 
   public Object[] getList() {
     Object[] arr = new Object[this.size];
+
+    Node node = this.head;
+    for (int i = 0; i < this.size; i++) {
+      arr[i] = node.value;
+      node = node.next;
+    }
+
+    return arr;
   }
 }
 
