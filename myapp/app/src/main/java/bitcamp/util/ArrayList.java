@@ -74,6 +74,10 @@ public class ArrayList implements List {
     return old;
   }
 
+  public int size() {
+    return this.length;
+  }
+
   private boolean isValid(int index) {
     return index >= 0 && index < this.length;
   }
