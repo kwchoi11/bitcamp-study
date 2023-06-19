@@ -11,11 +11,18 @@ public class LinkedList {
     // 2. 새 노드에 값 저장
     node.value = value;
 
-    // 3. 리스트의 마지막 노드에 새 노드를 연결
-    if (tail != null) {
-      tail.next = node;
+    if (head == null) {
+      head = node;
+    } else if (this.tail != null) {
+      this.tail.next = node;
     }
-    tail = node;
+
+    this.tail = node;
+    this.size++;
+  }
+
+  public Object[] getList() {
+    Object[] arr = new Object[this.size];
   }
 }
 
