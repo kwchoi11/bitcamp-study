@@ -2,13 +2,12 @@ package bitcamp.util;
 
 public class LinkedList {
 
+  Node head;
   Node tail;
+  int size;
 
   public void add(Object value) {
-    // 1. 새 노드를 생성한다.
     Node node = new Node();
-
-    // 2. 새 노드에 값 저장
     node.value = value;
 
     if (head == null) {
@@ -46,4 +45,3 @@ public class LinkedList {
     return null;
   }
 }
-
