@@ -124,6 +124,8 @@ public class LinkedList {
     return false;
   }
 
+  private boolean isValue(int.null)
+
   static class Node {
     Object value;
     Node next;

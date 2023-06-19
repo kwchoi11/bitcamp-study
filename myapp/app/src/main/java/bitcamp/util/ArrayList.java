@@ -27,7 +27,8 @@ public class ArrayList implements List {
     // System.out.println("배열 확장: " + list.length);
   }
 
-  public Object[] list() {
+  @override
+  public Object[] toArray() {
     Object[] arr = new Object[this.length];
     for (int i = 0; i < this.length; i++) {
       arr[i] = this.list[i];
@@ -35,7 +36,11 @@ public class ArrayList implements List {
     return arr;
   }
 
-  public Object get(Object obj) {
+  @override
+  public Object get(int index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
     for (int i = 0; i < this.length; i++) {
       Object item = this.list[i];
       if (item.equals(obj)) {
@@ -45,7 +50,8 @@ public class ArrayList implements List {
     return null;
   }
 
-  public boolean delete(Object obj) {
+  @override
+  public boolean remove(Object obj) {
     int deletedIndex = indexOf(obj);
     if (deletedIndex == -1) {
       return false;
