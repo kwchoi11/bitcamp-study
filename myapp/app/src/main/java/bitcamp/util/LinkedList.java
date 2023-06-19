@@ -43,5 +43,30 @@ public class LinkedList {
     }
 
     return null;
+
+    public boolean remove (Object value) {
+      Node prev = null;
+      Node cursor = this.head;
+
+      while (cursor != null) {
+        if (cursor.value.equals(value)) {
+          // 다음 노드의 주소를 이전 노드에 저장한다.
+          prev.next = cursor.next;
+
+          // 가비지 객체를 초기화시켜서 가비지가 인스턴스를 가리키지 않도록 한다.
+          cursor.next = null;
+          cursor.value = null;
+
+          size--;
+        }
+        // 현재 커서가 가리키는 노드를 prev에 보관한다.
+        prev = cursor;
+
+        // 현재 커서를 다음 노드로 이동한다.
+        cursor = cursor.next;
+      }
+
+      return false;
+    }
   }
 }
