@@ -8,21 +8,21 @@ public class LinkedList {
 
   public static void main(String[] args) {
     LinkedList list = new LinkedList();
-    list.add(100);
-    list.add(200);
-    list.add(300);
-    list.add(400);
-    list.add(500);
+    list.add(Integer.valueOf(100)); // index: 0
+    list.add(200); // index: 1
+    list.add(300); // index: 2
+    list.add(400); // index: 3
+    list.add(500); // index: 4
 
     print(list);
 
-    System.out.println(list.remove(300));
-    System.out.println(list.remove(500));
-    System.out.println(list.remove(100));
-    System.out.println(list.remove(200));
+    System.out.println(list.remove(Integer.valueOf(300)));
+    System.out.println(list.remove(Integer.valueOf(500)));
+    System.out.println(list.remove(Integer.valueOf(100)));
+    System.out.println(list.remove(Integer.valueOf(200)));
     System.out.println(list.remove(400));
     System.out.println(list.remove(600));
-    list.add(1000);
+    list.add(Integer.valueOf(1000));
     list.add(2000);
     print(list);
 
