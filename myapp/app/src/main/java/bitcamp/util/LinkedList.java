@@ -6,6 +6,40 @@ public class LinkedList {
   Node tail;
   int size;
 
+  public static void main(String[] arge) {
+    LinkedList list = new LinkedList();
+    list.add(100);
+    list.add(200);
+    list.add(300);
+    list.add(400);
+    list.add(500);
+
+    print(list);
+
+    list.remove(300);
+    list.remove(500);
+    list.remove(100);
+    list.remove(200);
+    list.remove(400);
+    list.remove(600);
+    print(list);
+
+    // System.out.println(list.retrieve(100));
+    // System.out.println(list.retrieve(200));
+    // System.out.println(list.retrieve(300));
+    // System.out.println(list.retrieve(500));
+    // System.out.println(list.retrieve(600));
+  }
+
+  static void print(LinkedList list) {
+    Object[] arr = list.getList();
+    for (Object obj : arr) {
+      System.out.print(obj);
+      System.out.print(", ");
+    }
+    System.out.println();
+  }
+
   public void add(Object value) {
     Node node = new Node();
     node.value = value;
