@@ -81,6 +81,7 @@ public class LinkedList {
     return null;
   }
 
+  @Override
   public boolean remove(Object value) {
     Node prev = null;
     Node cursor = this.head;
