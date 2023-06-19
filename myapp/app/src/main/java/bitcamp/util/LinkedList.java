@@ -27,10 +27,10 @@ public class LinkedList {
     print(list);
 
 
-    //    System.out.println(list.retrieve(100));
-    //    System.out.println(list.retrieve(300));
-    //    System.out.println(list.retrieve(500));
-    //    System.out.println(list.retrieve(600));
+    // System.out.println(list.retrieve(100));
+    // System.out.println(list.retrieve(300));
+    // System.out.println(list.retrieve(500));
+    // System.out.println(list.retrieve(600));
   }
 
   static void print(LinkedList list) {
@@ -123,4 +123,10 @@ public class LinkedList {
 
     return false;
   }
+
+  static class Node {
+    Object value;
+    Node next;
+  }
+
 }
