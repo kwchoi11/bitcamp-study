@@ -10,4 +10,6 @@ public interface List {
   boolean remove(Object value);
 
   Object remove(int index);
+
+  int size();
 }

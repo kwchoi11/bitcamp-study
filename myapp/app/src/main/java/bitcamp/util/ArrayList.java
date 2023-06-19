@@ -74,6 +74,7 @@ public class ArrayList implements List {
     return old;
   }
 
+  @Override
   public int size() {
     return this.length;
   }
