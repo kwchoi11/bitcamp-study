@@ -6,7 +6,7 @@ public class LinkedList {
   Node tail;
   int size;
 
-  public static void main(String[] arge) {
+  public static void main(String[] args) {
     LinkedList list = new LinkedList();
     list.add(100);
     list.add(200);
@@ -16,19 +16,21 @@ public class LinkedList {
 
     print(list);
 
-    list.remove(300);
-    list.remove(500);
-    list.remove(100);
-    list.remove(200);
-    list.remove(400);
-    list.remove(600);
+    System.out.println(list.remove(300));
+    System.out.println(list.remove(500));
+    System.out.println(list.remove(100));
+    System.out.println(list.remove(200));
+    System.out.println(list.remove(400));
+    System.out.println(list.remove(600));
+    list.add(1000);
+    list.add(2000);
     print(list);
 
-    // System.out.println(list.retrieve(100));
-    // System.out.println(list.retrieve(200));
-    // System.out.println(list.retrieve(300));
-    // System.out.println(list.retrieve(500));
-    // System.out.println(list.retrieve(600));
+
+    //    System.out.println(list.retrieve(100));
+    //    System.out.println(list.retrieve(300));
+    //    System.out.println(list.retrieve(500));
+    //    System.out.println(list.retrieve(600));
   }
 
   static void print(LinkedList list) {
@@ -77,47 +79,48 @@ public class LinkedList {
     }
 
     return null;
+  }
 
-    public boolean remove (Object value) {
-      Node prev = null;
-      Node cursor = this.head;
+  public boolean remove(Object value) {
+    Node prev = null;
+    Node cursor = this.head;
 
-      while (cursor != null) {
-        if (cursor.value.equals(value)) {
+    while (cursor != null) {
+      if (cursor.value.equals(value)) {
+        if (prev == null) {
+          // 삭제할 노드가 시작 노드라면
+          head = cursor.next;
 
-          if (cursor == head) {
-            // 삭제할 노드가 시작 노드라면
-            head = cursor.next;
-
-            // 삭제할 노드가 끝 노드라면
-            if (head == null) {
-              tail = null;
-            }
-
-          } else if (prev.next == null) {
-            // 삭제할 노드가 끝 노드라면
-            tail = prev;
-            tail.next = null;
+          // 삭제할 노드가 끝 노드라면
+          if (head == null) {
+            tail = null;
           }
 
-          // 다음 노드의 주소를 이전 노드에 저장한다.
-//          prev.next = cursor.next;
-          size--;
+        } else if (cursor.next == null) {
+          // 삭제할 노드가 끝 노드라면
+          tail = prev;
+          tail.next = null;
 
-          // 가비지 객체를 초기화시켜서 가비지가 인스턴스를 가리키지 않도록 한다.
-          cursor.next = null;
-          cursor.value = null;
-
-          return true;
+        } else {
+          // 중간 노드라면, 다음 노드의 주소를 이전 노드에 저장한다.
+          prev.next = cursor.next;
         }
-        // 현재 커서가 가리키는 노드를 prev에 보관한다.
-        prev = cursor;
+        size--;
 
-        // 현재 커서를 다음 노드로 이동한다.
-        cursor = cursor.next;
+        // 가비지 객체를 초기화시켜서 가비지가 인스턴스를 가리키지 않도록 한다.
+        cursor.next = null;
+        cursor.value = null;
+
+        return true;
       }
 
-      return false;
+      // 현재 커서가 가리키는 노드를 prev에 보관한다.
+      prev = cursor;
+
+      // 현재 커서를 다음 노드로 이동한다.
+      cursor = cursor.next;
     }
+
+    return false;
   }
 }
