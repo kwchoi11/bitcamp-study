@@ -54,7 +54,7 @@ public class MemberHandler implements Handler {
     m.setName(this.prompt.inputString("이름? "));
     m.setEmail(this.prompt.inputString("이메일? "));
     m.setPassword(this.prompt.inputString("암호? "));
-    m.setGender(inputGender((char)0));
+    m.setGender(inputGender((char) 0));
 
     this.list.add(m);
   }
@@ -67,8 +67,7 @@ public class MemberHandler implements Handler {
     Object[] arr = this.list.getList();
     for (Object obj : arr) {
       Member m = (Member) obj;
-      System.out.printf("%d, %s, %s, %s\n",
-          m.getNo(), m.getName(), m.getEmail(),
+      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
   }
@@ -115,10 +114,7 @@ public class MemberHandler implements Handler {
     }
 
     while (true) {
-      String menuNo = this.prompt.inputString(label +
-          "  1. 남자\n" +
-          "  2. 여자\n" +
-          "> ");
+      String menuNo = this.prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
 
       switch (menuNo) {
         case "1":

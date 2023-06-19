@@ -7,7 +7,7 @@ public interface List {
 
   Object[] toArray();
 
-  Object remove(int index);
-
   boolean remove(Object value);
+
+  Object remove(int index);
 }
