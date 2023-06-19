@@ -53,11 +53,20 @@ public class LinkedList {
           // 다음 노드의 주소를 이전 노드에 저장한다.
           prev.next = cursor.next;
 
+          if (cursor == head) {
+            // 삭제할 노드가 시작 노드라면
+            head = cursor.next;
+          } else if (prev.next == null) {
+            // 삭제할 노드가 끝 노드라면
+            tail = prev;
+          }
+
+          size--;
+
           // 가비지 객체를 초기화시켜서 가비지가 인스턴스를 가리키지 않도록 한다.
           cursor.next = null;
           cursor.value = null;
 
-          size--;
         }
         // 현재 커서가 가리키는 노드를 prev에 보관한다.
         prev = cursor;
