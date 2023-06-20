@@ -27,12 +27,24 @@ public class BoardHandler implements Handler {
     while (true) {
       String menuNo = prompt.inputMenu();
       switch (menuNo) {
-        case "0": prompt.removeBreadcrumb(); return;
-        case "1": this.inputBoard(); break;
-        case "2": this.printBoards(); break;
-        case "3": this.viewBoard(); break;
-        case "4": this.updateBoard(); break;
-        case "5": this.deleteBoard(); break;
+        case "0":
+          prompt.removeBreadcrumb();
+          return;
+        case "1":
+          this.inputBoard();
+          break;
+        case "2":
+          this.printBoards();
+          break;
+        case "3":
+          this.viewBoard();
+          break;
+        case "4":
+          this.updateBoard();
+          break;
+        case "5":
+          this.deleteBoard();
+          break;
       }
     }
   }
@@ -65,12 +77,8 @@ public class BoardHandler implements Handler {
 
     for (int i = 0; i < this.list.size(); i++) {
       Board board = (Board) this.list.get(i);
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
@@ -127,14 +135,5 @@ public class BoardHandler implements Handler {
 
 
 }
-
-
-
-
-
-
-
-
-
 
 

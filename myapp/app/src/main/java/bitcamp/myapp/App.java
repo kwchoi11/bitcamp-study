@@ -25,10 +25,17 @@ public class App {
     loop: while (true) {
       String menuNo = prompt.inputMenu();
       switch (menuNo) {
-        case "0": break loop;
-        case "1": memberHandler.execute(); break;
-        case "2": boardHandler.execute(); break;
-        case "3": readingHandler.execute(); break;
+        case "0":
+          break loop;
+        case "1":
+          memberHandler.execute();
+          break;
+        case "2":
+          boardHandler.execute();
+          break;
+        case "3":
+          readingHandler.execute();
+          break;
       }
     }
 
