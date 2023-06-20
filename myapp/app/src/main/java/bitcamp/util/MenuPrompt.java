@@ -75,7 +75,7 @@ public class MenuPrompt extends Prompt {
 
     // 2) 꺼낸 메뉴에서 해당 번호의 메뉴를 찾는다.'
     String[] menuItems = menu.split("\n");
-    for (String line : menuItem) {
+    for (String menuItem : menuItems) {
       System.out.println("====>" + line);
     }
 
