@@ -5,6 +5,8 @@ import bitcamp.myapp.handler.Handler;
 import bitcamp.myapp.handler.MemberHandler;
 import bitcamp.util.ArrayList;
 import bitcamp.util.LinkedList;
+import bitcamp.util.Menu;
+import bitcamp.util.MenuGroup;
 import bitcamp.util.MenuPrompt;
 
 public class App {
@@ -14,12 +16,10 @@ public class App {
     MenuPrompt prompt = new MenuPrompt();
     prompt.appendBreadcrumb("메인", getMenu());
 
-
-    Menu m1 = new Menu("회원");
-    Menu m2 = new Menu("게시글");
-    Menu m3 = new Menu("독서록");
-
-
+    MenuGroup mainMenu = new MenuGroup("메인", prompt);
+    mainMenu.addMenu(new Menu("회원", prompt));
+    mainMenu.addMenu(new Menu("게시글", prompt));
+    mainMenu.addMenu(new Menu("독서록", prompt));
 
     Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
     Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
@@ -27,24 +27,26 @@ public class App {
 
     printTitle();
 
-    prompt.printMenu();
+    // prompt.printMenu();
 
-    loop: while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0":
-          break loop;
-        case "1":
-          memberHandler.execute();
-          break;
-        case "2":
-          boardHandler.execute();
-          break;
-        case "3":
-          readingHandler.execute();
-          break;
-      }
-    }
+    mainMenu.execute();
+
+    // loop: while (true) {
+    // String menuNo = prompt.inputMenu();
+    // switch (menuNo) {
+    // case "0":
+    // break loop;
+    // case "1":
+    // memberHandler.execute();
+    // break;
+    // case "2":
+    // boardHandler.execute();
+    // break;
+    // case "3":
+    // readingHandler.execute();
+    // break;
+    // }
+    // }
 
     prompt.close();
   }
