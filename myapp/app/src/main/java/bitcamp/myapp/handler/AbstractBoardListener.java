@@ -2,10 +2,9 @@ package bitcamp.myapp.handler;
 
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
-import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class AbstractBoardListener implements ActionListener {
+public abstract class AbstractBoardListener implements ActionListener {
 
   protected List list;
 
@@ -21,11 +20,6 @@ public class AbstractBoardListener implements ActionListener {
       }
     }
     return null;
-  }
-
-  @Override
-  public void service(BreadcrumbPrompt prompt) {
-
   }
 
 }
