@@ -16,9 +16,31 @@ public class App {
     BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
     MenuGroup mainMenu = new MenuGroup("메인");
-    mainMenu.addMenu(new Menu("회원"));
-    mainMenu.addMenu(new Menu("게시글"));
-    mainMenu.addMenu(new Menu("독서록"));
+
+    MenuGroup memberMenu = new MenuGroup("회원");
+    memberMenu.add(new Menu("등록"));
+    memberMenu.add(new Menu("목록"));
+    memberMenu.add(new Menu("조회"));
+    memberMenu.add(new Menu("변경"));
+    memberMenu.add(new Menu("삭제"));
+    mainMenu.add(memberMenu);
+
+    MenuGroup boardMenu = new MenuGroup("게시글");
+    memberMenu.add(new Menu("등록"));
+    memberMenu.add(new Menu("목록"));
+    memberMenu.add(new Menu("조회"));
+    memberMenu.add(new Menu("변경"));
+    memberMenu.add(new Menu("삭제"));
+    mainMenu.add(boardMenu);
+
+    MenuGroup readingMenu = new MenuGroup("독서록");
+    memberMenu.add(new Menu("등록"));
+    memberMenu.add(new Menu("목록"));
+    memberMenu.add(new Menu("조회"));
+    memberMenu.add(new Menu("변경"));
+    memberMenu.add(new Menu("삭제"));
+    mainMenu.add(readingMenu);
+
 
     Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
     Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
@@ -26,26 +48,7 @@ public class App {
 
     printTitle();
 
-    // prompt.printMenu();
-
     mainMenu.execute(prompt);
-
-    // loop: while (true) {
-    // String menuNo = prompt.inputMenu();
-    // switch (menuNo) {
-    // case "0":
-    // break loop;
-    // case "1":
-    // memberHandler.execute();
-    // break;
-    // case "2":
-    // boardHandler.execute();
-    // break;
-    // case "3":
-    // readingHandler.execute();
-    // break;
-    // }
-    // }
 
     prompt.close();
   }

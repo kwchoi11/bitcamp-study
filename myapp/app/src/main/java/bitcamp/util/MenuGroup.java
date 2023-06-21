@@ -9,7 +9,7 @@ public class MenuGroup extends Menu {
     this.childs = new ArrayList();
   }
 
-  public void addMenu(Menu menu) {
+  public void add(Menu menu) {
     this.childs.add(menu);
   }
 
