@@ -11,7 +11,7 @@ public class Menu {
     return title;
   }
 
-  public void execute(MenuPrompt prompt) {
+  public void execute(BreadcrumbPrompt prompt) {
     System.out.println(this.title + "메뉴 실행!");
   }
 

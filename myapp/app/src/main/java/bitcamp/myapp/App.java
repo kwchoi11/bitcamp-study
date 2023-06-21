@@ -4,22 +4,21 @@ import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.Handler;
 import bitcamp.myapp.handler.MemberHandler;
 import bitcamp.util.ArrayList;
+import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.LinkedList;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
-import bitcamp.util.MenuPrompt;
 
 public class App {
 
   public static void main(String[] args) {
 
-    MenuPrompt prompt = new MenuPrompt();
-    prompt.appendBreadcrumb("메인", getMenu());
+    BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
-    MenuGroup mainMenu = new MenuGroup("메인", prompt);
-    mainMenu.addMenu(new Menu("회원", prompt));
-    mainMenu.addMenu(new Menu("게시글", prompt));
-    mainMenu.addMenu(new Menu("독서록", prompt));
+    MenuGroup mainMenu = new MenuGroup("메인");
+    mainMenu.addMenu(new Menu("회원"));
+    mainMenu.addMenu(new Menu("게시글"));
+    mainMenu.addMenu(new Menu("독서록"));
 
     Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
     Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
@@ -29,7 +28,7 @@ public class App {
 
     // prompt.printMenu();
 
-    mainMenu.execute();
+    mainMenu.execute(prompt);
 
     // loop: while (true) {
     // String menuNo = prompt.inputMenu();
