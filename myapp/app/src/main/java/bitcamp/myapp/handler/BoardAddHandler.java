@@ -1,5 +1,6 @@
 package bitcamp.myapp.handler;
 
+import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
 import bitcamp.util.List;
@@ -13,35 +14,32 @@ public class BoardAddHandler implements ActionListener {
     this.list = list;
   }
 
-  public void execute() {
 
-    prompt.appendBreadcrumb(this.title, getMenu());
+  while(true)
 
-    prompt.printMenu();
-
-    while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0":
-          prompt.removeBreadcrumb();
-          return;
-        case "1":
-          this.inputBoard();
-          break;
-        case "2":
-          this.printBoards();
-          break;
-        case "3":
-          this.viewBoard();
-          break;
-        case "4":
-          this.updateBoard();
-          break;
-        case "5":
-          this.deleteBoard();
-          break;
-      }
+  {
+    String menuNo = prompt.inputMenu();
+    switch (menuNo) {
+      case "0":
+        prompt.removeBreadcrumb();
+        return;
+      case "1":
+        this.inputBoard();
+        break;
+      case "2":
+        this.printBoards();
+        break;
+      case "3":
+        this.viewBoard();
+        break;
+      case "4":
+        this.updateBoard();
+        break;
+      case "5":
+        this.deleteBoard();
+        break;
     }
+  }
   }
 
   private static String getMenu() {
