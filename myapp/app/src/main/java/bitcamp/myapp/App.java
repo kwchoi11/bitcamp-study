@@ -26,19 +26,19 @@ public class App {
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
-    memberMenu.add(new Menu("등록"));
-    memberMenu.add(new Menu("목록"));
-    memberMenu.add(new Menu("조회"));
-    memberMenu.add(new Menu("변경"));
-    memberMenu.add(new Menu("삭제"));
+    boardMenu.add(new Menu("등록"));
+    boardMenu.add(new Menu("목록"));
+    boardMenu.add(new Menu("조회"));
+    boardMenu.add(new Menu("변경"));
+    boardMenu.add(new Menu("삭제"));
     mainMenu.add(boardMenu);
 
     MenuGroup readingMenu = new MenuGroup("독서록");
-    memberMenu.add(new Menu("등록"));
-    memberMenu.add(new Menu("목록"));
-    memberMenu.add(new Menu("조회"));
-    memberMenu.add(new Menu("변경"));
-    memberMenu.add(new Menu("삭제"));
+    readingMenu.add(new Menu("등록"));
+    readingMenu.add(new Menu("목록"));
+    readingMenu.add(new Menu("조회"));
+    readingMenu.add(new Menu("변경"));
+    readingMenu.add(new Menu("삭제"));
     mainMenu.add(readingMenu);
 
 
