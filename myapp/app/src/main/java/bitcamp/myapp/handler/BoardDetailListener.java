@@ -4,7 +4,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class BoardDetailListener extends BoardListener {
+public class BoardDetailListener extends AbstractBoardListener {
 
   public BoardDetailListener(List list) {
     super(list);
