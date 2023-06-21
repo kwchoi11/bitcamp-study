@@ -14,6 +14,13 @@ public class App {
     MenuPrompt prompt = new MenuPrompt();
     prompt.appendBreadcrumb("메인", getMenu());
 
+
+    Menu m1 = new Menu("회원");
+    Menu m2 = new Menu("게시글");
+    Menu m3 = new Menu("독서록");
+
+
+
     Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
     Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
     Handler readingHandler = new BoardHandler(prompt, "독서록", new LinkedList());
