@@ -4,6 +4,8 @@ import bitcamp.myapp.vo.Member;
 import bitcamp.util.List;
 import bitcamp.util.BreadcrumbPrompt;
 
+// MemberHandler 는 Handler 규칙에 따라 메서드를 구현했다.
+// 즉 Handler 인터페이스에 정의된
 public class MemberHandler implements Handler {
 
   private List list;
@@ -16,6 +18,8 @@ public class MemberHandler implements Handler {
     this.list = list;
   }
 
+  // Handler 인터페이스에 선언된 대로 메서드를 정의했다.
+  // => "Handler 인터페이스를 구현했다." 라고 표현한다.
   public void execute() {
 
     prompt.appendBreadcrumb(this.title, getMenu());
@@ -24,6 +28,7 @@ public class MemberHandler implements Handler {
 
     while (true) {
       String menuNo = prompt.inputMenu();
+
       switch (menuNo) {
         case "0":
           prompt.removeBreadcrumb();
@@ -43,6 +48,7 @@ public class MemberHandler implements Handler {
         case "5":
           this.deleteMember();
           break;
+
       }
     }
   }
@@ -66,6 +72,8 @@ public class MemberHandler implements Handler {
     m.setGender(inputGender((char) 0));
 
     this.list.add(m);
+
+
   }
 
   private void printMembers() {
@@ -74,7 +82,7 @@ public class MemberHandler implements Handler {
     System.out.println("---------------------------------------");
 
     for (int i = 0; i < this.list.size(); i++) {
-      Member m = (Member) this.list.get(i);
+      Member m = (Member) this.list.get(i); // 형변환
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
@@ -88,7 +96,6 @@ public class MemberHandler implements Handler {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     System.out.printf("이름: %s\n", m.getName());
     System.out.printf("이메일: %s\n", m.getEmail());
     System.out.printf("성별: %s\n", toGenderString(m.getGender()));
@@ -106,10 +113,9 @@ public class MemberHandler implements Handler {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     m.setName(this.prompt.inputString("이름(%s)? ", m.getName()));
     m.setEmail(this.prompt.inputString("이메일(%s)? ", m.getEmail()));
-    m.setPassword(this.prompt.inputString("새암호? "));
+    m.setPassword(this.prompt.inputString(("새암호? ")));
     m.setGender(inputGender(m.getGender()));
   }
 
@@ -120,7 +126,6 @@ public class MemberHandler implements Handler {
     } else {
       label = String.format("성별(%s)?\n", toGenderString(gender));
     }
-
     while (true) {
       String menuNo = this.prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
 
@@ -150,5 +155,4 @@ public class MemberHandler implements Handler {
     }
     return null;
   }
-
 }

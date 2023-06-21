@@ -1,18 +1,23 @@
 package bitcamp.myapp.handler;
 
 import bitcamp.myapp.vo.Board;
+import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.LinkedList;
 import bitcamp.util.List;
 
-public class BoardListHandler implements Handler {
-  private List list;
+public class BoardListListener implements ActionListener {
 
-  public BoardListHandler(List list) {
+  private List list = new LinkedList();
+
+  public BoardListListener(List list) {
     this.list = list;
   }
 
+
+
   @Override
-  private void service(BreadcrumbPrompt prompt) {
+  public void service(BreadcrumbPrompt prompt) {
     System.out.println("---------------------------------------");
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
@@ -24,5 +29,3 @@ public class BoardListHandler implements Handler {
     }
   }
 }
-
-
