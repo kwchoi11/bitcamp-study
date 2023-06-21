@@ -5,6 +5,11 @@ import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
 import bitcamp.myapp.handler.BoardListListener;
 import bitcamp.myapp.handler.BoardUpdateListener;
+import bitcamp.myapp.handler.MemberAddListener;
+import bitcamp.myapp.handler.MemberDeleteListener;
+import bitcamp.myapp.handler.MemberDetailListener;
+import bitcamp.myapp.handler.MemberListListener;
+import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.util.ArrayList;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.LinkedList;
@@ -24,11 +29,11 @@ public class App {
     MenuGroup mainMenu = new MenuGroup("메인");
 
     MenuGroup memberMenu = new MenuGroup("회원");
-    memberMenu.add(new Menu("등록", new BoardAddListener(memberList)));
-    memberMenu.add(new Menu("목록"));
-    memberMenu.add(new Menu("조회"));
-    memberMenu.add(new Menu("변경"));
-    memberMenu.add(new Menu("삭제"));
+    memberMenu.add(new Menu("등록", new MemberAddListener(memberList)));
+    memberMenu.add(new Menu("목록", new MemberListListener(memberList)));
+    memberMenu.add(new Menu("조회", new MemberDetailListener(memberList)));
+    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberList)));
+    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberList)));
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
@@ -47,10 +52,10 @@ public class App {
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingList)));
     mainMenu.add(readingMenu);
 
-    // Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList()); // 의존 객체를 생성자를 통해
-    // 주입
-    // Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
-    // Handler readingHandler = new BoardHandler(prompt, "독서록", new LinkedList());
+
+    // Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
+    // Handler boardHandler = new BoardDeleteListener(prompt, "게시글", new LinkedList());
+    // Handler readingHandler = new BoardDeleteListener(prompt, "독서록", new LinkedList());
 
     printTitle();
 
@@ -64,13 +69,12 @@ public class App {
     menu.append("1. 회원\n");
     menu.append("2. 게시글\n");
     menu.append("3. 독서록\n");
-    menu.append("0. 종료");
-
+    menu.append("0. 종료\n");
     return menu.toString();
   }
 
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
-    System.out.println("—————————————————");
+    System.out.println("----------------------------------");
   }
 }

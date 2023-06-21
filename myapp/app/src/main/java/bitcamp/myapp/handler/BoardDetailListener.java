@@ -9,15 +9,15 @@ public class BoardDetailListener implements ActionListener {
 
   private List list;
 
-
   public BoardDetailListener(List list) {
     this.list = list;
   }
 
-
+  @Override
   public void service(BreadcrumbPrompt prompt) {
     int boardNo = prompt.inputInt("번호? ");
-    Board board = this.findBy((boardNo));
+
+    Board board = this.findBy(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -41,3 +41,5 @@ public class BoardDetailListener implements ActionListener {
     return null;
   }
 }
+
+

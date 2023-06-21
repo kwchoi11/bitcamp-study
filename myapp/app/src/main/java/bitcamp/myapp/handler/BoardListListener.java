@@ -3,18 +3,15 @@ package bitcamp.myapp.handler;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.LinkedList;
 import bitcamp.util.List;
 
 public class BoardListListener implements ActionListener {
 
-  private List list = new LinkedList();
+  private List list;
 
   public BoardListListener(List list) {
     this.list = list;
   }
-
-
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
@@ -28,4 +25,7 @@ public class BoardListListener implements ActionListener {
           board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
+
 }
+
+

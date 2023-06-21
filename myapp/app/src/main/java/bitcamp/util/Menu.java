@@ -9,6 +9,11 @@ public class Menu {
     this.title = title;
   }
 
+  public Menu(String title, ActionListener listener) {
+    this(title);
+    this.addActionListener(listener);
+  }
+
   public void addActionListener(ActionListener listener) {
     listeners.add(listener);
   }
@@ -27,6 +32,4 @@ public class Menu {
       listener.service(prompt);
     }
   }
-
-
 }

@@ -13,10 +13,11 @@ public class BoardUpdateListener implements ActionListener {
     this.list = list;
   }
 
+  @Override
   public void service(BreadcrumbPrompt prompt) {
     int boardNo = prompt.inputInt("번호? ");
 
-    Board board = this.findBy((boardNo));
+    Board board = this.findBy(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -31,7 +32,6 @@ public class BoardUpdateListener implements ActionListener {
     board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
   }
 
-
   private Board findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
       Board b = (Board) this.list.get(i);
@@ -42,3 +42,5 @@ public class BoardUpdateListener implements ActionListener {
     return null;
   }
 }
+
+
