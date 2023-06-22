@@ -1,26 +1,55 @@
 package bitcamp.test;
 
 class A {
-  static int v1;
+  static int v1 = 111;
+  // 컴파일 했을 때, v1의 값은 최종적으로 300이 된다.
+  // 필드에서 선언된 값이 스태틱 블록 안으로 들어간다.
+  // 위에서 선언된 111은 스태틱 블록의 맨 위로 들어간다.
+  static {
+    v1 = 100;
+    System.out.println("A 클래스의 스태틱 블록 실행!1");
+    v1 = 200;
+    System.out.println("A 클래스의 스태틱 블록 실행!2");
+    v1 = 300;
+    System.out.println("A 클래스의 스태틱 블록 실행!3");
+    v2 = 333;
+  }
+  static int v2 = 222;
+  // 컴파일했을 때, v2의 값은 최종적으로 222가 된다.
+  // 필드에서 선언된 값이 스태틱 블록 안으로 들어간다.
+  // 위에서 선언된 222는 스태틱 블록의 맨 아래로 들어간다.
+  // 마지막에 선언된 값이 최종 값이 된다.
 
   static void m1() {}
 
-  static {
-    System.out.println("A 클래스의 스태틱 블록 실행!1");
-  }
-  static {
-    System.out.println("A 클래스의 스태틱 블록 실행!2");
-  }
-  static {
-    System.out.println("A 클래스의 스태틱 블록 실행!3");
-  }
+
+
+  // static {
+  // System.out.println("A 클래스의 스태틱 블록 실행!1");
+  // }
+  // static {
+  // System.out.println("A 클래스의 스태틱 블록 실행!2");
+  // }
+  // static {
+  // System.out.println("A 클래스의 스태틱 블록 실행!3");
+  // }
+
+  // 한 블록 안에 여러 개의 스태틱을 만드는 것은 의미없는 행동이다.
+  // 컴파일하면 어차피 하나로 합쳐지기 때문 !
+
+  // static {
+  // System.out.println("A 클래스의 스태틱 블록 실행!3");
+  // System.out.println("A 클래스의 스태틱 블록 실행!3");
+  // System.out.println("A 클래스의 스태틱 블록 실행!3");
+  // }
+  // 요렇게 스태틱 블록 하나로 묶어서 작성해주는 게 좋다.
 }
 
 
 public class Exam01 {
 
   public static void main(String[] args) {
-    A obj;
+    // A obj; // 클래스 로딩 안 됨.
 
     // A.v1 = 100;
     // A.m1();
