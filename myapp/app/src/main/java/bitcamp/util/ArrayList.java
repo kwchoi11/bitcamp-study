@@ -1,6 +1,6 @@
 package bitcamp.util;
 
-public class ArrayList implements List {
+public class ArrayList<E> implements List<E> {
   private static final int DEFAULT_SIZE = 3;
 
   private Object[] list = new Object[DEFAULT_SIZE];
@@ -10,7 +10,7 @@ public class ArrayList implements List {
   // 컴파일러에게 다음 메서드가 수퍼클래스의 메서드를 재정의한 것인지?
   // 또는 인터페이스의 메서드를 구현한 것인지?
   // 검사해달라는 표시다.
-  public boolean add(Object obj) {
+  public boolean add(E obj) {
     if (this.length == list.length) {
       increase();
     }
@@ -37,11 +37,11 @@ public class ArrayList implements List {
   }
 
   @Override
-  public Object get(int index) {
+  public E get(int index) {
     if (!isValid(index)) {
       return null;
     }
-    return this.list[index];
+    return (E) this.list[index];
   }
 
   @Override
