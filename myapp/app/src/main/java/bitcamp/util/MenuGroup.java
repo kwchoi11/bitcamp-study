@@ -16,9 +16,10 @@ public class MenuGroup extends Menu {
   @Override
   public void execute(BreadcrumbPrompt prompt) {
 
-    prompt.appendBreadcrumb(this.getTitle(), null);
+    prompt.appendBreadcrumb(this.getTitle());
 
     this.printMenu();
+
     while (true) {
       String input = prompt.inputMenu();
       if (input.equals("menu")) {
@@ -28,7 +29,7 @@ public class MenuGroup extends Menu {
 
       int menuNo = Integer.parseInt(input);
       if (menuNo < 0 || menuNo > childs.size()) {
-        System.out.println("메뉴 번호가 옳지 않습니다.");
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       } else if (menuNo == 0) {
         prompt.removeBreadcrumb();
         return;
@@ -44,6 +45,6 @@ public class MenuGroup extends Menu {
       Menu menu = (Menu) childs.get(i);
       System.out.printf("%d. %s\n", i + 1, menu.getTitle());
     }
-    System.out.println("0. 이전 / 종료");
+    System.out.println("0. 이전/종료");
   }
 }

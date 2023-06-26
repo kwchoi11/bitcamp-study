@@ -1,6 +1,6 @@
 package bitcamp.util;
 
-public class Queue extends LinkedList {
+public class Queue<E> extends LinkedList<E> {
 
   public static void main(String[] args) {
     Queue q = new Queue();
@@ -19,11 +19,11 @@ public class Queue extends LinkedList {
     System.out.println(q.poll());
   }
 
-  public void offer(Object value) {
+  public void offer(E value) {
     this.add(value);
   }
 
-  public Object poll() {
+  public E poll() {
     if (this.size() == 0) {
       return null;
     }
