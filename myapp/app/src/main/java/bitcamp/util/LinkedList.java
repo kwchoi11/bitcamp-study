@@ -2,7 +2,7 @@ package bitcamp.util;
 
 import java.lang.reflect.Array;
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList<E> extends AbstractList<E> {
 
   Node<E> head;
   Node<E> tail;

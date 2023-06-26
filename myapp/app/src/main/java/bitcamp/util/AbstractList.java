@@ -9,6 +9,10 @@ public abstract class AbstractList<E> implements List<E> {
     return this.size;
   }
 
+  protected boolean isValid(int index) {
+    return index >= 0 && index < this.size;
+  }
+
   @Override
   public Iterator<E> iterator() {
     return new ListIterator<>(this);
