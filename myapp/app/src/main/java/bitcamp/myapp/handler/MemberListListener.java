@@ -17,7 +17,7 @@ public class MemberListListener extends AbstractMemberListener {
     System.out.println("---------------------------------------");
 
     for (int i = 0; i < this.list.size(); i++) {
-      Member m = (Member) this.list.get(i);
+      Member m = this.list.get(i);
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
