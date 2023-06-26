@@ -3,7 +3,7 @@ package bitcamp.util;
 public class Queue<E> extends LinkedList<E> {
 
   public static void main(String[] args) {
-    Queue q = new Queue();
+    Queue<String> q = new Queue<>();
     q.offer("홍길동");
     q.offer("임꺽정");
     q.offer("유관순");

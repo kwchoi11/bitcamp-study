@@ -6,7 +6,6 @@ public class LinkedList<E> extends AbstractList<E> {
 
   Node<E> head;
   Node<E> tail;
-  int size;
 
   public static void main(String[] args) {
     LinkedList<Integer> list = new LinkedList<>();
@@ -18,12 +17,12 @@ public class LinkedList<E> extends AbstractList<E> {
 
     print(list);
 
-    // System.out.println(list.remove(Integer.valueOf(300)));
-    // System.out.println(list.remove(Integer.valueOf(500)));
-    // System.out.println(list.remove(Integer.valueOf(100)));
-    // System.out.println(list.remove(Integer.valueOf(200)));
-    // System.out.println(list.remove(Integer.valueOf(400)));
-    // System.out.println(list.remove(Integer.valueOf(600)));
+    //    System.out.println(list.remove(Integer.valueOf(300)));
+    //    System.out.println(list.remove(Integer.valueOf(500)));
+    //    System.out.println(list.remove(Integer.valueOf(100)));
+    //    System.out.println(list.remove(Integer.valueOf(200)));
+    //    System.out.println(list.remove(Integer.valueOf(400)));
+    //    System.out.println(list.remove(Integer.valueOf(600)));
 
     System.out.println(list.remove(2));
     System.out.println(list.remove(3));
@@ -37,10 +36,10 @@ public class LinkedList<E> extends AbstractList<E> {
     print(list);
 
 
-    // System.out.println(list.retrieve(100));
-    // System.out.println(list.retrieve(300));
-    // System.out.println(list.retrieve(500));
-    // System.out.println(list.retrieve(600));
+    //    System.out.println(list.retrieve(100));
+    //    System.out.println(list.retrieve(300));
+    //    System.out.println(list.retrieve(500));
+    //    System.out.println(list.retrieve(600));
   }
 
   static void print(LinkedList<Integer> list) {
@@ -182,15 +181,6 @@ public class LinkedList<E> extends AbstractList<E> {
     cursor.value = null;
 
     return old;
-  }
-
-  @Override
-  public int size() {
-    return this.size;
-  }
-
-  private boolean isValid(int index) {
-    return index >= 0 && index < this.size;
   }
 
   static class Node<T> {

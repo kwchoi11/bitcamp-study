@@ -2,7 +2,7 @@ package bitcamp.util;
 
 public class Test {
   public static void main(String[] args) {
-    ArrayList<String> s = new Stack<>();
+    ArrayList<String> names = new ArrayList<>();
     names.add(new String("홍길동"));
     names.add("임꺽정");
     names.add("유관순");

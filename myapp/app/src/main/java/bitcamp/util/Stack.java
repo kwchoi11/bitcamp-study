@@ -3,7 +3,7 @@ package bitcamp.util;
 public class Stack<E> extends LinkedList<E> {
 
   public static void main(String[] args) {
-    Stack s = new Stack();
+    Stack<String> s = new Stack<>();
     s.push("홍길동");
     s.push("임꺽정");
     s.push("유관순");
@@ -44,5 +44,13 @@ public class Stack<E> extends LinkedList<E> {
     return this.size() == 0;
   }
 }
+
+
+
+
+
+
+
+
 
 

@@ -3,10 +3,10 @@ package bitcamp.util;
 import java.lang.reflect.Array;
 
 public class ArrayList<E> extends AbstractList<E> {
+
   private static final int DEFAULT_SIZE = 3;
 
   private Object[] list = new Object[DEFAULT_SIZE];
-  private int size;
 
   @Override
   public boolean add(E obj) {
@@ -23,7 +23,7 @@ public class ArrayList<E> extends AbstractList<E> {
       arr[i] = list[i];
     }
     list = arr;
-    // System.out.println("배열 확장: " + list.length);
+    //System.out.println("배열 확장: " + list.length);
   }
 
   @Override
@@ -95,20 +95,6 @@ public class ArrayList<E> extends AbstractList<E> {
     this.list[--this.size] = null;
 
     return (E) old;
-  }
-
-  @Override
-  public int size() {
-    return this.size;
-  }
-
-  @Override
-  public Iterator<E> iterator() {
-    return new ListIterator<>(this);
-  }
-
-  private boolean isValid(int index) {
-    return index >= 0 && index < this.size;
   }
 
   private int indexOf(E obj) {
