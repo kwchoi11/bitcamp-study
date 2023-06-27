@@ -2,24 +2,17 @@
 package com.eomcs.io.ex01;
 
 import java.io.File;
-import java.io.FileFilter;
 
-public class Exam0621x {
+public class Exam0623xprac5 {
+
   public static void main(String[] args) throws Exception {
     File dir = new File(".");
-
-    File[] files = dir.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File file) {
-        return file.isFile() && file.getName().endsWith(".java");
-      }
-    });
-
+    File[] files = dir.listFiles(file -> file.isFile() && file.getName().endsWith(".java"));
     for (File file : files) {
       System.out.printf("%s %12d %s\n", file.isDirectory() ? "d" : "-", file.length(),
           file.getName());
     }
-
   }
-
 }
+
+

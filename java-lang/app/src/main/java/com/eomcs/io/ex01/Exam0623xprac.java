@@ -4,7 +4,7 @@ package com.eomcs.io.ex01;
 import java.io.File;
 import java.io.FileFilter;
 
-public class Exam0621x {
+public class Exam0623xprac {
   public static void main(String[] args) throws Exception {
     File dir = new File(".");
 
@@ -23,3 +23,5 @@ public class Exam0621x {
   }
 
 }
+
+
