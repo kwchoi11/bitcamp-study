@@ -23,14 +23,27 @@ import bitcamp.util.MenuGroup;
 
 public class App {
 
-  public static void main(String[] args) {
+  ArrayList<Member> memberList = new ArrayList<>();
+  LinkedList<Board> boardList = new LinkedList<>();
+  LinkedList<Board> readingList = new LinkedList<>();
 
-    ArrayList<Member> memberList = new ArrayList<>();
-    LinkedList<Board> boardList = new LinkedList<>();
-    LinkedList<Board> readingList = new LinkedList<>();
+  BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
-    BreadcrumbPrompt prompt = new BreadcrumbPrompt();
+  MenuGroup mainMenu;
 
+  public App() {
+    mainMenu = createMenu();
+  }
+
+  public void execute() {
+    printTitle();
+
+    mainMenu.execute(prompt);
+
+    prompt.close();
+  }
+
+  private MenuGroup createMenu() {
     MenuGroup mainMenu = new MenuGroup("메인");
 
     MenuGroup memberMenu = new MenuGroup("회원");
@@ -63,11 +76,12 @@ public class App {
     helloMenu.addActionListener(new FooterListener());
     mainMenu.add(helloMenu);
 
-    printTitle();
+    return mainMenu;
+  }
 
-    mainMenu.execute(prompt);
-
-    prompt.close();
+  public static void main(String[] args) {
+    App app = new App();
+    app.execute();
   }
 
   static void printTitle() {
