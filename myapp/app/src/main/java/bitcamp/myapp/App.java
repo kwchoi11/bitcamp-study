@@ -1,6 +1,5 @@
 package bitcamp.myapp;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -131,6 +130,7 @@ public class App {
   private void loadBoard(String filename, List<Board> list) {
     try {
       DataInputStream in = new DataInputStream(filename);
+
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
@@ -158,7 +158,6 @@ public class App {
     try {
       DataOutputStream out = new DataOutputStream("member.data");
 
-      // 저장할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
 
       for (Member member : memberList) {
@@ -177,46 +176,18 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      FileOutputStream out = new FileOutputStream(filename);
+      DataOutputStream out = new DataOutputStream(filename);
 
-      // 저장할 데이터의 개수를 먼저 출력한다.
-      int size = list.size();
-      out.write(size >> 8);
-      out.write(size);
+      out.writeShort(list.size());
 
       for (Board board : list) {
-        int no = board.getNo();
-        out.write(no >> 24);
-        out.write(no >> 16);
-        out.write(no >> 8);
-        out.write(no);
-
-        byte[] bytes = board.getTitle().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-
-        bytes = board.getContent().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        bytes = board.getWriter().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        bytes = board.getPassword().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        int viewCount = board.getViewCount();
-        out.write(viewCount >> 24);
-        out.write(viewCount >> 16);
-        out.write(viewCount >> 8);
-        out.write(viewCount);
+        out.writeInt(board.getNo());
+        out.writeUTF(board.getTitle());
+        out.writeUTF(board.getContent());
+        out.writeUTF(board.getWriter());
+        out.writeUTF(board.getPassword());
+        out.writeInt(board.getViewCount());
+        out.writeLong(board.getCreatedDate());
       }
       out.close();
 

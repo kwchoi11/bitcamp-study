@@ -22,7 +22,7 @@ public class DataOutputStream extends FileOutputStream {
     this.write(v);
   }
 
-  public void writelong(long v) throws IOException {
+  public void writeLong(long v) throws IOException {
     this.write((int) (v >> 56));
     this.write((int) (v >> 48));
     this.write((int) (v >> 40));
