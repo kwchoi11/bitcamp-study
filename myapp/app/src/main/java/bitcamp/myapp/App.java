@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import bitcamp.io.DataOutputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -192,7 +193,7 @@ public class App {
 
   private void saveMember() {
     try {
-      FileOutputStream out = new FileOutputStream("member.data");
+      DataOutputStream out = new DataOutputStream("member.data");
 
       // 저장할 데이터의 개수를 먼저 출력한다.
       int size = memberList.size();
