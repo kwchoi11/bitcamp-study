@@ -10,11 +10,23 @@ public class DataOutputStream extends FileOutputStream {
     super(name);
   }
 
+  public void writeShort(int v) throws IOException {
+    this.write(v >> 8);
+    this.write(v);
+  }
+
   public void writeInt(int v) throws IOException {
     this.write(v >> 24);
     this.write(v >> 16);
     this.write(v >> 8);
     this.write(v);
+  }
+
+  public void writeUTF(String str) throws IOException {
+    byte[] bytes = str.getBytes("UTF-8");
+    this.write(bytes.length >> 8);
+    this.write(bytes.length);
+    this.write(bytes);
   }
 
 }
