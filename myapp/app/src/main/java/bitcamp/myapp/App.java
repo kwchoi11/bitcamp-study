@@ -63,9 +63,19 @@ public class App {
         Member member = new Member();
         member.setNo(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
 
-        int count = in.read(buf);
-        member.setName(new String(buf, 0, count, "UTF-8"));
+        int length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        member.setName(new String(buf, 0, length, "UTF-8"));
 
+        length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        member.setEmail(new String(buf, 0, length, "UTF-8"));
+
+        length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        member.setPassword(new String(buf, 0, length, "UTF-8"));
+
+        member.setGender((char) (in.read() << 8 | in.read()));
 
       }
 
