@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import bitcamp.myapp.handler.BoardAddListener;
@@ -29,23 +30,61 @@ public class App {
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
-  MenuGroup mainMenu;
+  MenuGroup mainMenu = new MenuGroup("메인");
 
   public App() {
-    mainMenu = createMenu();
+    prepareMenu();
+  }
+
+  public static void main(String[] args) {
+    new App().execute();
   }
 
   public void execute() {
     printTitle();
 
+    loadData();
     mainMenu.execute(prompt);
+    saveData();
 
     prompt.close();
   }
 
-  private MenuGroup createMenu() {
-    MenuGroup mainMenu = new MenuGroup("메인");
+  private void loadData() {
 
+  }
+
+  private void saveData() {
+    try {
+      FileOutputStream out = new FileOutputStream("member.data");
+      for (Member member : memberList) {
+        int no = member.getNo();
+        out.write(no >> 24);
+        out.write(no >> 16);
+        out.write(no >> 8);
+        out.write(no);
+
+        byte[] bytes = member.getName().getBytes("UTF-8");
+        out.write(bytes);
+
+        bytes = member.getEmail().getBytes("UTF-8");
+        out.write(bytes);
+
+        bytes = member.getPassword().getBytes("UTF-8");
+        out.write(bytes);
+
+        char gender = member.getGender();
+        out.write(gender >> 8);
+        out.write(gender);
+      }
+      out.close();
+
+    } catch (Exception e) {
+      System.out.println("회원 정보를 저장하는 중 오류 발생!");
+    }
+  }
+
+  private void prepareMenu() {
     MenuGroup memberMenu = new MenuGroup("회원");
     memberMenu.add(new Menu("등록", new MemberAddListener(memberList)));
     memberMenu.add(new Menu("목록", new MemberListListener(memberList)));
@@ -75,13 +114,6 @@ public class App {
     helloMenu.addActionListener(new HelloListener());
     helloMenu.addActionListener(new FooterListener());
     mainMenu.add(helloMenu);
-
-    return mainMenu;
-  }
-
-  public static void main(String[] args) {
-    App app = new App();
-    app.execute();
   }
 
   static void printTitle() {
