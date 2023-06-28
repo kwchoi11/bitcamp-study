@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -51,12 +52,27 @@ public class App {
   }
 
   private void loadData() {
+    try {
+      FileInputStream in = new FileInputStream("member.data");
+      int size = in.read();
+      size = (size << 8) | in.read();
 
+      in.close();
+
+    } catch (Exception e) {
+      System.out.println("회원 정보를 읽는 중 오류 발생!");
+    }
   }
 
   private void saveData() {
     try {
       FileOutputStream out = new FileOutputStream("member.data");
+
+      // 저장할 데이터의 개수를 먼저 출력한다.
+      int size = memberList.size();
+      out.write(size >> 8);
+      out.write(size);
+
       for (Member member : memberList) {
         int no = member.getNo();
         out.write(no >> 24);
@@ -65,12 +81,22 @@ public class App {
         out.write(no);
 
         byte[] bytes = member.getName().getBytes("UTF-8");
+        // 출력할 바이트의 개수를 2바이트로 표시한다.
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+
+        // 문자열의 바이트를 출력한다.
         out.write(bytes);
 
+
         bytes = member.getEmail().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
         out.write(bytes);
 
         bytes = member.getPassword().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
         out.write(bytes);
 
         char gender = member.getGender();
