@@ -22,11 +22,26 @@ public class DataOutputStream extends FileOutputStream {
     this.write(v);
   }
 
+  public void writelong(long v) throws IOException {
+    this.write((int) (v >> 56));
+    this.write((int) (v >> 48));
+    this.write((int) (v >> 40));
+    this.write((int) (v >> 32));
+    this.write((int) (v >> 24));
+    this.write((int) (v >> 16));
+    this.write((int) (v >> 8));
+    this.write((int) v);
+  }
+
+  public void writeChar(int v) throws IOException {
+    this.write(v >> 8);
+    this.write(v);
+  }
+
   public void writeUTF(String str) throws IOException {
     byte[] bytes = str.getBytes("UTF-8");
     this.write(bytes.length >> 8);
     this.write(bytes.length);
     this.write(bytes);
   }
-
 }
