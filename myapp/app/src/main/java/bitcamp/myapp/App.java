@@ -54,8 +54,20 @@ public class App {
   private void loadData() {
     try {
       FileInputStream in = new FileInputStream("member.data");
-      int size = in.read();
-      size = (size << 8) | in.read();
+      int size = in.read() << 8;
+      size |= in.read();
+
+      byte[] buf = new byte[1000];
+
+      for (int i = 0; i < size; i++) {
+        Member member = new Member();
+        member.setNo(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
+
+        int count = in.read(buf);
+        member.setName(new String(buf, 0, count, "UTF-8"));
+
+
+      }
 
       in.close();
 
