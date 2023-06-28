@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -58,14 +59,16 @@ public class App {
 
   private void loadData() {
     loadMember();
-    loadBoard();
-    loadReading();
+    loadBoard("board.data", boardList);
+    loadBoard("reading.data", readingList);
+
   }
 
   private void saveData() {
     saveMember();
-    saveBoard();
-    saveReading();
+    saveBoard("board.data", boardList);
+    saveBoard("reading.data", readingList);
+
   }
 
   private void prepareMenu() {
@@ -129,7 +132,7 @@ public class App {
         memberList.add(member);
       }
 
-      // 데이터를 로딩한 이후에
+      // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
       Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
 
       in.close();
@@ -138,6 +141,54 @@ public class App {
       System.out.println("회원 정보를 읽는 중 오류 발생!");
     }
   }
+
+  private void loadBoard(String filename, List<Board> list) {
+    try {
+      FileInputStream in = new FileInputStream(filename);
+      int size = in.read() << 8;
+      size |= in.read();
+
+      byte[] buf = new byte[1000];
+
+      for (int i = 0; i < size; i++) {
+        Board board = new Board();
+        board.setNo(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
+
+        int length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        board.setTitle(new String(buf, 0, length, "UTF-8"));
+
+        length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        board.setContent(new String(buf, 0, length, "UTF-8"));
+
+        length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        board.setWriter(new String(buf, 0, length, "UTF-8"));
+
+        length = in.read() << 8 | in.read();
+        in.read(buf, 0, length);
+        board.setPassword(new String(buf, 0, length, "UTF-8"));
+
+        board.setViewCount(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
+
+        board.setCreatedDate((long) in.read() << 56 | (long) in.read() << 48
+            | (long) in.read() << 40 | (long) in.read() << 32 | (long) in.read() << 24
+            | (long) in.read() << 16 | (long) in.read() << 8 | in.read());
+
+        list.add(board);
+      }
+
+      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
+
+      in.close();
+
+    } catch (Exception e) {
+      System.out.println(filename + "파일을 읽는 중 오류 발생!");
+    }
+  }
+
+
 
   private void saveMember() {
     try {
@@ -185,62 +236,16 @@ public class App {
     }
   }
 
-  private void loadBoard() {
+  private void saveBoard(String filename, List<Board> list) {
     try {
-      FileInputStream in = new FileInputStream("member.data");
-      int size = in.read() << 8;
-      size |= in.read();
-
-      byte[] buf = new byte[1000];
-
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
-
-        int length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setTitle(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setContent(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setWriter(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setPassword(new String(buf, 0, length, "UTF-8"));
-
-        board.setViewCount(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
-
-        board.setCreatedDate((long) in.read() << 56 | (long) in.read() << 48
-            | (long) in.read() << 40 | (long) in.read() << 32 | (long) in.read() << 24
-            | (long) in.read() << 16 | (long) in.read() << 8 | in.read());
-
-        boardList.add(board);
-      }
-
-      Board.boardNo = Math.max(Board.boardNo, boardList.get(boardList.size() - 1).getNo() + 1);
-
-      in.close();
-
-    } catch (Exception e) {
-      System.out.println("회원 정보를 읽는 중 오류 발생!");
-    }
-  }
-
-  private void saveBoard() {
-    try {
-      FileOutputStream out = new FileOutputStream("board.data");
+      FileOutputStream out = new FileOutputStream(filename);
 
       // 저장할 데이터의 개수를 먼저 출력한다.
-      int size = boardList.size();
+      int size = list.size();
       out.write(size >> 8);
       out.write(size);
 
-      for (Board board : boardList) {
+      for (Board board : list) {
         int no = board.getNo();
         out.write(no >> 24);
         out.write(no >> 16);
@@ -248,73 +253,8 @@ public class App {
         out.write(no);
 
         byte[] bytes = board.getTitle().getBytes("UTF-8");
-        // 출력할 바이트의 개수를 2바이트로 표시한다.
         out.write(bytes.length >> 8);
         out.write(bytes.length);
-
-        // 문자열의 바이트를 출력한다.
-        out.write(bytes);
-
-        bytes = board.getContent().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        bytes = board.getWriter().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        bytes = board.getPassword().getBytes("UTF-8");
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-        out.write(bytes);
-
-        int viewCount = board.getViewCount();
-        out.write(viewCount >> 24);
-        out.write(viewCount >> 16);
-        out.write(viewCount >> 8);
-        out.write(viewCount);
-
-        long createDate = board.getCreatedDate();
-        out.write((int) (createDate >> 56));
-        out.write((int) (createDate >> 48));
-        out.write((int) (createDate >> 40));
-        out.write((int) (createDate >> 32));
-        out.write((int) (createDate >> 24));
-        out.write((int) (createDate >> 16));
-        out.write((int) (createDate >> 8));
-        out.write((int) (createDate));
-      }
-      out.close();
-
-    } catch (Exception e) {
-      System.out.println("게시글 정보를 저장하는 중 오류 발생!");
-    }
-  }
-
-  private void saveReading() {
-    try {
-      FileOutputStream out = new FileOutputStream("reading.data");
-
-      // 저장할 데이터의 개수를 먼저 출력한다.
-      int size = boardList.size();
-      out.write(size >> 8);
-      out.write(size);
-
-      for (Board board : boardList) {
-        int no = board.getNo();
-        out.write(no >> 24);
-        out.write(no >> 16);
-        out.write(no >> 8);
-        out.write(no);
-
-        byte[] bytes = board.getTitle().getBytes("UTF-8");
-        // 출력할 바이트의 개수를 2바이트로 표시한다.
-        out.write(bytes.length >> 8);
-        out.write(bytes.length);
-
-        // 문자열의 바이트를 출력한다.
         out.write(bytes);
 
 
@@ -339,67 +279,22 @@ public class App {
         out.write(viewCount >> 8);
         out.write(viewCount);
 
-        long createDate = board.getCreatedDate();
-        out.write((int) (createDate >> 56));
-        out.write((int) (createDate >> 48));
-        out.write((int) (createDate >> 40));
-        out.write((int) (createDate >> 32));
-        out.write((int) (createDate >> 24));
-        out.write((int) (createDate >> 16));
-        out.write((int) (createDate >> 8));
-        out.write((int) (createDate));
+        long createdDate = board.getCreatedDate();
+        out.write((int) (createdDate >> 56));
+        out.write((int) (createdDate >> 48));
+        out.write((int) (createdDate >> 40));
+        out.write((int) (createdDate >> 32));
+        out.write((int) (createdDate >> 24));
+        out.write((int) (createdDate >> 16));
+        out.write((int) (createdDate >> 8));
+        out.write((int) createdDate);
       }
       out.close();
 
     } catch (Exception e) {
-      System.out.println("게시글 정보를 저장하는 중 오류 발생!");
+      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
     }
   }
 
-  private void loadReading() {
-    try {
-      FileInputStream in = new FileInputStream("reading.data");
-      int size = in.read() << 8;
-      size |= in.read();
-
-      byte[] buf = new byte[1000];
-
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
-
-        int length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setTitle(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setContent(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setWriter(new String(buf, 0, length, "UTF-8"));
-
-        length = in.read() << 8 | in.read();
-        in.read(buf, 0, length);
-        board.setPassword(new String(buf, 0, length, "UTF-8"));
-
-        board.setViewCount(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
-
-        board.setCreatedDate((long) in.read() << 56 | (long) in.read() << 48
-            | (long) in.read() << 40 | (long) in.read() << 32 | (long) in.read() << 24
-            | (long) in.read() << 16 | (long) in.read() << 8 | in.read());
-
-        readingList.add(board);
-      }
-
-      Board.boardNo = Math.max(Board.boardNo, readingList.get(readingList.size() - 1).getNo() + 1);
-
-      in.close();
-
-    } catch (Exception e) {
-      System.out.println("회원 정보를 읽는 중 오류 발생!");
-    }
-  }
 
 }
