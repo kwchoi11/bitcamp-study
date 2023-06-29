@@ -14,12 +14,41 @@ public class BufferedDataInputStream extends FileInputStream {
     super(name);
   }
 
+  @Override
+  public int read() throws IOException {
+    if (size == -1) {
+      return -1;
+    }
+
+    if (cursor == size) { // 바이트 배열에 저장되어 있는 데이터를 모두 읽었다면,
+      if ((size = super.read(buf)) == -1) { // 다시 파일에서 바이트 배열로 데이터를 왕창 읽어 온다.
+        return -1;
+      }
+      cursor = 0;
+    }
+    return buf[cursor++] & 0x000000ff;
+  }
+
+  @Override
+  public int read(byte[] arr) throws IOException {
+    for (int i = 0; i < arr.length; i++) {
+      int b = this.read();
+      if (b == -1) {
+        return i;
+      }
+      arr[i] = (byte) b;
+    }
+    return arr.length;
+  }
+
   public short readShort() throws IOException {
     return (short) (this.read() << 8 | this.read());
   }
 
+
   public int readInt() throws IOException {
     return this.read() << 24 | this.read() << 16 | this.read() << 8 | this.read();
+
   }
 
   public long readLong() throws IOException {
@@ -30,6 +59,7 @@ public class BufferedDataInputStream extends FileInputStream {
 
   public char readChar() throws IOException {
     return (char) (this.read() << 8 | this.read());
+
   }
 
   public String readUTF() throws IOException {
@@ -38,7 +68,4 @@ public class BufferedDataInputStream extends FileInputStream {
     this.read(buf);
     return new String(buf, "UTF-8");
   }
-
 }
-
-
