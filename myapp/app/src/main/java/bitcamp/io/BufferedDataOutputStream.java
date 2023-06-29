@@ -27,6 +27,7 @@ public class BufferedDataOutputStream extends FileOutputStream {
   @Override
   public void flush() throws IOException {
     super.write(buf, 0, cursor);
+    cursor = 0;
   }
 
   @Override
