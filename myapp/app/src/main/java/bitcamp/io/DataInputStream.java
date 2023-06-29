@@ -1,13 +1,19 @@
 package bitcamp.io;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
-public class DataInputStream extends FileInputStream {
+public class DataInputStream extends InputStream {
 
-  public DataInputStream(String name) throws FileNotFoundException {
-    super(name);
+  InputStream original;
+
+  public DataInputStream(InputStream original) {
+    this.original = original;
+  }
+
+  @Override
+  public int read() throws IOException {
+    return 0;
   }
 
   public short readShort() throws IOException {
