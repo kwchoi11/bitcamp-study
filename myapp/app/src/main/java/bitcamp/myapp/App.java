@@ -1,10 +1,12 @@
 package bitcamp.myapp;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import bitcamp.io.BufferedDataInputStream;
 import bitcamp.io.BufferedDataOutputStream;
+import bitcamp.io.DataInputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -103,7 +105,8 @@ public class App {
 
   private void loadMember() {
     try {
-      BufferedDataInputStream in = new BufferedDataInputStream("member.data");
+      FileInputStream in0 = new FileInputStream("member.data");
+      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
 
       int size = in.readShort();
 

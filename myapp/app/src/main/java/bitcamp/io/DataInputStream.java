@@ -13,7 +13,12 @@ public class DataInputStream extends InputStream {
 
   @Override
   public int read() throws IOException {
-    return 0;
+    return original.read();
+  }
+
+  @Override
+  public void close() throws IOException {
+    original.close();
   }
 
   public short readShort() throws IOException {
@@ -40,7 +45,4 @@ public class DataInputStream extends InputStream {
     this.read(buf);
     return new String(buf, "UTF-8");
   }
-
 }
-
-
