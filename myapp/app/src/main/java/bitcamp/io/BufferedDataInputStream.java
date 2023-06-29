@@ -45,10 +45,8 @@ public class BufferedDataInputStream extends FileInputStream {
     return (short) (this.read() << 8 | this.read());
   }
 
-
   public int readInt() throws IOException {
     return this.read() << 24 | this.read() << 16 | this.read() << 8 | this.read();
-
   }
 
   public long readLong() throws IOException {
@@ -59,7 +57,6 @@ public class BufferedDataInputStream extends FileInputStream {
 
   public char readChar() throws IOException {
     return (char) (this.read() << 8 | this.read());
-
   }
 
   public String readUTF() throws IOException {
@@ -68,4 +65,7 @@ public class BufferedDataInputStream extends FileInputStream {
     this.read(buf);
     return new String(buf, "UTF-8");
   }
+
 }
+
+

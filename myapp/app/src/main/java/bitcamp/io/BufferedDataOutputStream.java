@@ -6,8 +6,40 @@ import java.io.IOException;
 
 public class BufferedDataOutputStream extends FileOutputStream {
 
+  byte[] buf = new byte[8192];
+  int cursor;
+
   public BufferedDataOutputStream(String name) throws FileNotFoundException {
     super(name);
+  }
+
+  @Override
+  public void write(int b) throws IOException {
+    if (cursor == buf.length) { // 버퍼가 다 찼다면,
+      super.write(buf); // 버퍼에 들어있는 데이터를 한 번에 출력한다.
+      cursor = 0; // 다시 커서를 초기화시킨다.
+    }
+
+    // 1바이트 출력하라고 하면 일단 버퍼에 저장할 것이다.
+    buf[cursor++] = (byte) b; // 버퍼에 빈 공간이 있다면 버퍼에 저장한다.
+  }
+
+  @Override
+  public void flush() throws IOException {
+    super.write(buf, 0, cursor);
+  }
+
+  @Override
+  public void close() throws IOException {
+    this.flush();
+    this.close();
+  }
+
+  @Override
+  public void write(byte[] arr) throws IOException {
+    for (int i = 0; i < arr.length; i++) {
+      this.write(arr[i]);
+    }
   }
 
   public void writeShort(int v) throws IOException {
