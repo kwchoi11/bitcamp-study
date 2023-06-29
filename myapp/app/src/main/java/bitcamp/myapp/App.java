@@ -1,13 +1,14 @@
 package bitcamp.myapp;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import bitcamp.io.BufferedOutputStream;
-import bitcamp.io.DataInputStream;
-import bitcamp.io.DataOutputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -107,7 +108,8 @@ public class App {
   private void loadMember() {
     try {
       FileInputStream in0 = new FileInputStream("member.data");
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
+      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
 
       int size = in.readShort();
 
@@ -133,8 +135,9 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      FileInputStream in0 = new FileInputStream("member.data");
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
+      FileInputStream in0 = new FileInputStream(filename);
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
+      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
 
       int size = in.readShort();
 
@@ -162,8 +165,8 @@ public class App {
   private void saveMember() {
     try {
       FileOutputStream out0 = new FileOutputStream("member.data");
-      BufferedOutputStream out1 = new BufferedOutputStream(out0);
-      DataOutputStream out = new DataOutputStream(out1);
+      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
+      DataOutputStream out = new DataOutputStream(out1); // <== Decorator(장식품) 역할 수행!
 
       out.writeShort(memberList.size());
 
@@ -184,8 +187,8 @@ public class App {
   private void saveBoard(String filename, List<Board> list) {
     try {
       FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행
-      DataOutputStream out = new DataOutputStream(out1); // <== Decorator(장식품) 역할 수행
+      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
+      DataOutputStream out = new DataOutputStream(out1); // <== Decorator(장식품) 역할 수행!
 
       out.writeShort(list.size());
 
