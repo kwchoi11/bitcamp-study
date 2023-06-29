@@ -16,6 +16,17 @@ public class DataOutputStream extends OutputStream {
     original.write(b);
   }
 
+  @Override
+  public void flush() throws IOException {
+    original.flush();
+  }
+
+  @Override
+  public void close() throws IOException {
+    this.flush();
+    original.close();
+  }
+
   public void writeShort(int v) throws IOException {
     this.write(v >> 8);
     this.write(v);
