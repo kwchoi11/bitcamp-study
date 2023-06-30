@@ -3,9 +3,9 @@ package bitcamp.myapp;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,9 +68,9 @@ public class App {
   }
 
   private void saveData() {
-    saveMember();
-    saveBoard("board.data", boardList);
-    saveBoard("reading.data", readingList);
+    saveMember("member.data2", memberList);
+    saveBoard("board.data2", boardList);
+    saveBoard("reading.data2", readingList);
   }
 
   private void prepareMenu() {
@@ -162,20 +162,16 @@ public class App {
     }
   }
 
-  private void saveMember() {
+  private void saveMember(String filename, List<Member> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream("member.data");
+      FileOutputStream out0 = new FileOutputStream(filename);
       BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
-      DataOutputStream out = new DataOutputStream(out1); // <== Decorator(장식품) 역할 수행!
+      ObjectOutputStream out = new ObjectOutputStream(out1); // <== Decorator(j장식품) 역할 수행!
 
-      out.writeShort(memberList.size());
+      out.writeShort(list.size());
 
-      for (Member member : memberList) {
-        out.writeInt(member.getNo());
-        out.writeUTF(member.getName());
-        out.writeUTF(member.getEmail());
-        out.writeUTF(member.getPassword());
-        out.writeChar(member.getGender());
+      for (Member member : list) {
+        out.writeObject(member);
       }
       out.close();
 
@@ -188,18 +184,12 @@ public class App {
     try {
       FileOutputStream out0 = new FileOutputStream(filename);
       BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
-      DataOutputStream out = new DataOutputStream(out1); // <== Decorator(장식품) 역할 수행!
+      ObjectOutputStream out = new ObjectOutputStream(out1); // <== Decorator(장식품) 역할 수행!
 
       out.writeShort(list.size());
 
       for (Board board : list) {
-        out.writeInt(board.getNo());
-        out.writeUTF(board.getTitle());
-        out.writeUTF(board.getContent());
-        out.writeUTF(board.getWriter());
-        out.writeUTF(board.getPassword());
-        out.writeInt(board.getViewCount());
-        out.writeLong(board.getCreatedDate());
+        out.writeObject(board);
       }
       out.close();
 
