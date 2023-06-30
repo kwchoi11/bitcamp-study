@@ -1,12 +1,9 @@
 package bitcamp.myapp;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -64,9 +61,9 @@ public class App {
   }
 
   private void loadData() {
-    loadMember("member.data2", memberList);
-    loadBoard("board.data2", boardList);
-    loadBoard("reading.data2", readingList);
+    loadMember("member.csv", memberList);
+    loadBoard("board.csv", boardList);
+    loadBoard("reading.csv", readingList);
   }
 
   private void saveData() {
@@ -139,14 +136,24 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      FileInputStream in0 = new FileInputStream(filename);
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      ObjectInputStream in = new ObjectInputStream(in1); // <== Decorator 역할을 수행!
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
-      int size = in.readShort();
+      String line = null;
 
-      for (int i = 0; i < size; i++) {
-        list.add((Board) in.readObject());
+      while ((line = in.readLine()) != null) {
+        String[] values = line.split(",");
+
+        Board board = new Board();
+        board.setNo(Integer.parseInt(values[0]));
+        board.setTitle(values[1]);
+        board.setContent(values[2]);
+        board.setWriter(values[3]);
+        board.setPassword(values[4]);
+        board.setViewCount(Integer.parseInt(values[5]));
+        board.setCreatedDate(Long.parseLong(values[6]));
+
+        list.add(board);
       }
 
       if (list.size() > 0) {
