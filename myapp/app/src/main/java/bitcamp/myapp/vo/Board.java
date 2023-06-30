@@ -27,14 +27,17 @@ public class Board implements Serializable, CsvObject {
   public static Board fromCsv(String csv) {
     String[] values = csv.split(",");
 
-    Board board = new Board();
-    board.setNo(Integer.parseInt(values[0]));
+    Board board = new Board(Integer.parseInt(values[0]));
     board.setTitle(values[1]);
     board.setContent(values[2]);
     board.setWriter(values[3]);
     board.setPassword(values[4]);
     board.setViewCount(Integer.parseInt(values[5]));
     board.setCreatedDate(Long.parseLong(values[6]));
+
+    if (Board.boardNo <= board.getNo()) {
+      Board.boardNo = board.getNo() + 1;
+    }
 
     return board;
   }
