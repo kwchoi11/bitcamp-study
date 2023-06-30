@@ -2,7 +2,7 @@ package bitcamp.myapp.vo;
 
 import java.io.Serializable;
 
-public class Member implements Serializable {
+public class Member implements Serializable, CsvObject {
   private static final long serialVersionUID = 1L;
 
   public static int userId = 1;
@@ -25,6 +25,12 @@ public class Member implements Serializable {
   // => "생성자 오버로딩(overloading)"
   public Member(int no) {
     this.no = no;
+  }
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
+        this.getPassword(), this.getGender());
   }
 
   // Object의 equals()는 Member 인스턴스를 비교하는데 적합하지 않다.

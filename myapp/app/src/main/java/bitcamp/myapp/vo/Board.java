@@ -2,7 +2,7 @@ package bitcamp.myapp.vo;
 
 import java.io.Serializable;
 
-public class Board implements Serializable {
+public class Board implements Serializable, CsvObject {
   private static final long serialVersionUID = 1L;
 
   public static int boardNo = 1;
@@ -22,6 +22,12 @@ public class Board implements Serializable {
 
   public Board(int no) {
     this.no = no;
+  }
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
+        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
   }
 
   public boolean equals(Object obj) {
