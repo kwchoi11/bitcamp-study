@@ -1,11 +1,13 @@
 package bitcamp.myapp;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,9 +70,9 @@ public class App {
   }
 
   private void saveData() {
-    saveMember("member.data2", memberList);
-    saveBoard("board.data2", boardList);
-    saveBoard("reading.data2", readingList);
+    saveMember("member.csv", memberList);
+    saveBoard("board.csv", boardList);
+    saveBoard("reading.csv", readingList);
   }
 
   private void prepareMenu() {
@@ -107,14 +109,20 @@ public class App {
 
   private void loadMember(String filename, List<Member> list) {
     try {
-      FileInputStream in0 = new FileInputStream(filename);
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      ObjectInputStream in = new ObjectInputStream(in1); // <== Decorator 역할을 수행!
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
-      int size = in.readShort();
+      String line = null;
 
-      for (int i = 0; i < size; i++) {
-        list.add((Member) in.readObject());
+      while ((line = in.readLine()) != null) {
+        String[] values = line.split(",");
+        Member member = new Member();
+        member.setNo(Integer.parseInt(values[0]));
+        member.setName(values[1]);
+        member.setEmail(values[2]);
+        member.setPassword(values[3]);
+        member.setGender(values[4].charAt(0));
+        list.add(member);
       }
 
       if (list.size() > 0) {
@@ -154,14 +162,13 @@ public class App {
 
   private void saveMember(String filename, List<Member> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
-      ObjectOutputStream out = new ObjectOutputStream(out1); // <== Decorator(j장식품) 역할 수행!
-
-      out.writeShort(list.size());
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
+      PrintWriter out = new PrintWriter(out1); // <== Decorator(j장식품) 역할 수행!
 
       for (Member member : list) {
-        out.writeObject(member);
+        out.printf("%d,%s,%s,%s,%c\n", member.getNo(), member.getName(), member.getEmail(),
+            member.getPassword(), member.getGender());
       }
       out.close();
 
@@ -172,15 +179,15 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
-      ObjectOutputStream out = new ObjectOutputStream(out1); // <== Decorator(장식품) 역할 수행!
-
-      out.writeShort(list.size());
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
+      PrintWriter out = new PrintWriter(out1); // <== Decorator(장식품) 역할 수행!
 
       for (Board board : list) {
-        out.writeObject(board);
+        out.printf("%d,%s,%s,%s,%s,%d,%d\n", board.getNo(), board.getTitle(), board.getContent(),
+            board.getWriter(), board.getPassword(), board.getViewCount(), board.getCreatedDate());
       }
+
       out.close();
 
     } catch (Exception e) {
