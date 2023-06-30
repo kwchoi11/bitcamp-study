@@ -2,9 +2,9 @@ package bitcamp.myapp;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -62,9 +62,9 @@ public class App {
   }
 
   private void loadData() {
-    loadMember();
-    loadBoard("board.data", boardList);
-    loadBoard("reading.data", readingList);
+    loadMember("member.data2", memberList);
+    loadBoard("board.data2", boardList);
+    loadBoard("reading.data2", readingList);
   }
 
   private void saveData() {
@@ -105,26 +105,22 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-  private void loadMember() {
+  private void loadMember(String filename, List<Member> list) {
     try {
-      FileInputStream in0 = new FileInputStream("member.data");
+      FileInputStream in0 = new FileInputStream(filename);
       BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
+      ObjectInputStream in = new ObjectInputStream(in1); // <== Decorator 역할을 수행!
 
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
-        Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setGender(in.readChar());
-        memberList.add(member);
+        list.add((Member) in.readObject());
       }
 
-      // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
-      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
+      if (list.size() > 0) {
+        // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
+        Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
+      }
 
       in.close();
 
@@ -137,23 +133,17 @@ public class App {
     try {
       FileInputStream in0 = new FileInputStream(filename);
       BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
+      ObjectInputStream in = new ObjectInputStream(in1); // <== Decorator 역할을 수행!
 
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.readInt());
-        board.setTitle(in.readUTF());
-        board.setContent(in.readUTF());
-        board.setWriter(in.readUTF());
-        board.setPassword(in.readUTF());
-        board.setViewCount(in.readInt());
-        board.setCreatedDate(in.readLong());
-        list.add(board);
+        list.add((Board) in.readObject());
       }
 
-      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
+      if (list.size() > 0) {
+        Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
+      }
 
       in.close();
 
