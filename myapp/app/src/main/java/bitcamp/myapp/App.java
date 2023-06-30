@@ -63,15 +63,16 @@ public class App {
   }
 
   private void loadData() {
-    loadCsv("member.csv", memberList);
-    loadCsv("board.csv", boardList);
-    loadCsv("reading.csv", readingList);
+    loadCsv("member.csv", memberList, Member.class);
+    loadCsv("board.csv", boardList, Board.class);
+    loadCsv("reading.csv", readingList, Board.class);
   }
 
   private void saveData() {
     saveCsv("member.csv", memberList);
     saveCsv("board.csv", boardList);
     saveCsv("reading.csv", readingList);
+    // saveCsv("ok.csv", new ArrayList<Member>());
   }
 
   private void prepareMenu() {
@@ -106,19 +107,18 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-  private void loadCsv(String filename, List<T> list, Class<T> clazz,
-      Class<T extends CsvObject> clazz) {
+  @SuppressWarnings("unchecked")
+  private <T> void loadCsv(String filename, List<T> list, Class<T> clazz) {
     try {
       Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-
       FileReader in0 = new FileReader(filename);
       BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
       String line = null;
 
       while ((line = in.readLine()) != null) {
-        list.add(factoryMethod.invoke(null, line)); // Reflection API를 사용하여 스태틱 메서드 호출
-//        list.add(Member.fromCsv(line));           // 직접 스태틱 메서드 호출
+        list.add((T) factoryMethod.invoke(null, line)); // Reflection API를 사용하 스태틱 메서드 호출
+        // list.add(Member.fromCsv(line));
       }
 
       if (list.size() > 0) {
@@ -133,7 +133,8 @@ public class App {
     }
   }
 
-  private void saveCsv(String filename, List<? extends CsvObject> list) {
+  private void saveCsv(String filename, List<? extends CsvObject> list) { // ? -> List의 들어갈 내용을 결정하지
+                                                                          // 않음
     try {
       FileWriter out0 = new FileWriter(filename);
       BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
@@ -141,16 +142,16 @@ public class App {
 
       for (CsvObject obj : list) {
         out.println(obj.toCsvString());
-        // Board 클래스에 필드가 추가/변경/삭제 되더라도
-        // 여기 코드를 변경할 필요가 없다.
-        // 이것이 Information Expert 설계를 적용하는 이유다.
+        // Board 클래스의 필드가 추가/변경/삭제 되더라도
+        // App 클래스의 코드를 변경할 필요가 없다.
+        // 이것이 Information Expert 설계를 적용하는 이유다!
         // 설계를 어떻게 하느냐에 따라 유지보수가 쉬워질 수도 있고,
-        // 어려워질 수도 있다.
+        // 어려워 질 수도 있다.
       }
       out.close();
 
     } catch (Exception e) {
-      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
+      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
     }
   }
 }
