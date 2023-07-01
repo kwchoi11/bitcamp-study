@@ -95,6 +95,12 @@ public class App {
     readingMenu.add(new Menu("변경", new BoardUpdateListener(queryList)));
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(queryList)));
     mainMenu.add(readingMenu);
+
+    MenuGroup computeMenu = new MenuGroup("기록 계산");
+    computeMenu.add(new Menu("평균 자책점 계산하기"));
+    computeMenu.add(new Menu("WHIP 계산하기"));
+    computeMenu.add(new Menu("타율 계산하기"));
+    computeMenu.add(new Menu("OPS 계한하기"));
   }
 
   @SuppressWarnings("unchecked")
