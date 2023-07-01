@@ -1,39 +1,65 @@
 package pj.vo;
 
-public class Member {
+import java.io.Serializable;
 
-  // 모든 인스턴스가 공유하는 값은 스태틱 필드에 보관한다.
-  private static int userId = 1;
+public class Member implements Serializable, CsvObject {
+  private static final long serialVersionUID = 1L;
 
-  // 상수는 스태틱 필드로 정의한다.
-  // 정보를 다룰 때는 그 정보를 갖고 있는 클래스에 그 기능을 둔다.
-  // 필드도 마찬가지이다.
-  // => GRASP 패턴: Information Expert
-  public static final char LEFT = 'L';
-  public static final char RIGHT = 'R';
-  public static final char PITCHER = 'P';
-  public static final char BATTER = 'B';
+  public static int userId = 1;
 
-  // 인스턴스 필드는 각각 개별적으로 유지해야 하는 값을 저장할 때 사용한다.
-  // new 명령을 통해 변수를 Heap 영역에 생성한다.
-  public int no;
-  public String name;
-  public char position;
-  public String strikeOuts;
-  public String homeRuns;
-  public char hand;
+  public static final char MALE = 'M';
+  public static final char FEMALE = 'W';
 
-  // 생성자는 인스턴스를 생성한 후 필드를 초기화시키는 일을 한다.
-  // 인스턴스를 사용할 때 문제가 없도록 유효한 값으로 초기화시킨다.
-  // 기본 생성자(default constructor)는 개발자가 생성자를 정의하지 않을 때
-  // 컴파일러가 추가해주는 생성자다.
-  // 물론 개발자가 직접 추가할 수도 있다.
+  private int no;
+  private String name;
+  private String email;
+  private String password;
+  private char gender;
+
   public Member() {
     this.no = userId++;
   }
 
-  // getter/setter는 인스턴스 필드의 값을 설정하고 꺼내는 메서드다.
-  // 보통 외부에서 직접 필드에 접근하는 것을 막았을 때 사용한다.
+  public Member(int no) {
+    this.no = no;
+  }
+
+  public static Member fromCsv(String csv) {
+    String[] values = csv.split(",");
+
+    Member member = new Member(Integer.parseInt(values[0]));
+    member.setName(values[1]);
+    member.setEmail(values[2]);
+    member.setPassword(values[3]);
+    member.setGender(values[4].charAt(0));
+
+    if (Member.userId <= member.getNo()) {
+      Member.userId = member.getNo() + 1;
+    }
+
+    return member;
+  }
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
+        this.getPassword(), this.getGender());
+  }
+
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    Member m = (Member) obj;
+    if (this.getNo() != m.getNo()) {
+      return false;
+    }
+    return true;
+  }
+
   public int getNo() {
     return no;
   }
@@ -50,36 +76,28 @@ public class Member {
     this.name = name;
   }
 
-  public char getPosition() {
-    return position;
+  public String getEmail() {
+    return email;
   }
 
-  public void setPosition(char position) {
-    this.position = position;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public String getStrikeOuts() {
-    return strikeOuts;
+  public String getPassword() {
+    return password;
   }
 
-  public void setStrikeOuts(String strikeOuts) {
-    this.strikeOuts = strikeOuts;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
-  public String getHomeRuns() {
-    return homeRuns;
+  public char getGender() {
+    return gender;
   }
 
-  public void setHomeRuns(String homeRuns) {
-    this.homeRuns = homeRuns;
-  }
-
-  public char getHand() {
-    return hand;
-  }
-
-  public void setHand(char hand) {
-    this.hand = hand;
+  public void setGender(char gender) {
+    this.gender = gender;
   }
 
 }
