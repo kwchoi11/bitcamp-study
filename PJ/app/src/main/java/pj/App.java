@@ -14,9 +14,6 @@ import pj.handler.BoardDeleteListener;
 import pj.handler.BoardDetailListener;
 import pj.handler.BoardListListener;
 import pj.handler.BoardUpdateListener;
-import pj.handler.FooterListener;
-import pj.handler.HeaderListener;
-import pj.handler.HelloListener;
 import pj.handler.MemberAddListener;
 import pj.handler.MemberDeleteListener;
 import pj.handler.MemberDetailListener;
@@ -33,7 +30,7 @@ public class App {
 
   ArrayList<Member> memberList = new ArrayList<>();
   LinkedList<Board> boardList = new LinkedList<>();
-  LinkedList<Board> readingList = new LinkedList<>();
+  LinkedList<Board> queryList = new LinkedList<>();
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
@@ -48,7 +45,7 @@ public class App {
   }
 
   static void printTitle() {
-    System.out.println("나의 목록 관리 시스템");
+    System.out.println("SSG 랜더스");
     System.out.println("----------------------------------");
   }
 
@@ -65,17 +62,17 @@ public class App {
   private void loadData() {
     loadCsv("member.csv", memberList, Member.class);
     loadCsv("board.csv", boardList, Board.class);
-    loadCsv("reading.csv", readingList, Board.class);
+    loadCsv("reading.csv", queryList, Board.class);
   }
 
   private void saveData() {
     saveCsv("member.csv", memberList);
     saveCsv("board.csv", boardList);
-    saveCsv("reading.csv", readingList);
+    saveCsv("reading.csv", queryList);
   }
 
   private void prepareMenu() {
-    MenuGroup memberMenu = new MenuGroup("회원");
+    MenuGroup memberMenu = new MenuGroup("선수 정보");
     memberMenu.add(new Menu("등록", new MemberAddListener(memberList)));
     memberMenu.add(new Menu("목록", new MemberListListener(memberList)));
     memberMenu.add(new Menu("조회", new MemberDetailListener(memberList)));
@@ -83,7 +80,7 @@ public class App {
     memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberList)));
     mainMenu.add(memberMenu);
 
-    MenuGroup boardMenu = new MenuGroup("게시글");
+    MenuGroup boardMenu = new MenuGroup("응원 게시판");
     boardMenu.add(new Menu("등록", new BoardAddListener(boardList)));
     boardMenu.add(new Menu("목록", new BoardListListener(boardList)));
     boardMenu.add(new Menu("조회", new BoardDetailListener(boardList)));
@@ -91,19 +88,13 @@ public class App {
     boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardList)));
     mainMenu.add(boardMenu);
 
-    MenuGroup readingMenu = new MenuGroup("독서록");
-    readingMenu.add(new Menu("등록", new BoardAddListener(readingList)));
-    readingMenu.add(new Menu("목록", new BoardListListener(readingList)));
-    readingMenu.add(new Menu("조회", new BoardDetailListener(readingList)));
-    readingMenu.add(new Menu("변경", new BoardUpdateListener(readingList)));
-    readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingList)));
+    MenuGroup readingMenu = new MenuGroup("건의사항");
+    readingMenu.add(new Menu("등록", new BoardAddListener(queryList)));
+    readingMenu.add(new Menu("목록", new BoardListListener(queryList)));
+    readingMenu.add(new Menu("조회", new BoardDetailListener(queryList)));
+    readingMenu.add(new Menu("변경", new BoardUpdateListener(queryList)));
+    readingMenu.add(new Menu("삭제", new BoardDeleteListener(queryList)));
     mainMenu.add(readingMenu);
-
-    Menu helloMenu = new Menu("안녕!");
-    helloMenu.addActionListener(new HeaderListener());
-    helloMenu.addActionListener(new HelloListener());
-    helloMenu.addActionListener(new FooterListener());
-    mainMenu.add(helloMenu);
   }
 
   @SuppressWarnings("unchecked")
