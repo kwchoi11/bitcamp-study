@@ -12,7 +12,7 @@ public class MemberUpdateListener extends AbstractMemberListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    int memberNo = prompt.inputInt("번호? ");
+    int memberNo = prompt.inputInt("번호: ");
 
     Member m = this.findBy(memberNo);
     if (m == null) {
@@ -20,10 +20,13 @@ public class MemberUpdateListener extends AbstractMemberListener {
       return;
     }
 
-    m.setName(prompt.inputString("이름(%s)? ", m.getName()));
-    m.setEmail(prompt.inputString("이메일(%s)? ", m.getEmail()));
-    m.setPassword(prompt.inputString("새암호? "));
-    m.setGender(inputGender(m.getGender(), prompt));
+    m.setName(prompt.inputString("이름(%s): ", m.getName()));
+    m.setBirthday(prompt.inputString("생년월일(%s): ", m.getBirthday()));
+    m.setHeight(prompt.inputString("신장(%s): ", m.getHeight()));
+    m.setWeight(prompt.inputString("체중(%s): ", m.getWeight()));
+    m.setCareer(prompt.inputString("프로입단(%s): ", m.getCareer()));
+    m.setHand(prompt.inputString("투/타(%s): ", m.getHand()));
+    m.setPosition(inputPosition(m.getPosition(), prompt));
   }
 
 }

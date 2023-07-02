@@ -13,8 +13,17 @@ public abstract class AbstractMemberListener implements ActionListener {
     this.list = list;
   }
 
-  protected static String toGenderString(char gender) {
-    return gender == 'M' ? "남성" : "여성";
+  protected static String toPositionString(char position) {
+    if (position == 'C') {
+      return "포수";
+    } else if (position == 'P') {
+      return "투수";
+    } else if (position == 'I') {
+      return "내야수";
+    } else if (position == 'O') {
+      return "외야수";
+    }
+    throw new IllegalArgumentException("유효하지 않은 포지션입니다.");
   }
 
   protected Member findBy(int no) {
@@ -27,24 +36,29 @@ public abstract class AbstractMemberListener implements ActionListener {
     return null;
   }
 
-  protected char inputGender(char gender, BreadcrumbPrompt prompt) {
+  protected char inputPosition(char position, BreadcrumbPrompt prompt) {
     String label;
-    if (gender == 0) {
-      label = "성별?\n";
+    if (position == 0) {
+      label = "포지션: \n";
     } else {
-      label = String.format("성별(%s)?\n", toGenderString(gender));
+      label = String.format("포지션(%s): \n", toPositionString(position));
     }
 
     while (true) {
-      String menuNo = prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
+      String menuNo = prompt
+          .inputString(label + "  1. 포수\n" + "  2. 투수\n" + "  3. 내야수\n" + "  4. 외야수\n" + "> ");
 
       switch (menuNo) {
         case "1":
-          return Member.MALE;
+          return Member.CATCHER;
         case "2":
-          return Member.FEMALE;
+          return Member.PITCHER;
+        case "3":
+          return Member.INFIELDER;
+        case "4":
+          return Member.OUTFIELDER;
         default:
-          System.out.println("무효한 번호입니다.");
+          System.out.println("무효한 번호입니다. 다시 선택해주세요.");
       }
     }
   }

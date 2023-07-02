@@ -7,14 +7,19 @@ public class Member implements Serializable, CsvObject {
 
   public static int userId = 1;
 
-  public static final char MALE = 'M';
-  public static final char FEMALE = 'W';
+  public static final char CATCHER = 'C';
+  public static final char PITCHER = 'P';
+  public static final char INFIELDER = 'I';
+  public static final char OUTFIELDER = 'O';
 
   private int no;
   private String name;
-  private String email;
-  private String password;
-  private char gender;
+  private String birthday;
+  private String height;
+  private String weight;
+  private String career;
+  private String hand;
+  private char position;
 
   public Member() {
     this.no = userId++;
@@ -29,9 +34,12 @@ public class Member implements Serializable, CsvObject {
 
     Member member = new Member(Integer.parseInt(values[0]));
     member.setName(values[1]);
-    member.setEmail(values[2]);
-    member.setPassword(values[3]);
-    member.setGender(values[4].charAt(0));
+    member.setBirthday(values[2]);
+    member.setHeight(values[3]);
+    member.setWeight(values[4]);
+    member.setCareer(values[5]);
+    member.setHand(values[6]);
+    member.setPosition(values[7].charAt(0));
 
     if (Member.userId <= member.getNo()) {
       Member.userId = member.getNo() + 1;
@@ -42,8 +50,9 @@ public class Member implements Serializable, CsvObject {
 
   @Override
   public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
-        this.getPassword(), this.getGender());
+    return String.format("%d,%s,%s,%s,%s,%s,%s,%c", this.getNo(), this.getName(),
+        this.getBirthday(), this.getHeight(), this.getWeight(), this.getCareer(), this.getHand(),
+        this.getPosition());
   }
 
   public boolean equals(Object obj) {
@@ -76,28 +85,52 @@ public class Member implements Serializable, CsvObject {
     this.name = name;
   }
 
-  public String getEmail() {
-    return email;
+  public String getBirthday() {
+    return birthday;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setBirthday(String birthday) {
+    this.birthday = birthday;
   }
 
-  public String getPassword() {
-    return password;
+  public String getHeight() {
+    return height;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setHeight(String height) {
+    this.height = height;
   }
 
-  public char getGender() {
-    return gender;
+  public String getWeight() {
+    return weight;
   }
 
-  public void setGender(char gender) {
-    this.gender = gender;
+  public void setWeight(String weight) {
+    this.weight = weight;
+  }
+
+  public String getCareer() {
+    return career;
+  }
+
+  public void setCareer(String career) {
+    this.career = career;
+  }
+
+  public String getHand() {
+    return hand;
+  }
+
+  public void setHand(String hand) {
+    this.hand = hand;
+  }
+
+  public char getPosition() {
+    return position;
+  }
+
+  public void setPosition(char position) {
+    this.position = position;
   }
 
 }

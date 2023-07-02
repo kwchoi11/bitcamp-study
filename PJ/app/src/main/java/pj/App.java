@@ -45,7 +45,7 @@ public class App {
   }
 
   static void printTitle() {
-    System.out.println("SSG 랜더스");
+    System.out.println("SSG Landers 구단 게시판");
     System.out.println("----------------------------------");
   }
 
@@ -60,15 +60,15 @@ public class App {
   }
 
   private void loadData() {
-    loadCsv("member.csv", memberList, Member.class);
-    loadCsv("board.csv", boardList, Board.class);
-    loadCsv("reading.csv", queryList, Board.class);
+    loadCsv("members.csv", memberList, Member.class);
+    loadCsv("boards.csv", boardList, Board.class);
+    loadCsv("queries.csv", queryList, Board.class);
   }
 
   private void saveData() {
-    saveCsv("member.csv", memberList);
-    saveCsv("board.csv", boardList);
-    saveCsv("reading.csv", queryList);
+    saveCsv("members.csv", memberList);
+    saveCsv("boards.csv", boardList);
+    saveCsv("queries.csv", queryList);
   }
 
   private void prepareMenu() {
@@ -95,12 +95,6 @@ public class App {
     readingMenu.add(new Menu("변경", new BoardUpdateListener(queryList)));
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(queryList)));
     mainMenu.add(readingMenu);
-
-    MenuGroup computeMenu = new MenuGroup("기록 계산");
-    computeMenu.add(new Menu("평균 자책점 계산하기"));
-    computeMenu.add(new Menu("WHIP 계산하기"));
-    computeMenu.add(new Menu("타율 계산하기"));
-    computeMenu.add(new Menu("OPS 계한하기"));
   }
 
   @SuppressWarnings("unchecked")
@@ -109,13 +103,12 @@ public class App {
       Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
 
       FileReader in0 = new FileReader(filename);
-      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
+      BufferedReader in = new BufferedReader(in0);
 
       String line = null;
 
       while ((line = in.readLine()) != null) {
-        list.add((T) factoryMethod.invoke(null, line)); // Reflection API를 사용하여 스태틱 메서드 호출
-        // list.add(Member.fromCsv(line)); // 직접 스태틱 메서드 호출
+        list.add((T) factoryMethod.invoke(null, line));
       }
 
       in.close();
@@ -128,16 +121,11 @@ public class App {
   private void saveCsv(String filename, List<? extends CsvObject> list) {
     try {
       FileWriter out0 = new FileWriter(filename);
-      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
-      PrintWriter out = new PrintWriter(out1); // <== Decorator(장식품) 역할 수행!
+      BufferedWriter out1 = new BufferedWriter(out0);
+      PrintWriter out = new PrintWriter(out1);
 
       for (CsvObject obj : list) {
         out.println(obj.toCsvString());
-        // Board나 Member 클래스에 필드가 추가/변경/삭제되더라도
-        // 여기 코드를 변경할 필요가 없다.
-        // 이것이 Information Expert 설계를 적용하는 이유다!
-        // 설계를 어떻게 하느냐에 따라 유지보수가 쉬워질 수도 있고,
-        // 어려워질 수도 있다.
       }
       out.close();
 
