@@ -13,9 +13,9 @@ public class MemberListListener extends AbstractMemberListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    System.out.println("---------------------------------------");
+    System.out.println("---------------------------------------------------------");
     System.out.println("번호, 이름, 생년월일, 신장, 체중, 프로입단, 투/타, 포지션");
-    System.out.println("---------------------------------------");
+    System.out.println("---------------------------------------------------------");
 
     // 목록에서 데이터를 대신 꺼내주는 객체를 얻는다.
     Iterator<Member> iterator = list.iterator();
