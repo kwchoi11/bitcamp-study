@@ -25,7 +25,9 @@ public class PitcherUpdateListener extends AbstractPitcherBoardListener {
     // return;
     // }
 
-    pitcherBoard.setName(prompt.inputString("제목(%s)? ", pitcherBoard.getName()));
-    pitcherBoard.setEra(prompt.inputString("내용(%s)? ", pitcherBoard.getEra()));
+    pitcherBoard.setName(prompt.inputString("선수 이름(%s): ", pitcherBoard.getName()));
+    pitcherBoard.setEra(prompt.inputString("평균자책점(%s): ", pitcherBoard.getEra()));
+    pitcherBoard.setStrikeOut(prompt.inputString("탈삼진(%s): ", pitcherBoard.getStrikeOut()));
+    pitcherBoard.setWhip(prompt.inputString("WHIP(%s): ", pitcherBoard.getWhip()));
   }
 }

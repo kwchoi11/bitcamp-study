@@ -98,6 +98,14 @@ public class PitcherBoard implements Serializable, CsvObject {
     this.strikeOut = strikeOut;
   }
 
+  public String getWhip() {
+    return whip;
+  }
+
+  public void setWhip(String whip) {
+    this.whip = whip;
+  }
+
   public int getViewCount() {
     return viewCount;
   }
@@ -113,14 +121,4 @@ public class PitcherBoard implements Serializable, CsvObject {
   public void setCreatedDate(long createdDate) {
     this.createdDate = createdDate;
   }
-
-  public String getWhip() {
-    return whip;
-  }
-
-  public void setWhip(String whip) {
-    this.whip = whip;
-  }
-
-
 }
