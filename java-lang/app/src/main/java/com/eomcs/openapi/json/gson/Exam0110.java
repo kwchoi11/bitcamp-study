@@ -2,8 +2,11 @@
 package com.eomcs.openapi.json.gson;
 
 import java.sql.Date;
-import com.google.gson.Gson;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 public class Exam0110 {
   public static void main(String[] args) {
@@ -19,11 +22,24 @@ public class Exam0110 {
     m.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     // 2) JSON 처리 객체 준비
-    // GsonBuilder builder = new GsonBuilder();
-    // builder.setDateFormat("yyyy-MM-dd");
-    // Gson gson = builder.create();
+    // Date 타입의 값을 내보내고 가져올 때 사용할 변환 도구를 준비
+    class GsonDateFormatAdapter implements JsonSerializer<Date> {
 
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+      private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+      @Override
+      public JasonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+        // 객체를 Json 문자열로 변환할 때 호출된다.
+        // 그 중 Date 타입의 프로퍼티 값을 Json 문자열로 바꿀 때 호출된다.
+        String str = dateFormat.format(src);
+        System.out.println(str);
+
+        return new JsonP;
+      }
+   }
+
+    GsonBuilder builder = new GsonBuilder();
+    builder.registerTypeAdapter(Date.class, /* Date 형식의 데이터 출력을 도와줄 객체 */);
 
     // 3) 객체의 값을 JSON 문자열로 얻기
     String jsonStr = gson.toJson(m);
