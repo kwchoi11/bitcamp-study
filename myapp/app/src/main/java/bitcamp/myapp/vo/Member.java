@@ -2,7 +2,7 @@ package bitcamp.myapp.vo;
 
 import java.io.Serializable;
 
-public class Member implements Serializable, CsvObject {
+public class Member implements Serializable, CsvObject, AutoIncrement {
   private static final long serialVersionUID = 1L;
 
   public static int userId = 1;
@@ -44,6 +44,13 @@ public class Member implements Serializable, CsvObject {
   public String toCsvString() {
     return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
         this.getPassword(), this.getGender());
+  }
+
+  @Override
+  public void updateKey() {
+    if (Member.userId <= this.no) {
+      Member.userId = no + 1;
+    }
   }
 
   public boolean equals(Object obj) {
