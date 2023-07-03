@@ -15,10 +15,7 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
   private int viewCount;
   private long createdDate;
 
-  public Board() {
-    this.no = boardNo++;
-    this.createdDate = System.currentTimeMillis();
-  }
+  public Board() {}
 
   public Board(int no) {
     this.no = no;

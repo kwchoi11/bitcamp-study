@@ -16,9 +16,7 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
   private String password;
   private char gender;
 
-  public Member() {
-    this.no = userId++;
-  }
+  public Member() {}
 
   public Member(int no) {
     this.no = no;
@@ -49,7 +47,7 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
   @Override
   public void updateKey() {
     if (Member.userId <= this.no) {
-      Member.userId = no + 1;
+      Member.userId = this.no + 1;
     }
   }
 

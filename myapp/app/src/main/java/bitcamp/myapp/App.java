@@ -74,7 +74,6 @@ public class App {
     saveJson("member.json", memberList);
     saveJson("board.json", boardList);
     saveJson("reading.json", readingList);
-    // saveCsv("ok.csv", new ArrayList<Member>());
   }
 
   private void prepareMenu() {
@@ -109,7 +108,6 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-
   private <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
     try {
       FileReader in0 = new FileReader(filename);
@@ -125,7 +123,6 @@ public class App {
       in.close();
 
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
       Collection<T> objects = gson.fromJson(strBuilder.toString(),
           TypeToken.getParameterized(Collection.class, clazz).getType());
 
@@ -133,7 +130,6 @@ public class App {
 
       Class<?>[] interfaces = clazz.getInterfaces();
       for (Class<?> info : interfaces) {
-        System.out.println(info.getName());
         if (info == AutoIncrement.class) {
           AutoIncrement autoIncrement = (AutoIncrement) list.get(list.size() - 1);
           autoIncrement.updateKey();
@@ -142,14 +138,14 @@ public class App {
       }
 
     } catch (Exception e) {
-      System.out.println(filename + "파일을 읽는 중 오류 발생!");
+      System.out.println(filename + " 파일을 읽는 중 오류 발생!");
     }
   }
 
   private void saveJson(String filename, List<?> list) {
     try {
       FileWriter out0 = new FileWriter(filename);
-      BufferedWriter out = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
+      BufferedWriter out = new BufferedWriter(out0);
 
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
       out.write(gson.toJson(list));
@@ -157,7 +153,7 @@ public class App {
       out.close();
 
     } catch (Exception e) {
-      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
+      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
     }
   }
 }
