@@ -2,22 +2,22 @@ package pj.handler;
 
 import java.util.List;
 import pj.util.BreadcrumbPrompt;
-import pj.vo.Board;
+import pj.vo.BatterBoard;
 
-public class BatterAddListener extends AbstractBoardListener {
+public class BatterAddListener extends AbstractBatterBoardListener {
 
-  public BatterAddListener(List<Board> list) {
+  public BatterAddListener(List<BatterBoard> list) {
     super(list);
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    Board board = new Board();
-    board.setTitle(prompt.inputString("제목? "));
-    board.setContent(prompt.inputString("내용? "));
-    board.setWriter(prompt.inputString("작성자? "));
-    board.setPassword(prompt.inputString("암호? "));
-    this.list.add(board);
+    BatterBoard batterBoard = new BatterBoard();
+    batterBoard.setName(prompt.inputString("선수 이름: "));
+    batterBoard.setBattingAvrg(prompt.inputString("타율: "));
+    batterBoard.setRbi(prompt.inputString("타점: "));
+    batterBoard.setHomerun(prompt.inputString("홈런: "));
+    this.list.add(batterBoard);
   }
 }
 

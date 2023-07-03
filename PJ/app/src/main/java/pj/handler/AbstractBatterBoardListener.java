@@ -2,19 +2,19 @@ package pj.handler;
 
 import java.util.List;
 import pj.util.ActionListener;
-import pj.vo.Board;
+import pj.vo.BatterBoard;
 
 public abstract class AbstractBatterBoardListener implements ActionListener {
 
-  protected List<Board> list;
+  protected List<BatterBoard> list;
 
-  public AbstractBatterBoardListener(List<Board> list) {
+  public AbstractBatterBoardListener(List<BatterBoard> list) {
     this.list = list;
   }
 
-  protected Board findBy(int no) {
+  protected BatterBoard findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
-      Board b = this.list.get(i);
+      BatterBoard b = this.list.get(i);
       if (b.getNo() == no) {
         return b;
       }

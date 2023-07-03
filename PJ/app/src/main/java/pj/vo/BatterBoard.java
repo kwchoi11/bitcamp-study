@@ -5,18 +5,18 @@ import java.io.Serializable;
 public class BatterBoard implements Serializable, CsvObject {
   private static final long serialVersionUID = 1L;
 
-  public static int boardNo = 1;
+  public static int batterBoardNo = 1;
 
   private int no;
-  private String title;
-  private String content;
-  private String writer;
-  private String password;
+  private String name;
+  private String battingAvrg;
+  private String rbi;
+  private String homerun;
   private int viewCount;
   private long createdDate;
 
   public BatterBoard() {
-    this.no = boardNo++;
+    this.no = batterBoardNo++;
     this.createdDate = System.currentTimeMillis();
   }
 
@@ -27,25 +27,26 @@ public class BatterBoard implements Serializable, CsvObject {
   public static BatterBoard fromCsv(String csv) {
     String[] values = csv.split(",");
 
-    BatterBoard board = new BatterBoard(Integer.parseInt(values[0]));
-    board.setTitle(values[1]);
-    board.setContent(values[2]);
-    board.setWriter(values[3]);
-    board.setPassword(values[4]);
-    board.setViewCount(Integer.parseInt(values[5]));
-    board.setCreatedDate(Long.parseLong(values[6]));
+    BatterBoard batterBoard = new BatterBoard(Integer.parseInt(values[0]));
+    batterBoard.setName(values[1]);
+    batterBoard.setBattingAvrg(values[2]);
+    batterBoard.setRbi(values[3]);
+    batterBoard.setHomerun(values[4]);
+    batterBoard.setViewCount(Integer.parseInt(values[5]));
+    batterBoard.setCreatedDate(Long.parseLong(values[6]));
 
-    if (BatterBoard.boardNo <= board.getNo()) {
-      BatterBoard.boardNo = board.getNo() + 1;
+    if (BatterBoard.batterBoardNo <= batterBoard.getNo()) {
+      BatterBoard.batterBoardNo = batterBoard.getNo() + 1;
     }
 
-    return board;
+    return batterBoard;
   }
 
   @Override
   public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
-        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
+    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getName(),
+        this.getBattingAvrg(), this.getRbi(), this.getHomerun(), this.getViewCount(),
+        this.getCreatedDate());
   }
 
   public boolean equals(Object obj) {
@@ -74,28 +75,36 @@ public class BatterBoard implements Serializable, CsvObject {
     this.no = no;
   }
 
-  public String getTitle() {
-    return title;
+  public String getName() {
+    return name;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getContent() {
-    return content;
+  public String getBattingAvrg() {
+    return battingAvrg;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setBattingAvrg(String battingAvrg) {
+    this.battingAvrg = battingAvrg;
   }
 
-  public String getWriter() {
-    return writer;
+  public String getRbi() {
+    return rbi;
   }
 
-  public void setWriter(String writer) {
-    this.writer = writer;
+  public void setRbi(String rbi) {
+    this.rbi = rbi;
+  }
+
+  public String getHomerun() {
+    return homerun;
+  }
+
+  public void setHomerun(String homerun) {
+    this.homerun = homerun;
   }
 
   public int getViewCount() {
@@ -113,14 +122,4 @@ public class BatterBoard implements Serializable, CsvObject {
   public void setCreatedDate(long createdDate) {
     this.createdDate = createdDate;
   }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-
 }

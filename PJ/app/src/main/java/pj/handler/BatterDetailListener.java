@@ -2,30 +2,31 @@ package pj.handler;
 
 import java.util.List;
 import pj.util.BreadcrumbPrompt;
-import pj.vo.Board;
+import pj.vo.BatterBoard;
 
-public class BatterDetailListener extends AbstractBoardListener {
+public class BatterDetailListener extends AbstractBatterBoardListener {
 
-  public BatterDetailListener(List<Board> list) {
+  public BatterDetailListener(List<BatterBoard> list) {
     super(list);
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    int boardNo = prompt.inputInt("번호? ");
+    int batterBoardNo = prompt.inputInt("번호: ");
 
-    Board board = this.findBy(boardNo);
-    if (board == null) {
-      System.out.println("해당 번호의 게시글이 없습니다!");
+    BatterBoard batterBoard = this.findBy(batterBoardNo);
+    if (batterBoard == null) {
+      System.out.println("해당 번호의 선수 기록이 없습니다!");
       return;
     }
 
-    System.out.printf("제목: %s\n", board.getTitle());
-    System.out.printf("내용: %s\n", board.getContent());
-    System.out.printf("작성자: %s\n", board.getWriter());
-    System.out.printf("조회수: %s\n", board.getViewCount());
-    System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
-    board.setViewCount(board.getViewCount() + 1);
+    System.out.printf("선수 이름: %s\n", batterBoard.getName());
+    System.out.printf("타율: %s\n", batterBoard.getBattingAvrg());
+    System.out.printf("타점: %s\n", batterBoard.getRbi());
+    System.out.printf("홈런: %s\n", batterBoard.getHomerun());
+    System.out.printf("조회수: %s\n", batterBoard.getViewCount());
+    System.out.printf("등록일: %tY-%1$tm-%1$td\n", batterBoard.getCreatedDate());
+    batterBoard.setViewCount(batterBoard.getViewCount() + 1);
   }
 }
 

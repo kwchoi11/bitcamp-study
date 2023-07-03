@@ -20,11 +20,6 @@ public class PitcherUpdateListener extends AbstractPitcherBoardListener {
       return;
     }
 
-    // if (!prompt.inputString("암호? ").equals(pitcherBoard.getWhip())) {
-    // System.out.println("암호가 일치하지 않습니다!");
-    // return;
-    // }
-
     pitcherBoard.setName(prompt.inputString("선수 이름(%s): ", pitcherBoard.getName()));
     pitcherBoard.setEra(prompt.inputString("평균자책점(%s): ", pitcherBoard.getEra()));
     pitcherBoard.setStrikeOut(prompt.inputString("탈삼진(%s): ", pitcherBoard.getStrikeOut()));

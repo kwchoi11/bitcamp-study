@@ -9,6 +9,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import pj.handler.BatterAddListener;
+import pj.handler.BatterDeleteListener;
+import pj.handler.BatterDetailListener;
+import pj.handler.BatterListListener;
+import pj.handler.BatterUpdateListener;
 import pj.handler.BoardAddListener;
 import pj.handler.BoardDeleteListener;
 import pj.handler.BoardDetailListener;
@@ -101,13 +106,13 @@ public class App {
     pitcherMenu.add(new Menu("삭제", new PitcherDeleteListener(pitcherList)));
     mainMenu.add(pitcherMenu);
 
-    // MenuGroup batterMenu = new MenuGroup("타자 기록");
-    // batterMenu.add(new Menu("등록", new BatterAddListener(batterList)));
-    // batterMenu.add(new Menu("목록", new BatterListListener(batterList)));
-    // batterMenu.add(new Menu("조회", new BatterDetailListener(batterList)));
-    // batterMenu.add(new Menu("변경", new BatterUpdateListener(batterList)));
-    // batterMenu.add(new Menu("삭제", new BatterDeleteListener(batterList)));
-    // mainMenu.add(batterMenu);
+    MenuGroup batterMenu = new MenuGroup("타자 기록");
+    batterMenu.add(new Menu("등록", new BatterAddListener(batterList)));
+    batterMenu.add(new Menu("목록", new BatterListListener(batterList)));
+    batterMenu.add(new Menu("조회", new BatterDetailListener(batterList)));
+    batterMenu.add(new Menu("변경", new BatterUpdateListener(batterList)));
+    batterMenu.add(new Menu("삭제", new BatterDeleteListener(batterList)));
+    mainMenu.add(batterMenu);
 
     MenuGroup boardMenu = new MenuGroup("응원 게시판");
     boardMenu.add(new Menu("등록", new BoardAddListener(boardList)));
