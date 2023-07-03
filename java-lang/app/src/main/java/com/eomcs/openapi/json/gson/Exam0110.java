@@ -1,67 +1,23 @@
-// 객체 --> JSON 문자열 : 객체의 필드 값을 json 형식의 문자열로 만들기
+// JSON 문자열 --> 객체 : JSON 문자열을 해석하여 객체를 생성하기
 package com.eomcs.openapi.json.gson;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 public class Exam0110 {
   public static void main(String[] args) {
 
-    // 1) 객체 준비
-    Member m = new Member();
-    m.setNo(100);
-    m.setName("홍길동");
-    m.setEmail("hong@test.com");
-    m.setPassword("1111");
-    m.setPhoto("hong.gif");
-    m.setTel("010-2222-1111");
-    m.setRegisteredDate(new Date(System.currentTimeMillis()));
+    // 1) JSON 문자열 준비
+    String jsonStr =
+        "{\"no\":100,\"name\":\"홍길동\",\"email\":\"hong@test.com\",\"password\":\"1111\",\"photo\":\"hong.gif\",\"tel\":\"010-2222-1111\",\"registeredDate\":\"1월 24, 2022\"}";
 
     // 2) JSON 처리 객체 준비
-    // Date 타입의 값을 내보내고 가져올 때 사용할 변환 도구를 준비
-    class GsonDateFormatAdapter implements JsonSerializer<Date> {
+    Gson gson = new Gson();
 
-      private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    // 3) JSON 문자열을 가지고 객체 만들기
+    Member m = gson.fromJson(jsonStr, Member.class);
 
-      @Override
-      public JasonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-        // 객체를 Json 문자열로 변환할 때 호출된다.
-        // 그 중 Date 타입의 프로퍼티 값을 Json 문자열로 바꿀 때 호출된다.
-        return new JsonPrimitive(dateFormat.format(src));
-      }
-    }
-
-    // Gson 객체를 만들어 줄 도우미 객체
-    GsonBuilder builder = new GsonBuilder();
-
-    // Date 타입의 프로퍼티 값을 Json 형식의 문자열로 바꿔줄 변환기를 등록한다.
-    builder.registerTypeAdapter(Date.class, // 원래 데이터의 타입
-        new GsonDateFormatAdapter() // Date 형식의 데이터를 Json 문자열로 바꿔줄 변환기
-    );
-
-    Gson gson = builder.create();
-
-    // 3) 객체의 값을 JSON 문자열로 얻기
-    String jsonStr = gson.toJson(m);
-
-    System.out.println(jsonStr);
+    System.out.println(m);
   }
 }
-
-// JSON 객체 형식 - { 객체 정보 }
-// => { "프로퍼티명" : 값, "프로퍼티명": 값, ...}
-//
-// 값:
-// - 문자열 => "값"
-// - 숫자 => 값
-// - 논리 => true, false
-//
-// 프로퍼티명은 반드시 문자열로 표현해야 한다.
 
 

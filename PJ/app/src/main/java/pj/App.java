@@ -88,7 +88,7 @@ public class App {
     boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardList)));
     mainMenu.add(boardMenu);
 
-    MenuGroup readingMenu = new MenuGroup("건의사항");
+    MenuGroup readingMenu = new MenuGroup("구단 건의사항");
     readingMenu.add(new Menu("등록", new BoardAddListener(queryList)));
     readingMenu.add(new Menu("목록", new BoardListListener(queryList)));
     readingMenu.add(new Menu("조회", new BoardDetailListener(queryList)));
