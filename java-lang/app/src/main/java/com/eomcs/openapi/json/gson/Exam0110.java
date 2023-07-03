@@ -4,7 +4,9 @@ package com.eomcs.openapi.json.gson;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -31,15 +33,19 @@ public class Exam0110 {
       public JasonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
         // 객체를 Json 문자열로 변환할 때 호출된다.
         // 그 중 Date 타입의 프로퍼티 값을 Json 문자열로 바꿀 때 호출된다.
-        String str = dateFormat.format(src);
-        System.out.println(str);
-
-        return new JsonP;
+        return new JsonPrimitive(dateFormat.format(src));
       }
-   }
+    }
 
+    // Gson 객체를 만들어 줄 도우미 객체
     GsonBuilder builder = new GsonBuilder();
-    builder.registerTypeAdapter(Date.class, /* Date 형식의 데이터 출력을 도와줄 객체 */);
+
+    // Date 타입의 프로퍼티 값을 Json 형식의 문자열로 바꿔줄 변환기를 등록한다.
+    builder.registerTypeAdapter(Date.class, // 원래 데이터의 타입
+        new GsonDateFormatAdapter() // Date 형식의 데이터를 Json 문자열로 바꿔줄 변환기
+    );
+
+    Gson gson = builder.create();
 
     // 3) 객체의 값을 JSON 문자열로 얻기
     String jsonStr = gson.toJson(m);
