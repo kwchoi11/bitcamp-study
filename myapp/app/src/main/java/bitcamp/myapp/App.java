@@ -140,7 +140,7 @@ public class App {
           break;
         }
       }
-      System.out.println("------------------------------------------");
+
     } catch (Exception e) {
       System.out.println(filename + "파일을 읽는 중 오류 발생!");
     }
