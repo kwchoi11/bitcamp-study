@@ -62,7 +62,7 @@ public class App {
 
   static void printTitle() {
     System.out.println("SSG Landers 구단 게시판");
-    System.out.println("----------------------------------");
+    System.out.println("-----------------------");
   }
 
   public void execute() {

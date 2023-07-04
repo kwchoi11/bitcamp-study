@@ -5,7 +5,7 @@
     "era": "3.306",
     "strikeOut": "57",
     "whip": "1.332",
-    "viewCount": 1,
+    "viewCount": 2,
     "createdDate": 1688398338308
   },
   {
@@ -25,5 +25,14 @@
     "whip": "1.413",
     "viewCount": 0,
     "createdDate": 1688398372076
+  },
+  {
+    "no": 4,
+    "name": "1",
+    "era": "1",
+    "strikeOut": "1",
+    "whip": "1",
+    "viewCount": 0,
+    "createdDate": 1688457523238
   }
 ]
