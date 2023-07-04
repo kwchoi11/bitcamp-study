@@ -6,8 +6,11 @@ public class Exam0110 {
 
   interface ProtocolA {
     void rule1();
+
     void rule2();
+
     void rule3();
+
     void rule4();
   }
 
@@ -21,7 +24,7 @@ public class Exam0110 {
     public void rule2() {}
 
     @Override
-    public void rule3() {}
+    public void rule3() {}3
 
     @Override
     public void rule4() {}
