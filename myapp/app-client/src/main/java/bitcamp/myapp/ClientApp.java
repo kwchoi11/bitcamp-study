@@ -46,21 +46,21 @@ public class ClientApp {
 
     this.memberDao = new MemberNetworkDao("member", in, out);
     this.boardDao = new BoardNetworkDao("board", in, out);
-    this.readingDao = new BoardNetworkDao("board", in, out);
+    this.readingDao = new BoardNetworkDao("reading", in, out);
 
     prepareMenu();
   }
 
   public void close() throws Exception {
     prompt.close();
-    in.close();
     out.close();
+    in.close();
     socket.close();
   }
 
   public static void main(String[] args) throws Exception {
     if (args.length < 2) {
-      System.out.println("실행 예) java -cp bin/main bitcamp.myapp.ClientApp 서버 주소 포트번호");
+      System.out.println("실행 예) java ... bitcamp.myapp.ClientApp 서버주소 포트번호");
       return;
     }
 
@@ -118,4 +118,3 @@ public class ClientApp {
     mainMenu.add(helloMenu);
   }
 }
-

@@ -30,7 +30,7 @@ public class ServerApp {
 
   public static void main(String[] args) throws Exception {
     if (args.length < 1) {
-      System.out.println("실행 예) java -cp bin/main bitcamp.myapp.ServerApp 포트번호");
+      System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
 
@@ -40,10 +40,10 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
-    System.out.println("]MyList 서버 애플리케이션]");
+    System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
-    System.out.println("서버 실행중...");
+    System.out.println("서버 실행 중...");
 
     Socket socket = serverSocket.accept();
     DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -60,9 +60,8 @@ public class ServerApp {
 
       if (command.equals("quit")) {
         break;
-      } else if (command.equals("boafd/list")) {
-        HashMap<String, String> response = new HashMap<>();
-        response.put("status", "failure");
+      } else if (command.equals("board/list")) {
+        response.put("status", "success");
         response.put("data", gson.toJson(boardDao.list()));
 
       } else {
