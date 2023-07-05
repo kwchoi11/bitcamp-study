@@ -11,54 +11,42 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.vo.AutoIncrement;
-import bitcamp.myapp.vo.Member;
+import bitcamp.myapp.vo.Board;
 
-public class MemberListDao implements MemberDao {
+public class BoardListDao implements BoardDao {
 
   String filename;
-  ArrayList<Member> list = new ArrayList<>();
+  ArrayList<Board> list = new ArrayList<>();
 
-  public MemberListDao(String filename) {
+  public BoardListDao(String filename) {
     this.filename = filename;
-    loadJson(list, Member.class);
+    loadJson(list, Board.class);
   }
 
   @Override
-  public void insert(Member member) {
-    // 데이터 입력할 때 해당 데이터의 식별 번호는 DAO에서 관리한다.
-    member.setNo(Member.userId++);
-    this.list.add(member);
+  public void insert(Board board) {
+    board.setNo(Board.boardNo++);
+    this.list.add(board);
 
-    // 데이터를 등록할 때마다 즉시 파일에 저장한다.
     saveJson(list);
   }
 
   @Override
-  public List<Member> list() {
+  public List<Board> list() {
     return this.list;
   }
 
   @Override
-  public Member findBy(int no) {
+  public Board findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
-      Member m = this.list.get(i);
-      if (m.getNo() == no) {
-        return m;
+      Board board = this.list.get(i);
+      if (board.getNo() == no)
+        ;
+      {
+        return board;
       }
     }
     return null;
-  }
-
-  @Override
-  public int update(Member member) {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getNo() == member.getNo()) {
-        list.set(i, member);
-        saveJson(list);
-        return 1;
-      }
-    }
-    return 0;
   }
 
   @Override
@@ -66,14 +54,13 @@ public class MemberListDao implements MemberDao {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i).getNo() == no) {
         list.remove(i);
-        saveJson(list);
         return 1;
       }
     }
     return 0;
   }
 
-  private <T> void loadJson(List<T> list, Class<T> clazz) {
+  private <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
     try {
       FileReader in0 = new FileReader(filename);
       BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
@@ -107,7 +94,7 @@ public class MemberListDao implements MemberDao {
     }
   }
 
-  private void saveJson(List<?> list) {
+  private void saveJson(String filename, List<?> list) {
     try {
       FileWriter out0 = new FileWriter(filename);
       BufferedWriter out = new BufferedWriter(out0);

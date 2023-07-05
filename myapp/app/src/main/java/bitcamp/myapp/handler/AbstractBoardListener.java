@@ -4,7 +4,7 @@ import java.util.List;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
 
-public abstract class AbstractBoardListener implements ActionListener {
+public interface AbstractBoardListener extends ActionListener {
 
   protected List<Board> list;
 
