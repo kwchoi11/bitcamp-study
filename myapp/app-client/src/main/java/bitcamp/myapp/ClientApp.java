@@ -17,7 +17,10 @@ public class ClientApp {
     OutputStream out = socket.getOutputStream();
     InputStream in = socket.getInputStream();
 
-    out.write(100);
+    String str = "Fuck you~";
+    out.write(str.getBytes("UTF-8"));
+    out.write(0X42);
+    out.write(0X43);
 
     out.close();
     in.close();

@@ -16,8 +16,11 @@ public class ServerApp {
     InputStream in = socket.getInputStream();
     OutputStream out = socket.getOutputStream();
 
-    int b = in.read();
-    System.out.println(b);
+    byte[] buf = new byte[8192];
+    int len = in.read(buf);
+    String str = new String(buf, 0, len, "UTF-8");
+
+    System.out.println(str);
 
     in.close();
     out.close();
