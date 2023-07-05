@@ -4,8 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.BoardListDao;
+import bitcamp.myapp.dao.BoardNetworkDao;
 import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.dao.MemberNetworkDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -29,32 +30,37 @@ public class ClientApp {
   DataOutputStream out;
   DataInputStream in;
 
-  MemberDao memberDao = new MemberNetworkDao("member, in, out");
-  BoardDao boardDao = new BoardListDao("board.json");
-  BoardDao readingDao = new BoardListDao("reading.json");
+  MemberDao memberDao;
+  BoardDao boardDao;
+  BoardDao readingDao;
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
   public ClientApp(String ip, int port) throws Exception {
+
     this.socket = new Socket(ip, port);
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
+
+    this.memberDao = new MemberNetworkDao("member", in, out);
+    this.boardDao = new BoardNetworkDao("board", in, out);
+    this.readingDao = new BoardNetworkDao("board", in, out);
 
     prepareMenu();
   }
 
   public void close() throws Exception {
     prompt.close();
-    out.close();
     in.close();
+    out.close();
     socket.close();
   }
 
   public static void main(String[] args) throws Exception {
     if (args.length < 2) {
-      System.out.println("실행 예) java -cp bin/main bitcamp.myapp.ClientApp 서버주소 포트번호");
+      System.out.println("실행 예) java -cp bin/main bitcamp.myapp.ClientApp 서버 주소 포트번호");
       return;
     }
 
@@ -71,6 +77,13 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
+
+    try {
+      out.writeUTF("quit");
+    } catch (Exception e) {
+      System.out.println("종료 오류!");
+      e.printStackTrace();
+    }
   }
 
   private void prepareMenu() {
@@ -105,3 +118,4 @@ public class ClientApp {
     mainMenu.add(helloMenu);
   }
 }
+
