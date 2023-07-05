@@ -62,4 +62,6 @@ public class BoardListDao implements BoardDao {
     }
     return 0;
   }
+
+
 }

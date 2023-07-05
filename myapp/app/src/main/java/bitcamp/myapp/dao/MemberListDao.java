@@ -21,7 +21,7 @@ public class MemberListDao implements MemberDao {
     member.setNo(Member.userId++);
     this.list.add(member);
 
-    // 데이터를 등록할 때마다 즉시 파일에 저장한다.
+    // 데이터를 등록할 때 마다 즉시 파일에 저장한다.
     JsonDataHelper.saveJson(filename, list);
   }
 
