@@ -4,10 +4,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import com.google.gson.Gson;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardListDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MemberListDao;
+import bitcamp.myapp.vo.Board;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
@@ -34,9 +36,14 @@ public class ServerApp {
       return;
     }
 
-    ServerApp app = new ServerApp(Integer.parseInt(args[0]));
-    app.execute();
-    app.close();
+    Object obj = "Hello";
+
+    System.out.println(obj);
+    System.out.println(new Gson().toJson(obj));
+
+    // ServerApp app = new ServerApp(Integer.parseInt(args[0]));
+    // app.execute();
+    // app.close();
   }
 
   public void execute() throws Exception {
@@ -62,8 +69,8 @@ public class ServerApp {
       } else if (command.equals("board/list")) {
         response.status(ResponseEntity.SUCCESS).status(ResponseEntity.SUCCESS)
             .result(boardDao.list());
-      } else if (command.equals("board/list")) {
-
+      } else if (command.equals("board/insert")) {
+        new Gson().fromJson(request.getData(), Board.class);
       } else {
         response.status(ResponseEntity.FAILURE).result("해당 명령을 지원하지 않습니다.");
       }

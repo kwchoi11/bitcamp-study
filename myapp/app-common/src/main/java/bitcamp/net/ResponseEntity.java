@@ -12,6 +12,15 @@ public class ResponseEntity {
   String status;
   String result;
 
+  @SuppressWarnings("unchecked")
+  public <T> T getObject(Class<T> clazz) {
+    if (clazz == String.class) {
+      return (T) result;
+    } else {
+      return new Gson().fromJson(result, clazz);
+    }
+  }
+
   public <T> List<T> getList(Class<T> clazz) {
     return new Gson().fromJson(result, TypeToken.getParameterized(List.class, clazz).getType());
   }
@@ -45,6 +54,4 @@ public class ResponseEntity {
   public String getResult() {
     return result;
   }
-
-
 }
