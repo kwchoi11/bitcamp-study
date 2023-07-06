@@ -50,9 +50,13 @@ public class BoardNetworkDao implements BoardDao {
   @Override
   public List<Board> list() {
     try {
-      out.writeUTF(dataName + "/insert");
-
       Gson gson = new Gson();
+
+      HashMap<String, Object> request = new HashMap<>();
+      request.put("command", dataName + "/list");
+
+      out.writeUTF(gson.toJson(request));
+
       Map<String, Object> response = gson.fromJson(in.readUTF(), Map.class);
       if (!response.get("status").equals("success")) {
         throw new RuntimeException((String) response.get("result"));
