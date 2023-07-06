@@ -43,7 +43,6 @@ public class RequestEntity {
     return this;
   }
 
-  // 값을 꺼낼 때 -> getter
   public String getCommand() {
     return command;
   }

@@ -45,7 +45,9 @@ public class BoardNetworkDao implements BoardDao {
       if (response.getStatus().equals(ResponseEntity.FAILURE)) {
         throw new RuntimeException(response.getResult());
       }
+
       return response.getList(Board.class);
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -63,6 +65,7 @@ public class BoardNetworkDao implements BoardDao {
       } else if (response.getStatus().equals(ResponseEntity.FAILURE)) {
         return null;
       }
+
       return response.getObject(Board.class);
 
     } catch (IOException e) {
@@ -111,4 +114,6 @@ public class BoardNetworkDao implements BoardDao {
       throw new RuntimeException(e);
     }
   }
+
+
 }

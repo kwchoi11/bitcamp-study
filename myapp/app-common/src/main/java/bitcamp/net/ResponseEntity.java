@@ -22,7 +22,7 @@ public class ResponseEntity {
     }
   }
 
-  // Generic Method
+
   public <T> List<T> getList(Class<T> clazz) {
     return new Gson().fromJson(result, TypeToken.getParameterized(List.class, clazz).getType());
   }
@@ -56,4 +56,6 @@ public class ResponseEntity {
   public String getResult() {
     return result;
   }
+
+
 }

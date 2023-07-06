@@ -34,6 +34,7 @@ public class ServerApp {
       System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
+
     ServerApp app = new ServerApp(Integer.parseInt(args[0]));
     app.execute();
     app.close();
@@ -55,7 +56,6 @@ public class ServerApp {
       String command = request.getCommand();
       System.out.println(command);
 
-      // 응답을 위한 HashMap 객체 준비
       ResponseEntity response = new ResponseEntity();
 
       if (command.equals("quit")) {
@@ -83,7 +83,7 @@ public class ServerApp {
           response.status(ResponseEntity.SUCCESS).result(value);
           break;
         case "board/delete":
-          value = boardDao.update(request.getObject(Board.class));
+          value = boardDao.delete(request.getObject(Integer.class));
           response.status(ResponseEntity.SUCCESS).result(value);
           break;
         default:
