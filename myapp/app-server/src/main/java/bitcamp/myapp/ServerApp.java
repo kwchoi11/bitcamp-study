@@ -34,7 +34,6 @@ public class ServerApp {
       System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
-
     ServerApp app = new ServerApp(Integer.parseInt(args[0]));
     app.execute();
     app.close();
@@ -56,18 +55,28 @@ public class ServerApp {
       String command = request.getCommand();
       System.out.println(command);
 
+      // 응답을 위한 HashMap 객체 준비
       ResponseEntity response = new ResponseEntity();
 
       if (command.equals("quit")) {
         break;
       } else if (command.equals("board/list")) {
-        response.status(ResponseEntity.SUCCESS).status(ResponseEntity.SUCCESS)
-            .result(boardDao.list());
+        response.status(ResponseEntity.SUCCESS).result(boardDao.list());
+
       } else if (command.equals("board/insert")) {
         boardDao.insert(request.getObject(Board.class));
         response.status(ResponseEntity.SUCCESS);
+
+      } else if (command.equals("board/findBy")) {
+        Board board = boardDao.findBy(request.getObject(Integer.class));
+        if (board == null) {
+          response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+        } else {
+          response.status(ResponseEntity.SUCCESS).result(board);
+        }
+
       } else {
-        response.status(ResponseEntity.FAILURE).result("해당 명령을 지원하지 않습니다.");
+        response.status(ResponseEntity.ERROR).result("해당 명령을 지원하지 않습니다!");
       }
 
       out.writeUTF(response.toJson());
@@ -78,4 +87,5 @@ public class ServerApp {
     socket.close();
   }
 }
+
 
