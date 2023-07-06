@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.vo.Board;
 
@@ -26,22 +25,21 @@ public class BoardNetworkDao implements BoardDao {
   @Override
   public void insert(Board board) {
     try {
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      Gson gson = new Gson();
 
       // 서버에 보낼 명령과 데이터를 Map 객체에 담는다.
       HashMap<String, Object> request = new HashMap<>();
       request.put("command", dataName + "/insert");
-      request.put("data", board);
+      request.put("data", gson.toJson(board));
 
-      System.out.println(gson.toJson(request));
-      // // Map 객체에 담은 정보를 JSON 문자열로 변환하여 서버에 보낸다.
-      // out.writeUTF(gson.toJson(request));
-      //
-      // // 서버에서 보낸 응답을 받는다.
-      // Map<String, Object> response = gson.fromJson(in.readUTF(), Map.class);
-      // if (!response.get("status").equals("success")) {
-      // throw new RuntimeException((String) response.get("message"));
-      // }
+      // Map 객체에 담은 정보를 JSON 문자열로 변환하여 서버에 보낸다.
+      out.writeUTF(gson.toJson(request));
+
+      // 서버에서 보낸 응답을 받는다.
+      Map<String, Object> response = gson.fromJson(in.readUTF(), Map.class);
+      if (!response.get("status").equals("success")) {
+        throw new RuntimeException((String) response.get("result"));
+      }
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
@@ -57,10 +55,10 @@ public class BoardNetworkDao implements BoardDao {
       Gson gson = new Gson();
       Map<String, Object> response = gson.fromJson(in.readUTF(), Map.class);
       if (!response.get("status").equals("success")) {
-        throw new RuntimeException((String) response.get("message"));
+        throw new RuntimeException((String) response.get("result"));
       }
 
-      return gson.fromJson((String) response.get("data"),
+      return gson.fromJson((String) response.get("result"),
           TypeToken.getParameterized(List.class, Board.class).getType());
 
     } catch (Exception e) {
