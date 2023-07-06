@@ -10,6 +10,10 @@ public class RequestEntity {
     return new Gson().toJson(this);
   }
 
+  public static RequestEntity fromJson(String json) {
+    return new Gson().fromJson(json, RquestEntity.class);
+  }
+
   public RequestEntity command(String command) {
     this.command = command;
     return this;

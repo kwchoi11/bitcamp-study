@@ -16,6 +16,10 @@ public class ResponseEntity {
     return new Gson().fromJson(result, TypeToken.getParameterized(List.class, clazz).getType());
   }
 
+  public String toJson() {
+    return new Gson().toJson(this);
+  }
+
   public static ResponseEntity fromJson(String json) {
     return new Gson().fromJson(json, ResponseEntity.class);
   }
