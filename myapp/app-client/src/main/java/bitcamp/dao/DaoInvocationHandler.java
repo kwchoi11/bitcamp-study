@@ -25,7 +25,7 @@ public class DaoInvocationHandler implements InvocationHandler {
     Class<?> returnType = method.getReturnType();
 
     System.out.println(returnType == List.class);
-    System.out.println(returnType.getTypeParameters());
+    System.out.println(returnType.getTypeParameters()[0].getTypeName());
   }
 
   public DaoInvocationHandler(String dataName, DataInputStream in, DataOutputStream out) {
