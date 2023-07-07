@@ -4,7 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
 import bitcamp.myapp.vo.Board;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
@@ -19,13 +21,19 @@ public class DaoInvocationHandler implements InvocationHandler {
     return null;
   }
 
+  public static Map<String, Board> list2() {
+    return null;
+  }
+
   public static void main(String[] args) throws Exception {
     Method method = DaoInvocationHandler.class.getDeclaredMethod("list");
 
     Class<?> returnType = method.getReturnType();
-
     System.out.println(returnType == List.class);
-    System.out.println(returnType.getTypeParameters()[0].getTypeName());
+
+    ParameterizedType paramType = (ParameterizedType) method.getGenericReturnType();
+    Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
+    System.out.println(itemType.getSimpleName());
   }
 
   public DaoInvocationHandler(String dataName, DataInputStream in, DataOutputStream out) {
@@ -61,9 +69,11 @@ public class DaoInvocationHandler implements InvocationHandler {
     } else if (returnType == void.class) {
       return null;
     } else if (returnType == List.class) {
-      return response.getList(returnType.getComponentType());
+      ParameterizedType paramType = (ParameterizedType) method.getGenericReturnType();
+      Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
+      return response.getList(itemType);
     } else {
-      return null;
+      return response.getObject(returnType);
     }
   }
 }
