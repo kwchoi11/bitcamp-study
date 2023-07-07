@@ -9,12 +9,12 @@ import bitcamp.myapp.ClientApp;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
-public class DaoBuilder {
+public class DaoBuilder2 {
 
   DataInputStream in;
   DataOutputStream out;
 
-  public DaoBuilder(DataInputStream in, DataOutputStream out) {
+  public DaoBuilder2(DataInputStream in, DataOutputStream out) {
     this.in = in;
     this.out = out;
   }
@@ -59,6 +59,4 @@ public class DaoBuilder {
           }
         });
   }
-
-
 }
