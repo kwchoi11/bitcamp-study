@@ -25,16 +25,17 @@ public class DaoInvocationHandler implements InvocationHandler {
     return null;
   }
 
-  public static void main(String[] args) throws Exception {
-    Method method = DaoInvocationHandler.class.getDeclaredMethod("list");
-
-    Class<?> returnType = method.getReturnType();
-    System.out.println(returnType == List.class);
-
-    ParameterizedType paramType = (ParameterizedType) method.getGenericReturnType();
-    Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
-    System.out.println(itemType.getSimpleName());
-  }
+  // 테스트를 위해 만든 메인 메서드. 테스트 후에 지우면 된다.
+  // public static void main(String[] args) throws Exception {
+  // Method method = DaoInvocationHandler.class.getDeclaredMethod("list");
+  //
+  // Class<?> returnType = method.getReturnType();
+  // System.out.println(returnType == List.class);
+  //
+  // ParameterizedType paramType = (ParameterizedType) method.getGenericReturnType();
+  // Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
+  // System.out.println(itemType.getSimpleName());
+  // }
 
   public DaoInvocationHandler(String dataName, DataInputStream in, DataOutputStream out) {
     this.dataName = dataName;
