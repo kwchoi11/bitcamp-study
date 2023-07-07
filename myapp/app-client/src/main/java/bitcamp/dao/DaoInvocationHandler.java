@@ -57,7 +57,7 @@ public class DaoInvocationHandler implements InvocationHandler {
     Class<?> returnType = method.getReturnType();
 
     if (returnType == int.class) {
-      return response.getObject(Int.class);
+      return response.getObject(int.class);
     } else if (returnType == void.class) {
       return null;
     } else if (returnType == List.class) {
