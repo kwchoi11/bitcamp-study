@@ -1,4 +1,4 @@
-package bitcamp.myapp.dao;
+package bitcamp.dao;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

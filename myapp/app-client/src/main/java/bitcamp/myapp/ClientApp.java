@@ -2,10 +2,9 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.lang.reflect.Proxy;
 import java.net.Socket;
+import bitcamp.dao.DaoBuilder;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.DaoInvocationHandler;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
@@ -45,12 +44,12 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    this.memberDao = (MemberDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
-        new Class[] {MemberDao.class}, new DaoInvocationHandler("member", in, out));
-    this.boardDao = (BoardDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
-        new Class[] {BoardDao.class}, new DaoInvocationHandler("member", in, out));
-    this.readingDao = (BoardDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
-        new Class[] {BoardDao.class}, new DaoInvocationHandler("member", in, out));
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+
+    this.memberDao = daoBuilder.build("member", MemberDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.readingDao = daoBuilder.build("board", BoardDao.class);
+
     prepareMenu();
   }
 
