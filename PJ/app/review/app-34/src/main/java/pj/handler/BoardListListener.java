@@ -13,9 +13,9 @@ public class BoardListListener extends AbstractBoardListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    System.out.println("----------------------------------");
+    System.out.println("---------------------------------------");
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
-    System.out.println("----------------------------------");
+    System.out.println("---------------------------------------");
 
     Iterator<Board> iterator = list.iterator();
 
