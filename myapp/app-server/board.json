@@ -43,5 +43,32 @@
     "password": "123",
     "viewCount": 0,
     "createdDate": 1688954994202
+  },
+  {
+    "no": 7,
+    "title": "123",
+    "content": "123",
+    "writer": "123",
+    "password": "123",
+    "viewCount": 0,
+    "createdDate": 1688956798611
+  },
+  {
+    "no": 8,
+    "title": "123",
+    "content": "123",
+    "writer": "123",
+    "password": "123",
+    "viewCount": 0,
+    "createdDate": 1688956798612
+  },
+  {
+    "no": 9,
+    "title": "ㅂㅈㄷ",
+    "content": "123",
+    "writer": "123",
+    "password": "123",
+    "viewCount": 0,
+    "createdDate": 1688957114984
   }
 ]
