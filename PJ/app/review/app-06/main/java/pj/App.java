@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
-    System.out.println("나의 목록 관리 시스템");
-    System.out.println("----------------------------------");
+    System.out.println("SSG 랜더스 선수 관리 시스템");
+    System.out.println("---------------------------");
 
     // 키보드 스캐너 준비
     Scanner scanner = new Scanner(System.in);
@@ -17,40 +17,56 @@ public class App {
 
     int[] no = new int[MAX_SIZE];
     String[] name = new String[MAX_SIZE];
-    String[] email = new String[MAX_SIZE];
-    String[] password = new String[MAX_SIZE];
-    char[] gender = new char[MAX_SIZE];
+    String[] dob = new String[MAX_SIZE];
+    char[] position = new char[MAX_SIZE];
+    int[] strikeouts = new int[MAX_SIZE];
+    float[] era = new float[MAX_SIZE];
+    String[] hand = new String[MAX_SIZE];
 
     // 회원정보 등록
     for (int i = 0; i < MAX_SIZE; i++) {
 
-      System.out.print("이름? ");
+      System.out.print("이름: ");
       name[i] = scanner.next();
 
-      System.out.print("이메일? ");
-      email[i] = scanner.next();
-
-      System.out.print("암호? ");
-      password[i] = scanner.next();
+      System.out.print("생년월일: ");
+      dob[i] = scanner.next();
 
       loop: while (true) {
-        System.out.println("성별: ");
-        System.out.println("  1. 남자");
-        System.out.println("  2. 여자");
-        System.out.println("> ");
+        System.out.println("포지션: ");
+        System.out.println("  1. 포수");
+        System.out.println("  2. 투수");
+        System.out.println("  3. 외야수");
+        System.out.println("  4. 내야수");
+        System.out.println(">  ");
         String menuNo = scanner.next();
 
         switch (menuNo) {
           case "1":
-            gender[i] = 'M';
+            position[i] = 'C';
             break loop;
           case "2":
-            gender[i] = 'W';
+            position[i] = 'P';
+            break loop;
+          case "3":
+            position[i] = 'O';
+            break loop;
+          case "4":
+            position[i] = 'I';
             break loop;
           default:
             System.out.println("무효한 번호입니다.");
         }
       }
+
+      System.out.print("탈삼진: ");
+      strikeouts[i] = scanner.nextInt();
+
+      System.out.print("평균자책점: ");
+      era[i] = scanner.nextFloat();
+
+      System.out.print("투타: ");
+      hand[i] = scanner.next();
 
       no[i] = userId++;
 
@@ -64,12 +80,13 @@ public class App {
       }
     }
 
-    System.out.println("--------------------------------------");
-    System.out.println("번호, 이름, 이메일, 성별");
-    System.out.println("--------------------------------------");
+    System.out.println("------------------------------------------------------");
+    System.out.println("번호, 이름, 생년월일, 포지션, 탈삼진, 평균자책점, 투타");
+    System.out.println("------------------------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
+      System.out.printf("%d, %s, %s, %c, %d, %f.3, %s\n", no[i], name[i], dob[i], position[i],
+          strikeouts[i], era[i], hand[i]);
     }
     scanner.close();
   }

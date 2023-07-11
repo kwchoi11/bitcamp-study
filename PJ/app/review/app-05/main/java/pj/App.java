@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
-    System.out.println("나의 목록 관리 시스템");
-    System.out.println("----------------------------------");
+    System.out.println("SSG 랜더스 선수 관리 시스템");
+    System.out.println("---------------------------");
 
     // 키보드 스캐너 준비
     Scanner scanner = new Scanner(System.in);
@@ -15,32 +15,33 @@ public class App {
 
     int[] no = new int[SIZE];
     String[] name = new String[SIZE];
-    int[] age = new int[SIZE];
-    boolean[] working = new boolean[SIZE];
-    char[] gender = new char[SIZE];
-    float[] leftEye = new float[SIZE];
-    float[] rightEye = new float[SIZE];
+    String[] dob = new String[SIZE];
+    String[] position = new String[SIZE];
+    int[] strikeouts = new int[SIZE];
+    float[] era = new float[SIZE];
+    String[] hand = new String[SIZE];
 
     for (int i = 0; i < SIZE; i++) {
-      System.out.print("번호? ");
+      System.out.print("번호: ");
       no[i] = scanner.nextInt();
 
-      System.out.print("이름? ");
+      System.out.print("이름: ");
       name[i] = scanner.next();
 
-      System.out.print("나이? ");
-      age[i] = scanner.nextInt();
+      System.out.print("생년월일: ");
+      dob[i] = scanner.next();
 
-      System.out.print("재직중(true/false)? ");
-      working[i] = scanner.nextBoolean();
+      System.out.print("포지션: ");
+      position[i] = scanner.next();
 
-      System.out.print("성별(남자:M, 여자:W)? ");
-      String str = scanner.next();
-      gender[i] = str.charAt(0);
+      System.out.print("탈삼진: ");
+      strikeouts[i] = scanner.nextInt();
 
-      System.out.print("시력(왼쪽 오른쪽)? ");
-      leftEye[i] = scanner.nextFloat();
-      rightEye[i] = scanner.nextFloat();
+      System.out.print("평균자책점: ");
+      era[i] = scanner.nextFloat();
+
+      System.out.print("투타: ");
+      hand[i] = scanner.next();
     }
 
     System.out.println("--------------------------------------");
@@ -48,11 +49,14 @@ public class App {
     for (int i = 0; i < SIZE; i++) {
       System.out.printf("번호: %d\n", no[i]);
       System.out.printf("이름: %s\n", name[i]);
-      System.out.printf("나이: %d\n", age[i]);
-      System.out.printf("재직중: %b\n", working[i]);
-      System.out.printf("성별(남자(M), 여자(W)): %", gender[i]);
-      System.out.printf("좌우시력: %.1f, %.1f\n", leftEye[i], rightEye[i]);
+      System.out.printf("생년월일: %s\n", dob[i]);
+      System.out.printf("포지션: %s\n", position[i]);
+      System.out.printf("탈삼진: %d\n", strikeouts[i]);
+      System.out.printf("평균자책점: %.3f\n", era[i]);
+      System.out.printf("투타: %s\n", hand[i]);
     }
     scanner.close();
   }
 }
+
+

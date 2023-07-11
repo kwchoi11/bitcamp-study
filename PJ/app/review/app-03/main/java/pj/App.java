@@ -3,7 +3,7 @@ package pj;
 public class App {
   public static void main(String[] args) {
     System.out.println("SSG 랜더스 선수 관리 시스템");
-    System.out.println("---------------------");
+    System.out.println("---------------------------");
 
     int no = 29;
     String name = "김광현";

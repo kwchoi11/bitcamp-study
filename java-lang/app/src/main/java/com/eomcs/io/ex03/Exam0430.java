@@ -19,5 +19,3 @@ public class Exam0430 {
   }
 
 }
-
-
