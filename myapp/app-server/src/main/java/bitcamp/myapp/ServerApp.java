@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -12,11 +13,7 @@ import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
-// 1) 클라이언트가 보낸 명령을 데이터이름과 메서드 이름으로 분리한다.
-// 2) 클라이언트가 요청한 DAO 객체와 메서드를 찾는다.
-// 3) 메서드의 파라미터와 리턴 타입을 알아내기
-// 4) 메서드 호출 및 리턴 값 받기
-// 5) 리팩토링
+
 public class ServerApp {
 
   int port;
@@ -41,7 +38,6 @@ public class ServerApp {
       System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
-
     ServerApp app = new ServerApp(Integer.parseInt(args[0]));
     app.execute();
     app.close();
@@ -77,58 +73,58 @@ public class ServerApp {
     }
   }
 
-  // 클라이언트와 접속이 이루어지면 클라이언트의 요청을 처리한다.
+  // 클라이언트 요청을 반복해서 처리하지 않는다.
+  // 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
   public void processRequest(Socket socket) {
     try (Socket s = socket;
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
 
-      while (true) {
-        RequestEntity request = RequestEntity.fromJson(in.readUTF());
+      InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
+          socketAddress.getPort());
 
-        String command = request.getCommand();
-        System.out.println(command);
 
-        if (command.equals("quit")) {
-          break;
-        }
+      RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
-        String[] values = command.split("/");
-        String dataName = values[0];
-        String methodName = values[1];
+      String command = request.getCommand();
+      System.out.println(command);
 
-        Object dao = daoMap.get(dataName);
-        if (dao == null) {
-          out.writeUTF(
-              new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
-          continue;
-        }
 
-        // DAO 객체에서 메서드 찾기
-        Method method = findMethod(dao, methodName);
-        if (method == null) {
-          out.writeUTF(
-              new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
-          continue;
-        }
+      String[] values = command.split("/");
+      String dataName = values[0];
+      String methodName = values[1];
 
-        try {
-          // DAO 메서드 호출하기
-          Object result = call(dao, method, request);
-
-          ResponseEntity response = new ResponseEntity();
-          response.status(ResponseEntity.SUCCESS);
-          response.result(result);
-          out.writeUTF(response.toJson());
-
-        } catch (Exception e) {
-          ResponseEntity response = new ResponseEntity();
-          response.status(ResponseEntity.ERROR);
-          response.result(e.getMessage());
-          out.writeUTF(response.toJson());
-        }
+      Object dao = daoMap.get(dataName);
+      if (dao == null) {
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다!").toJson());
+        return;
       }
 
+      Method method = findMethod(dao, methodName);
+
+      if (method == null) {
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다!").toJson());
+        return;
+      }
+
+      // try - catch 문
+      try {
+        Object result = call(dao, method, request);
+
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(result);
+        out.writeUTF(response.toJson());
+
+      } catch (Exception e) {
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.ERROR);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
+      }
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
