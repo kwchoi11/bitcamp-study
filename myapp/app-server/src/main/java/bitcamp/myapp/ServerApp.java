@@ -86,13 +86,21 @@ public class ServerApp {
         continue;
       }
 
-      // DAO 메서드 호출하기
-      Object result = call(dao, method, request);
+      try {
+        // DAO 메서드 호출하기
+        Object result = call(dao, method, request);
 
-      ResponseEntity response = new ResponseEntity();
-      response.status(ResponseEntity.SUCCESS);
-      response.result(result);
-      out.writeUTF(response.toJson());
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(result);
+        out.writeUTF(response.toJson());
+
+      } catch (Exception e) {
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.ERROR);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
+      }
     }
 
     in.close();
