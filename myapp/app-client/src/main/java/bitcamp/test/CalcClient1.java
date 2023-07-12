@@ -19,7 +19,7 @@ public class CalcClient1 {
         Scanner keyScan = new Scanner(System.in);) {
 
       while (true) {
-        System.out.print("계산식> ");
+        System.out.print("계산식(예: + 3)> ");
         String input = keyScan.nextLine();
 
         if (input.equals("quit")) {
@@ -27,25 +27,43 @@ public class CalcClient1 {
           break;
         }
 
-        String[] values = parseExpression(input);
+        try {
+          Expression expr = parseExpression(input);
 
-        out.writeUTF(values[1]);
-        out.writeInt(Integer.parseInt(values[0]));
-        out.writeInt(Integer.parseInt(values[2]));
+          out.writeUTF(expr.op);
+          out.writeInt(expr.value);
 
-        String result = in.readUTF();
-        System.out.printf("결과: %s\n", result);
+          String result = in.readUTF();
+          System.out.printf("결과: %s\n", result);
+
+        } catch (Exception e) {
+          System.out.println("계산식이 옳지 않습니다!");
+        }
       }
     }
   }
 
-  public static String[] parseExpression(String expr) {
+  public static Expression parseExpression(String expr) throws Exception {
     Matcher matcher = pattern.matcher(expr);
 
     ArrayList<String> values = new ArrayList<>();
     while (matcher.find()) {
       values.add(matcher.group());
     }
-    return values.toArray(new String[] {});
+
+    if (values.size() != 2) {
+      throw new Exception("계산식이 옳지 않습니다!");
+    }
+
+    Expression obj = new Expression();
+    obj.op = values.get(0);
+    obj.value = Integer.parseInt(values.get(1));
+
+    return obj;
+  }
+
+  static class Expression {
+    String op;
+    int value;
   }
 }
