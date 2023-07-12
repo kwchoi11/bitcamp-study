@@ -1,12 +1,17 @@
 package pj.handler;
 
 import pj.util.Prompt;
-import pj.vo.Member;
 
 public class MemberHandler {
 
   static final int MAX_SIZE = 100;
-  static Member[] members = new Member[MAX_SIZE];
+  static int[] no = new int[MAX_SIZE];
+  static String[] name = new String[MAX_SIZE];
+  static String[] dob = new String[MAX_SIZE];
+  static char[] position = new char[MAX_SIZE];
+  static String[] strikeouts = new String[MAX_SIZE];
+  static String[] era = new String[MAX_SIZE];
+  static String[] hand = new String[MAX_SIZE];
   static int userId = 1;
   static int length = 0;
 
@@ -21,16 +26,15 @@ public class MemberHandler {
       return;
     }
 
-    Member m = new Member();
-    m.name = Prompt.inputString("이름: ");
-    m.dob = Prompt.inputString("생년월일: ");
-    m.position = inputPosition((char) 0);
-    m.strikeouts = Prompt.inputString("탈삼진: ");
-    m.era = Prompt.inputString("평균자책점: ");
-    m.hand = Prompt.inputString("투타: ");
+    name[length] = Prompt.inputString("이름: ");
+    dob[length] = Prompt.inputString("생년월일: ");
+    position[length] = inputPosition((char) 0);
+    strikeouts[length] = Prompt.inputString("탈삼진: ");
+    era[length] = Prompt.inputString("평균자책점: ");
+    hand[length] = Prompt.inputString("투타: ");
 
-    m.no = userId++;
-    members[length++] = m;
+    no[length] = userId++;
+    length++;
   }
 
   public static void printMembers() {
@@ -39,23 +43,21 @@ public class MemberHandler {
     System.out.println("-------------------------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      Member m = members[i];
-      System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", m.no, m.name, m.dob,
-          toPositionString(m.position), m.strikeouts, m.era, m.hand);
+      System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no[i], name[i], dob[i],
+          toPositionString(position[i]), strikeouts[i], era[i], hand[i]);
     }
   }
 
   public static void viewMember() {
     String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
     for (int i = 0; i < length; i++) {
-      Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
-        System.out.printf("이름: %s\n", m.name);
-        System.out.printf("생년월일: %s\n", m.dob);
-        System.out.printf("포지션: %s\n", toPositionString(m.position));
-        System.out.printf("탈삼진: %s\n", m.strikeouts);
-        System.out.printf("평균자책점: %s\n", m.era);
-        System.out.printf("투타: %s\n", m.hand);
+      if (no[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("이름: %s\n", name[i]);
+        System.out.printf("생년월일: %s\n", dob[i]);
+        System.out.printf("포지션: %s\n", toPositionString(position[i]));
+        System.out.printf("탈삼진: %s\n", strikeouts[i]);
+        System.out.printf("평균자책점: %s\n", era[i]);
+        System.out.printf("투타: %s\n", hand[i]);
         return;
       }
     }
@@ -78,19 +80,18 @@ public class MemberHandler {
   public static void updateMember() {
     String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
     for (int i = 0; i < length; i++) {
-      Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
-        System.out.printf("이름(%s): ", m.name);
-        m.name = Prompt.inputString("");
-        System.out.printf("생년월일(%s): ", m.dob);
-        m.dob = Prompt.inputString("");
-        m.position = inputPosition(m.position);
-        System.out.printf("탈삼진(%s): ", m.strikeouts);
-        m.strikeouts = Prompt.inputString("");
-        System.out.printf("평균자책점(%s): ", m.era);
-        m.era = Prompt.inputString("");
-        System.out.printf("투타(%s): ", m.hand);
-        m.hand = Prompt.inputString("");
+      if (no[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("이름(%s): ", name[i]);
+        name[i] = Prompt.inputString("");
+        System.out.printf("생년월일(%s): ", dob[i]);
+        dob[i] = Prompt.inputString("");
+        position[i] = inputPosition(position[i]);
+        System.out.printf("탈삼진(%s): ", strikeouts[i]);
+        strikeouts[i] = Prompt.inputString("");
+        System.out.printf("평균자책점(%s): ", era[i]);
+        era[i] = Prompt.inputString("");
+        System.out.printf("투타(%s): ", hand[i]);
+        hand[i] = Prompt.inputString("");
         return;
       }
     }
@@ -134,16 +135,29 @@ public class MemberHandler {
     }
 
     for (int i = deletedIndex; i < length - 1; i++) {
-      members[i] = members[i + 1];
+      no[i] = no[i + 1];
+      name[i] = name[i + 1];
+      dob[i] = dob[i + 1];
+      position[i] = position[i + 1];
+      strikeouts[i] = strikeouts[i + 1];
+      era[i] = era[i + 1];
+      hand[i] = hand[i + 1];
     }
 
-    members[--length] = null;
+    no[length - 1] = 0;
+    name[length - 1] = null;
+    dob[length - 1] = null;
+    position[length - 1] = (char) 0;
+    strikeouts[length - 1] = null;
+    era[length - 1] = null;
+    hand[length - 1] = null;
+
+    length--;
   }
 
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
-      Member m = members[i];
-      if (m.no == memberNo) {
+      if (no[i] == memberNo) {
         return i;
       }
     }
