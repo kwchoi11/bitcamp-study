@@ -8,25 +8,25 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-// Statefull 방식으로 통신하기
+// Stateful 방식으로 통신하기
 public class CalcClient1 {
-
   static Pattern pattern = Pattern.compile("[0-9]+|\\p{Punct}");
 
   public static void main(String[] args) throws Exception {
     try (Socket socket = new Socket("localhost", 8888);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream());
-        Scanner keyscan = new Scanner(System.in);) {
+        Scanner keyScan = new Scanner(System.in);) {
 
       while (true) {
         System.out.print("계산식> ");
-        String input = keyscan.nextLine();
+        String input = keyScan.nextLine();
+
         if (input.equals("quit")) {
           out.writeUTF("quit");
           break;
         }
+
         String[] values = parseExpression(input);
 
         out.writeUTF(values[1]);
@@ -39,8 +39,7 @@ public class CalcClient1 {
     }
   }
 
-  public static String[] parsExpression(String expr) {
-
+  public static String[] parseExpression(String expr) {
     Matcher matcher = pattern.matcher(expr);
 
     ArrayList<String> values = new ArrayList<>();
@@ -50,5 +49,3 @@ public class CalcClient1 {
     return values.toArray(new String[] {});
   }
 }
-
-
