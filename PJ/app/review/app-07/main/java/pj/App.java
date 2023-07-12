@@ -3,22 +3,20 @@ package pj;
 import java.util.Scanner;
 
 public class App {
-
-  static Scanner scanner = new Scanner(System.in);
-
-  static final int MAX_SIZE = 100;
-  static int userId = 1;
-  static int length = 0;
-
-  static int[] no = new int[MAX_SIZE];
-  static String[] name = new String[MAX_SIZE];
-  static String[] dob = new String[MAX_SIZE];
-  static char[] position = new char[MAX_SIZE];
-  static int[] strikeouts = new int[MAX_SIZE];
-  static float[] era = new float[MAX_SIZE];
-  static String[] hand = new String[MAX_SIZE];
-
   public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+    final int MAX_SIZE = 100;
+    int userId = 1;
+    int length = 0;
+
+    int[] no = new int[MAX_SIZE];
+    String[] name = new String[MAX_SIZE];
+    String[] dob = new String[MAX_SIZE];
+    char[] position = new char[MAX_SIZE];
+    int[] strikeouts = new int[MAX_SIZE];
+    float[] era = new float[MAX_SIZE];
+    String[] hand = new String[MAX_SIZE];
 
     printTitle();
 
