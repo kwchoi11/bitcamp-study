@@ -16,7 +16,6 @@ import bitcamp.util.Job;
 import bitcamp.util.ManagedThread;
 import bitcamp.util.ThreadPool;
 
-
 public class ServerApp {
 
   int port;
@@ -24,7 +23,7 @@ public class ServerApp {
 
   HashMap<String, Object> daoMap = new HashMap<>();
 
-  // 스레드를 리턴해줄 스레드풀 준비
+  // 스레드를 리턴해 줄 스레드풀 준비
   ThreadPool threadPool = new ThreadPool();
 
   public ServerApp(int port) throws Exception {
@@ -44,6 +43,7 @@ public class ServerApp {
       System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
+
     ServerApp app = new ServerApp(Integer.parseInt(args[0]));
     app.execute();
     app.close();
@@ -94,8 +94,6 @@ public class ServerApp {
     }
   }
 
-  // 클라이언트 요청을 반복해서 처리하지 않는다.
-  // 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
   public void processRequest(Socket socket) {
     try (Socket s = socket;
         DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -104,13 +102,13 @@ public class ServerApp {
       InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
       System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
           socketAddress.getPort());
-
-
+      Thread.sleep(15000);
+      // 클라이언트 요청을 반복해서 처리하지 않는다.
+      // => 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();
       System.out.println(command);
-
 
       String[] values = command.split("/");
       String dataName = values[0];
@@ -119,19 +117,17 @@ public class ServerApp {
       Object dao = daoMap.get(dataName);
       if (dao == null) {
         out.writeUTF(
-            new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다!").toJson());
+            new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
         return;
       }
 
       Method method = findMethod(dao, methodName);
-
       if (method == null) {
         out.writeUTF(
-            new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다!").toJson());
+            new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
         return;
       }
 
-      // try - catch 문
       try {
         Object result = call(dao, method, request);
 

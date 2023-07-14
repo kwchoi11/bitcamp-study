@@ -8,26 +8,32 @@ public class ThreadPool implements ResourcePool<ManagedThread> {
 
   @Override
   public ManagedThread getResource() {
+    ManagedThread t = null;
+
     if (list.size() == 0) {
-      ManagedThread t = new ManagedThread(this);
-      System.out.println("새 스레드 생성!");
-
+      t = new ManagedThread(this);
+      // System.out.printf("새 스레드 생성: %d\n", t.key);
       t.start();
-      System.out.println("새 스레드 시작!");
 
-      System.out.println("새 스레드 리턴!");
-      System.out.println("================> " + list.size());
+      // 위에서 생성한 스레드가 바로 실행될 수 있도록,
+      // main 스레드는 잠시 CPU 사용권을 반납한다.
+      // 스레드가 실행되면 jobBox 객체에 대해 대기 상태가 된다.
+      try {
+        Thread.sleep(100);
+      } catch (Exception e) {
+      }
+
       return t;
     }
 
-    System.out.println("==================> " + list.size());
-    System.out.println("기존 스레드 리턴");
-    return list.remove(0);
+    t = list.remove(0);
+    // System.out.printf("기존 스레드 리턴: %d\n", t.key);
+    return t;
   }
 
   @Override
   public void returnResource(ManagedThread resource) {
     list.add(resource);
-    System.out.println("=================>" + list.size());
+    // System.out.printf("스레드 반납: %d\n", resource.key);
   }
 }
