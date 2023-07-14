@@ -12,7 +12,7 @@ public class ThreadPool implements ResourcePool<ManagedThread> {
 
     if (list.size() == 0) {
       t = new ManagedThread(this);
-      // System.out.printf("새 스레드 생성: %d\n", t.key);
+      System.out.printf("새 스레드 생성: %d\n", t.no);
       t.start();
 
       // 위에서 생성한 스레드가 바로 실행될 수 있도록,
@@ -27,13 +27,13 @@ public class ThreadPool implements ResourcePool<ManagedThread> {
     }
 
     t = list.remove(0);
-    // System.out.printf("기존 스레드 리턴: %d\n", t.key);
+    System.out.printf("기존 스레드 리턴: %d\n", t.no);
     return t;
   }
 
   @Override
   public void returnResource(ManagedThread resource) {
     list.add(resource);
-    // System.out.printf("스레드 반납: %d\n", resource.key);
+    System.out.printf("스레드 반납: %d\n", resource.no);
   }
 }

@@ -16,12 +16,12 @@ public class MemberHandler {
     }
 
     Member m = new Member();
-    m.name = Prompt.inputString("이름: ");
-    m.dob = Prompt.inputString("생년월일: ");
-    m.position = inputPosition((char) 0);
-    m.strikeouts = Prompt.inputString("탈삼진(투수): ");
-    m.homerun = Prompt.inputString("홈런(타자): ");
-    m.hand = inputHand("0");
+    m.setName(Prompt.inputString("이름: "));
+    m.setDob(Prompt.inputString("생년월일: "));
+    m.setPosition(inputPosition((char) 0));
+    m.setStrikeouts(Prompt.inputString("탈삼진(투수): "));
+    m.setHomerun(Prompt.inputString("홈런(타자): "));
+    m.setHand(inputHand("0"));
 
     members[length++] = m;
   }

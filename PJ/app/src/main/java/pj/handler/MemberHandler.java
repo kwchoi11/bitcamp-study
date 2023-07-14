@@ -5,44 +5,52 @@ import pj.vo.Member;
 
 public class MemberHandler {
 
-  static final int MAX_SIZE = 100;
-  static Member[] members = new Member[MAX_SIZE];
-  static int length = 0;
+  private static final int MAX_SIZE = 100;
 
-  public static void inputMember() {
-    if (!available()) {
+  private Prompt prompt;
+
+  private Member[] members = new Member[MAX_SIZE];
+
+  private int length;
+
+  public MemberHandler(Prompt prompt) {
+    this.prompt = prompt;
+  }
+
+  public void inputMember() {
+    if (!this.available()) {
       System.out.println("더이상 입력할 수 없습니다!");
       return;
     }
 
     Member m = new Member();
-    m.name = Prompt.inputString("이름: ");
-    m.dob = Prompt.inputString("생년월일: ");
-    m.position = inputPosition((char) 0);
-    m.strikeouts = Prompt.inputString("탈삼진(투수): ");
-    m.homerun = Prompt.inputString("홈런(타자): ");
-    m.hand = inputHand("0");
+    m.setName(this.prompt.inputString("이름: "));
+    m.setDob(this.prompt.inputString("생년월일: "));
+    m.setPosition(inputPosition((char) 0));
+    m.setStrikeouts(this.prompt.inputString("탈삼진(투수): "));
+    m.setHomerun(this.prompt.inputString("홈런(타자): "));
+    m.setHand(inputHand("0"));
 
-    members[length++] = m;
+    this.members[this.length++] = m;
   }
 
-  public static void printMembers() {
+  public void printMembers() {
     System.out.println("-------------------------------------------------------------");
     System.out.println("번호, 이름, 생년월일, 포지션, 탈삼진(투수), 홈런(타자), 투/타");
     System.out.println("-------------------------------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      Member m = members[i];
+      Member m = this.members[i];
       System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", m.getNo(), m.getName(), m.getDob(),
           toPositionString(m.getPosition()), m.getStrikeouts(), m.getHomerun(),
           toHandString(m.getHand()));
     }
   }
 
-  public static void viewMember() {
-    String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
-    for (int i = 0; i < length; i++) {
-      Member m = members[i];
+  public void viewMember() {
+    String memberNo = this.prompt.inputString("등록 번호를 입력해주세요.");
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
       if (m.getNo() == Integer.parseInt(memberNo)) {
         System.out.printf("이름: %s\n", m.getName());
         System.out.printf("생년월일: %s\n", m.getDob());
@@ -82,10 +90,10 @@ public class MemberHandler {
     throw new IllegalArgumentException("다시 선택해주세요.");
   }
 
-  public static void updateMember() {
-    String memberNo = Prompt.inputString("등록 번호를 입력해주세요.");
-    for (int i = 0; i < length; i++) {
-      Member m = members[i];
+  public void updateMember() {
+    String memberNo = this.prompt.inputString("등록 번호를 입력해주세요.");
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
       if (m.getNo() == Integer.parseInt(memberNo)) {
         System.out.printf("이름(%s): ", m.getName());
         m.setName(Prompt.inputString(""));
@@ -103,7 +111,7 @@ public class MemberHandler {
     System.out.println("해당 번호로 등록된 선수가 없습니다.");
   }
 
-  private static char inputPosition(char position) {
+  private char inputPosition(char position) {
     String label;
     if (position == 0) {
       label = "포지션:\n";
@@ -157,8 +165,8 @@ public class MemberHandler {
     }
   }
 
-  public static void deleteMember() {
-    int memberNo = Prompt.inputInt("등록 번호를 입력해주세요.");
+  public void deleteMember() {
+    int memberNo = this.prompt.inputInt("등록 번호를 입력해주세요.");
 
     int deletedIndex = indexOf(memberNo);
     if (deletedIndex == -1) {
@@ -166,16 +174,16 @@ public class MemberHandler {
       return;
     }
 
-    for (int i = deletedIndex; i < length - 1; i++) {
-      members[i] = members[i + 1];
+    for (int i = deletedIndex; i < this.length - 1; i++) {
+      this.members[i] = this.members[i + 1];
     }
 
-    members[--length] = null;
+    this.members[--this.length] = null;
   }
 
-  private static int indexOf(int memberNo) {
-    for (int i = 0; i < length; i++) {
-      Member m = members[i];
+  private int indexOf(int memberNo) {
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
       if (m.getNo() == memberNo) {
         return i;
       }
@@ -183,7 +191,7 @@ public class MemberHandler {
     return -1;
   }
 
-  public static boolean available() {
-    return length < MAX_SIZE;
+  private boolean available() {
+    return this.length < MAX_SIZE;
   }
 }

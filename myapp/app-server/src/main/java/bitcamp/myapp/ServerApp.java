@@ -88,7 +88,11 @@ public class ServerApp {
       InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
       System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
           socketAddress.getPort());
-      Thread.sleep(15000);
+
+      // 스레드풀이 새 스레드를 만드는 것을 테스트하기 위함.
+      // => 스레드풀에 스레드가 없을 때 새 스레드를 만들 것이다.
+      Thread.sleep(10000);
+
       // 클라이언트 요청을 반복해서 처리하지 않는다.
       // => 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
       RequestEntity request = RequestEntity.fromJson(in.readUTF());

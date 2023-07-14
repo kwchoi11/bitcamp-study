@@ -1,13 +1,18 @@
 package pj;
 
 import pj.handler.BoardHandler;
-import pj.handler.BoardHandler2;
 import pj.handler.MemberHandler;
 import pj.util.Prompt;
 
 public class App {
 
   public static void main(String[] args) {
+
+    Prompt prompt = new Prompt();
+
+    MemberHandler memberHandler = new MemberHandler(prompt);
+    BoardHandler boardHandler = new BoardHandler(prompt);
+    BoardHandler queryHandler = new queryHandler(prompt);
 
     printTitle();
 
@@ -20,37 +25,37 @@ public class App {
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        MemberHandler.inputMember();
+        memberHandler.inputMember();
       } else if (menuNo.equals("2")) {
-        MemberHandler.printMembers();
+        memberHandler.printMembers();
       } else if (menuNo.equals("3")) {
-        MemberHandler.viewMember();
+        memberHandler.viewMember();
       } else if (menuNo.equals("4")) {
-        MemberHandler.updateMember();
+        memberHandler.updateMember();
       } else if (menuNo.equals("5")) {
-        MemberHandler.deleteMember();
+        memberHandler.deleteMember();
       } else if (menuNo.equals("6")) {
-        BoardHandler.inputBoard();
+        boardHandler.inputBoard();
       } else if (menuNo.equals("7")) {
-        BoardHandler.printBoards();
+        boardHandler.printBoards();
       } else if (menuNo.equals("8")) {
-        BoardHandler.viewBoard();
+        boardHandler.viewBoard();
       } else if (menuNo.equals("9")) {
-        BoardHandler.updateBoard();
+        boardHandler.updateBoard();
       } else if (menuNo.equals("10")) {
-        BoardHandler.deleteBoard();
+        boardHandler.deleteBoard();
       } else if (menuNo.equals("11")) {
-        BoardHandler2.inputBoard();
+        queryHandler.inputBoard();
       } else if (menuNo.equals("12")) {
-        BoardHandler2.printBoard();
+        queryHandler.printBoards();
       } else if (menuNo.equals("13")) {
-        BoardHandler2.viewBoard();
+        queryHandler.viewBoard();
       } else if (menuNo.equals("14")) {
-        BoardHandler2.updateBoard();
+        queryHandler.updateBoard();
       } else if (menuNo.equals("15")) {
-        BoardHandler2.deleteBoard();
+        queryHandler.deleteBoard();
       } else {
-        System.out.println(menuNo);
+        System.out.println("메뉴 번호가 옳지 않습니다.");
       }
     }
 
