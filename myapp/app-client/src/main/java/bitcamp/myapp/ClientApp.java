@@ -2,6 +2,7 @@ package bitcamp.myapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import bitcamp.dao.MySQLBoardDao;
 import bitcamp.dao.MySQLMemberDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -36,7 +37,7 @@ public class ClientApp {
         );
 
     this.memberDao = new MySQLMemberDao(con);
-    this.boardDao = null;
+    this.boardDao = new MySQLBoardDao(con);
     this.readingDao = null;
 
     prepareMenu();

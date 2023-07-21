@@ -11,7 +11,8 @@ public class Board implements Serializable {
   private String writer;
   private String password;
   private int viewCount;
-  private long createdDate;
+  private String createdDate;
+  private int category;
 
   public Board() {}
 
@@ -77,11 +78,11 @@ public class Board implements Serializable {
     this.viewCount = viewCount;
   }
 
-  public long getCreatedDate() {
+  public String getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(long createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
 
@@ -91,6 +92,14 @@ public class Board implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
   }
 
 
