@@ -77,7 +77,7 @@ public class MySQLMemberDao implements MemberDao {
           m.setName(rs.getString("name"));
           m.setEmail(rs.getString("email"));
           m.setGender(rs.getString("gender").charAt(0));
-          m.setCreatedDate(rs.getTimestamp("created_date"));
+          m.setCreatedDate(rs.getDate("created_date"));
           return m;
         }
         return null;

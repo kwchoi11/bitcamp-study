@@ -1,7 +1,8 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Objects;
 
 public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -14,26 +15,23 @@ public class Member implements Serializable {
   private String email;
   private String password;
   private char gender;
-  private Timestamp createdDate;
+  private Date createdDate;
 
-  public Member() {}
-
-  public Member(int no) {
-    this.no = no;
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
   }
 
+  @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
+    if (this == obj)
+      return true;
+    if (obj == null)
       return false;
-    }
-    if (this.getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-    Member m = (Member) obj;
-    if (this.getNo() != m.getNo()) {
-      return false;
-    }
-    return true;
+    Member other = (Member) obj;
+    return no == other.no;
   }
 
   public int getNo() {
@@ -76,11 +74,11 @@ public class Member implements Serializable {
     this.gender = gender;
   }
 
-  public Timestamp getCreatedDate() {
+  public Date getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(Timestamp createdDate) {
+  public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 }
