@@ -14,13 +14,13 @@ public class Member {
   public static final String LL = "LL";
   public static final String LR = "LR";
 
-  public int no;
-  public String name;
-  public String dob;
-  public char position;
-  public String strikeouts;
-  public String homerun;
-  public String hand;
+  private int no;
+  private String name;
+  private String dob;
+  private char position;
+  private String strikeouts;
+  private String homerun;
+  private String hand;
 
   public Member() {
     this.no = userId++;

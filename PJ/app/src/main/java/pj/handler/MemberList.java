@@ -46,7 +46,7 @@ public class MemberList {
   }
 
   public boolean delete(int no) {
-    int deleteIndex = indexOf(no);
+    int deletedIndex = indexOf(no);
     if (deletedIndex == -1) {
       return false;
     }
