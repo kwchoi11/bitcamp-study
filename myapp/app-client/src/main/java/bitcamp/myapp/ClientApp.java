@@ -11,6 +11,9 @@ import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
 import bitcamp.myapp.handler.BoardListListener;
 import bitcamp.myapp.handler.BoardUpdateListener;
+import bitcamp.myapp.handler.FooterListener;
+import bitcamp.myapp.handler.HeaderListener;
+import bitcamp.myapp.handler.HelloListener;
 import bitcamp.myapp.handler.MemberAddListener;
 import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
@@ -33,24 +36,23 @@ public class ClientApp {
   public ClientApp(String ip, int port) throws Exception {
 
     Connection con = DriverManager.getConnection(
-        "jdbc:mysql://study:1111@localhost:3306/studydb"  // JDBC URL
+        "jdbc:mysql://study:1111@localhost:3306/studydb" // JDBC URL
         );
 
     this.memberDao = new MySQLMemberDao(con);
-    this.boardDao = new MySQLBoardDao(con);
-    this.readingDao = null;
+    this.boardDao = new MySQLBoardDao(con, 1);
+    this.readingDao = new MySQLBoardDao(con, 2);
 
     prepareMenu();
   }
 
   public void close() throws Exception {
     prompt.close();
-
   }
 
   public static void main(String[] args) throws Exception {
     if (args.length < 2) {
-      System.out.println("실행 예) java -cp bin/main bitcamp.myapp.ClientApp 서버 주소 포트번호");
+      System.out.println("실행 예) java ... bitcamp.myapp.ClientApp 서버주소 포트번호");
       return;
     }
 
@@ -66,9 +68,7 @@ public class ClientApp {
 
   public void execute() {
     printTitle();
-
     mainMenu.execute(prompt);
-
   }
 
   private void prepareMenu() {
@@ -81,21 +81,25 @@ public class ClientApp {
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
-    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, 1)));
-    boardMenu.add(new Menu("목록", new BoardListListener(boardDao, 1)));
+    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao)));
+    boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
     boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao)));
     boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao)));
     boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
     mainMenu.add(boardMenu);
 
     MenuGroup readingMenu = new MenuGroup("독서록");
-    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao, 2)));
-    readingMenu.add(new Menu("목록", new BoardListListener(readingDao,2)));
+    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao)));
+    readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
     readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
     readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
     mainMenu.add(readingMenu);
 
-
+    Menu helloMenu = new Menu("안녕!");
+    helloMenu.addActionListener(new HeaderListener());
+    helloMenu.addActionListener(new HelloListener());
+    helloMenu.addActionListener(new FooterListener());
+    mainMenu.add(helloMenu);
   }
 }
