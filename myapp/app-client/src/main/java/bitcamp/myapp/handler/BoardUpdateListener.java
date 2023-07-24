@@ -29,11 +29,20 @@ public class BoardUpdateListener implements ActionListener {
     board.setWriter(ClientApp.loginUser);
 
     if (boardDao.update(board) == 0) {
-      System.out.println("게시글 변경 권한이 없습니다!");
+      System.out.println("게시글 변경 권한이 없습니다.");
     } else {
       System.out.println("변경했습니다!");
     }
   }
 }
+
+
+
+
+
+
+
+
+
 
 

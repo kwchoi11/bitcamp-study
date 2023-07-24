@@ -19,8 +19,8 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public void insert(Member member) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into myapp_member(name,email,password,gender) "
-            + "values(?,?,sha1(?),?)")) {
+        "insert into myapp_member(name,email,password,gender)"
+            + " values(?,?,sha1(?),?)")) {
 
       stmt.setString(1, member.getName());
       stmt.setString(2, member.getEmail());
@@ -37,8 +37,8 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public List<Member> list() {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select member_no, name, email, gender "
-            + " from myapp_member "
+        "select member_no, name, email, gender"
+            + " from myapp_member"
             + " order by name asc");
         ResultSet rs = stmt.executeQuery()) {
 
@@ -65,8 +65,8 @@ public class MySQLMemberDao implements MemberDao {
   public Member findBy(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_no, name, email, gender, created_date"
-            + "from myapp_member "
-            + "where member_no=")) {
+            + " from myapp_member"
+            + " where member_no=?")) {
 
       stmt.setInt(1, no);
 
@@ -82,6 +82,7 @@ public class MySQLMemberDao implements MemberDao {
         }
         return null;
       }
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -91,8 +92,8 @@ public class MySQLMemberDao implements MemberDao {
   public Member findByEmailAndPassword(Member param) {
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_no, name, email, gender, created_date"
-            + "from myapp_member "
-            + "where email=? and password=sha1(?)")) {
+            + " from myapp_member"
+            + " where email=? and password=sha1(?)")) {
 
       stmt.setString(1, param.getEmail());
       stmt.setString(2, param.getPassword());
@@ -109,6 +110,7 @@ public class MySQLMemberDao implements MemberDao {
         }
         return null;
       }
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -140,7 +142,7 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public int delete(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "delete from myapp_member where member_no=%?")) {
+        "delete from myapp_member where member_no=?")) {
 
       stmt.setInt(1, no);
 

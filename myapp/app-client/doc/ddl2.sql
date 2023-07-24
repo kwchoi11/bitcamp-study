@@ -32,3 +32,9 @@ alter table myapp_member
 -- 게시판 작성자에 대해 외부키 설정
 alter table myapp_board
   add constraint myapp_board_fk foreign key (writer) references myapp_member (member_no);
+  
+
+  
+  
+  
+  

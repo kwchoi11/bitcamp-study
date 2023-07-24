@@ -28,3 +28,8 @@ alter table myapp_member
 -- 게시판에 카테고리 컬럼 추가
 alter table myapp_board
   add column category int not null;
+  
+  
+  
+  
+  

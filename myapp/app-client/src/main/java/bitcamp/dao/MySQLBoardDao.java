@@ -54,7 +54,6 @@ public class MySQLBoardDao implements BoardDao {
    order by
      board_no desc
    */
-
   @Override
   public List<Board> list() {
     try (PreparedStatement stmt = con.prepareStatement(
@@ -66,9 +65,9 @@ public class MySQLBoardDao implements BoardDao {
             "  m.member_no, " +
             "  m.name " +
             " from " +
-            "  myapp_board b inner join myapp_member m on b.writer=m.member_no " +
+            "  myapp_board b inner join myapp_member m on b.writer=m.member_no" +
             " where " +
-            "  category=? " +
+            "  category=?" +
             " order by " +
             "  board_no desc"
         )) {
@@ -99,6 +98,7 @@ public class MySQLBoardDao implements BoardDao {
     }
   }
 
+
   @Override
   public Board findBy(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
@@ -111,9 +111,9 @@ public class MySQLBoardDao implements BoardDao {
             "  m.member_no, " +
             "  m.name " +
             " from " +
-            "  myapp_board b inner join myapp_member m on b.writer=m.member_no " +
+            "  myapp_board b inner join myapp_member m on b.writer=m.member_no" +
             " where " +
-            "  category=? " +
+            "  category=?" +
             "  and board_no=?"
         )) {
 

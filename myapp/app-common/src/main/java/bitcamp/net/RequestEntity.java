@@ -18,7 +18,8 @@ public class RequestEntity {
   }
 
   public <T> List<T> getList(Class<T> clazz) {
-    return new Gson().fromJson(data, TypeToken.getParameterized(List.class, clazz).getType());
+    return new Gson().fromJson(data,
+        TypeToken.getParameterized(List.class, clazz).getType());
   }
 
   public String toJson() {
