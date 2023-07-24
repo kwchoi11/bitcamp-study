@@ -1,7 +1,6 @@
 package pj;
 
 import pj.handler.BoardHandler;
-import pj.handler.Handler;
 import pj.handler.MemberHandler;
 import pj.util.Prompt;
 
@@ -11,9 +10,9 @@ public class App {
 
     Prompt prompt = new Prompt();
 
-    Handler memberHandler = new MemberHandler(prompt, "선수 정보");
-    Handler boardHandler = new BoardHandler(prompt, "응원 게시판");
-    Handler queryHandler = new BoardHandler(prompt, "구단 건의사항");
+    MemberHandler memberHandler = new MemberHandler(prompt, "선수 정보");
+    BoardHandler boardHandler = new BoardHandler(prompt, "응원 게시판");
+    BoardHandler queryHandler = new BoardHandler(prompt, "구단 건의사항");
 
     printTitle();
 
