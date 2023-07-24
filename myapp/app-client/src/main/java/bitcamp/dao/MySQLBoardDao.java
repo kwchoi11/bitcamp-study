@@ -110,7 +110,7 @@ public class MySQLBoardDao implements BoardDao {
               board.getTitle(),
               board.getContent(),
               this.category,
-              board.getNo()
+              board.getNo(),
               board.getPassword()));
 
     } catch (Exception e) {
@@ -119,9 +119,17 @@ public class MySQLBoardDao implements BoardDao {
   }
 
   @Override
-  public int delete(int no) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
+  public int delete(Board board) {
+    try (Statement stmt = con.createStatement()) {
 
+      return stmt.executeUpdate(String.format(
+          "delete from myapp_board where category=%d and board_no=%d and password='%s'",
+          this.category,
+          board.getNo(),
+          board.getPassword()));
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 }
