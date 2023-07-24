@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.Member;
 
 public class MySQLBoardDao implements BoardDao {
 
@@ -21,14 +22,12 @@ public class MySQLBoardDao implements BoardDao {
     try (Statement stmt = con.createStatement()) {
 
       stmt.executeUpdate(String.format(
-          "insert into myapp_board("
-              + "title, content, writer, view_count, created_date, category) "
-              + "values('%s', '%s', '%s', '%d', '%s', '%d')",
+          "insert into myapp_board(title, content, writer, password, category)"
+              + " values('%s', '%s', '%s', '%s', '%d)",
               board.getTitle(),
               board.getContent(),
               board.getWriter(),
-              board.getViewCount(),
-              board.getCreatedDate(),
+              board.getPassword()
               board.getCategory()));
 
     } catch (Exception e) {
@@ -40,27 +39,21 @@ public class MySQLBoardDao implements BoardDao {
   public List<Board> list() {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select board_no, "
-                + "title, "
-                + "content, "
-                + "writer, "
-                + "view_count, "
-                + "created_date, "
-                + "category "
-                + "from myapp_board order by board_no desc")) {
+            "select board_no, title, writer, view_count, created_date "
+                + "from myapp_board "
+                + "order by board_no desc")) {
 
       List<Board> list = new ArrayList<>();
 
       while (rs.next()) {
-        Board board = new Board();
-        board.setNo(rs.getInt("board_no"));
-        board.setTitle(rs.getString("title"));
-        board.setContent(rs.getString("content"));
-        board.setWriter(rs.getString("writer"));
-        board.setViewCount(rs.getInt("view_count"));
-        board.setCreatedDate(rs.getString("created_date"));
+        Board b = new Board();
+        b.setNo(rs.getInt("board_no"));
+        b.setTitle(rs.getString("title"));
+        b.setWriter(rs.getString("writer"));
+        b.setViewCount(rs.getInt("ViewCount"));
+        b.setCreatedDate(rs.getTimestamp("created_date"));
 
-        list.add(board);
+        list.add(b);
       }
 
       return list;
