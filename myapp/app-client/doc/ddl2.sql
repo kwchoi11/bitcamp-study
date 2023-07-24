@@ -19,7 +19,7 @@ create table myapp_member(
   email varchar(50) not null,
   password varchar(100) not null,
   gender char(1) not null,
-  created_date datetime default now()
+  created_date date default (current_date())
 );
 
 alter table myapp_member
