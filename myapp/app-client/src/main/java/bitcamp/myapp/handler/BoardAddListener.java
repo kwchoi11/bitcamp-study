@@ -9,7 +9,7 @@ public class BoardAddListener implements ActionListener {
 
   BoardDao boardDao;
 
-  public BoardAddListener(BoardDao boardDao, int category) {
+  public BoardAddListener(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
 

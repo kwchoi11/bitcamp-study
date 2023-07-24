@@ -12,7 +12,7 @@ public class BoardListListener implements ActionListener {
   BoardDao boardDao;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-  public BoardListListener(BoardDao boardDao, int category) {
+  public BoardListListener(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
 

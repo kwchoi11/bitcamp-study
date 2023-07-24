@@ -21,7 +21,7 @@ public class MySQLMemberDao implements MemberDao {
     try (Statement stmt = con.createStatement()) {
 
       stmt.executeUpdate(String.format(
-          "insert into myapp_member(name, email, password, gender) values('%s', '%s', '%s', '%c')",
+          "insert into myapp_member(name,email,password,gender) values('%s','%s','%s','%c')",
           member.getName(),
           member.getEmail(),
           member.getPassword(),
@@ -84,11 +84,12 @@ public class MySQLMemberDao implements MemberDao {
     try (Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate(String.format(
-          "update myapp_member set "
-              + "name='%s', email='%s', "
-              + "password='%s', "
-              + "gender='%c' "
-              + "where member_no=%d",
+          "update myapp_member set"
+              + " name='%s',"
+              + " email='%s',"
+              + " password='%s',"
+              + " gender='%c'"
+              + " where member_no=%d",
               member.getName(),
               member.getEmail(),
               member.getPassword(),
