@@ -16,12 +16,10 @@ public class Board implements Serializable {
   private Timestamp createdDate;
   private int category;
 
-
   @Override
   public int hashCode() {
     return Objects.hash(no);
   }
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -33,7 +31,6 @@ public class Board implements Serializable {
     Board other = (Board) obj;
     return no == other.no;
   }
-
   public int getNo() {
     return no;
   }
