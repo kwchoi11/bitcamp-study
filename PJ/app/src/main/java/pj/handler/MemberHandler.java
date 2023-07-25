@@ -1,11 +1,12 @@
 package pj.handler;
 
+import pj.util.ArrayList;
 import pj.util.Prompt;
 import pj.vo.Member;
 
 public class MemberHandler implements Handler {
 
-  private MemberList list = new MemberList();
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
   private String title;
 
@@ -67,8 +68,9 @@ public class MemberHandler implements Handler {
     System.out.println("번호, 이름, 생년월일, 포지션, 탈삼진(투수), 홈런(타자), 투/타");
     System.out.println("-------------------------------------------------------------");
 
-    Member[] arr = this.list.list();
-    for (Member m : arr) {
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+      Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s, %s, %s, %s\n",
           m.getNo(), m.getName(), m.getDob(), toPositionString(m.getPosition()),
           m.getStrikeouts(), m.getHomerun(), toHandString(m.getHand()));
@@ -78,7 +80,7 @@ public class MemberHandler implements Handler {
   private void viewMember() {
     int memberNo = this.prompt.inputInt("등록 번호를 입력해주세요.");
 
-    Member m = this.list.get(memberNo);
+    Member m = (Member) this.list.get(new Member (memberNo));
     if (m == null) {
       System.out.println("해당 번호로 등록된 선수가 없습니다.");
       return;
@@ -121,7 +123,7 @@ public class MemberHandler implements Handler {
   private void updateMember() {
     int memberNo = this.prompt.inputInt("등록 번호를 입력해주세요.");
 
-    Member m = this.list.get(memberNo);
+    Member m = (Member) this.list.get(new Member (memberNo));
     if (m == null) {
       System.out.println("해당 번호로 등록된 선수가 없습니다.");
       return;
@@ -198,7 +200,7 @@ public class MemberHandler implements Handler {
   }
 
   private void deleteMember() {
-    if (!this.list.delete(this.prompt.inputInt("등록번호를 입력해주세요."))) {
+    if (!this.list.delete(new Member(this.prompt.inputInt("등록번호를 입력해주세요.")))) {
       System.out.println("해당 번호로 등록된 선수가 없습니다.");
     }
   }

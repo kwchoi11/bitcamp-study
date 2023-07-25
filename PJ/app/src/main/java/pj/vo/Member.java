@@ -26,6 +26,10 @@ public class Member {
     this.no = userId++;
   }
 
+  public Member(int no) {
+    this.no = no;
+  }
+
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
