@@ -3,6 +3,7 @@ package bitcamp.myapp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import bitcamp.net.NetProtocol;
 
 public class ClientApp {
 
@@ -35,8 +36,14 @@ public class ClientApp {
         DataInputStream in = new DataInputStream(socket.getInputStream())) {
 
       out.writeUTF("HELLO!");
-      String response = in.readUTF();
-      System.out.println(response);
+
+      while (true) {
+        String response = in.readUTF();
+        if (response.equals(NetProtocol.RESPONSE_END)) {
+          break;
+        }
+        System.out.println(response);
+      }
 
     } catch (Exception e) {
       System.out.println("서버 통신 오류!");

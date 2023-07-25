@@ -2,6 +2,7 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.myapp.vo.Member;
+import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
@@ -74,14 +76,22 @@ public class ServerApp {
 
   public void execute() {
     try (ServerSocket serverSocket = new ServerSocket(this.port)) {
+      System.out.println("서버 실행 중...");
 
       while (true) {
         try (Socket socket = serverSocket.accept();
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
 
+          InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+          System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
+
           String request = in.readUTF();
-          out.writeUTF("응답: " + request);
+          out.writeUTF("응답1: " + request);
+          out.writeUTF("응답2: " + request);
+          out.writeUTF("응답3: " + request);
+          out.writeUTF("응답4: " + request);
+          out.writeUTF(NetProtocol.RESPONSE_END);
 
         } catch (Exception e) {
           System.out.println("클라이언트 통신 오류!");
