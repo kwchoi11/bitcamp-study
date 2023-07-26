@@ -13,4 +13,6 @@ plugins {
 }
 
 rootProject.name = 'PJ'
-include('app')
+include('app-client')
+include('app-server')
+include('app-common')
