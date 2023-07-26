@@ -40,7 +40,7 @@ import pj.vo.Board;
 import pj.vo.Member;
 import pj.vo.PitcherBoard;
 
-public class App {
+public class ServerApp {
 
   ArrayList<Member> memberList = new ArrayList<>();
   LinkedList<Board> boardList = new LinkedList<>();
@@ -52,12 +52,12 @@ public class App {
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
-  public App() {
+  public ServerApp() {
     prepareMenu();
   }
 
   public static void main(String[] args) {
-    new App().execute();
+    new ServerApp().execute();
   }
 
   static void printTitle() {
