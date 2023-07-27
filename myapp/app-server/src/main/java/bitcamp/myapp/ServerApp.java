@@ -119,6 +119,7 @@ public class ServerApp {
 
     } finally {
       ds.clean(); // 현재 스레드에 보관된 Connection 객체를 닫고, 스레드에서 제거한다.
+      ((SqlSessionFactoryProxy) sqlSessionFactory).clean();
     }
   }
 
