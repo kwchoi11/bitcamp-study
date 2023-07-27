@@ -16,6 +16,14 @@ public class SqlSessionFactoryProxy implements SqlSessionFactory {
     this.original = original;
   }
 
+  public void clean() {
+    SqlSession sqlSession = sqlSessionBox.get();
+    if (sqlSession != null) {
+      sqlSession.rollback();
+      sqlSessionBox.remove();
+    }
+  }
+
   public SqlSession openSession() {
     return original.openSession();
   }
