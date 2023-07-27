@@ -36,13 +36,22 @@ public class BoardDetailListener implements ActionListener {
     try {
       board.setViewCount(board.getViewCount() + 1);
       boardDao.updateCount(board);
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      try {ds.getConnection().rollback();
-      } catch (Exception e2) {}
+      sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
 

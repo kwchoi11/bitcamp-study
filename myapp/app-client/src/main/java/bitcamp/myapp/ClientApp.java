@@ -26,11 +26,6 @@ public class ClientApp {
     app.execute();
   }
 
-  static void printTitle() {
-    System.out.println("나의 목록 관리 시스템");
-    System.out.println("----------------------------------");
-  }
-
   public void execute() {
     try (Scanner keyscan = new Scanner(System.in);
         Socket socket = new Socket(this.ip, this.port);
@@ -52,9 +47,20 @@ public class ClientApp {
         System.out.print(response);
       }
 
+
     } catch (Exception e) {
       System.out.println("서버 통신 오류!");
       e.printStackTrace();
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
