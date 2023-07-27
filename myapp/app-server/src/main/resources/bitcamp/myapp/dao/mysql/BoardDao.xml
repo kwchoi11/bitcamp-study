@@ -26,12 +26,12 @@
     values(#{title},#{content},#{writer.no},#{category})
   </insert>
 
-  <select id="findAll" parameterType="int" resultType="bitcamp.myapp.vo.Board">
+  <select id="findAll" parameterType="int" resultMap="boardMap">
     select
-      b.board_no no, 
+      b.board_no, 
       b.title, 
-      b.view_count viewCount, 
-      b.created_date createdDate, 
+      b.view_count, 
+      b.created_date, 
       m.member_no, 
       m.name 
     from 
@@ -42,13 +42,13 @@
       board_no desc
   </select>
   
-  <select id="findBy" parameterType="map" resultType="bitcamp.myapp.vo.Board">
+  <select id="findBy" parameterType="map" resultMap="boardMap">
     select
-      b.board_no no, 
+      b.board_no, 
       b.title, 
       b.content,
-      b.view_count viewCount, 
-      b.created_date createdDate, 
+      b.view_coun, 
+      b.created_date, 
       m.member_no, 
       m.name 
     from 
