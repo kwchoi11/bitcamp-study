@@ -27,7 +27,6 @@ public class MySQLBoardDao implements BoardDao {
     board.setCategory(this.category);
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     sqlSession.insert("bitcamp.myapp.dao.BoardDao.insert", board);
-    sqlSession.commit();
   }
 
   /*
