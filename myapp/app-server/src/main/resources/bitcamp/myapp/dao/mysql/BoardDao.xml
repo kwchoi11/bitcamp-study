@@ -9,12 +9,12 @@
     values(#{title},#{content},#{writer.no},#{category})
   </insert>
 
-  <select id="findAll" parameterType="int">
+  <select id="findAll" parameterType="int" resultType="bitcamp.myapp.vo.Board">
     select
-      b.board_no, 
+      b.board_no no, 
       b.title, 
-      b.view_count, 
-      b.created_date, 
+      b.view_count viewCount, 
+      b.created_date createdDate, 
       m.member_no, 
       m.name 
     from 
@@ -22,6 +22,6 @@
     where 
       category=#{categoryNo}
     order by 
-      board_no desc"
+      board_no desc
   </select>
 </mapper>
