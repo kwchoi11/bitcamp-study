@@ -55,7 +55,7 @@ public class MySQLBoardDao implements BoardDao {
      board_no desc
    */
   @Override
-  public List<Board> list() {
+  public List<Board> findAll() {
     try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
         "select" +
             "  b.board_no, " +
