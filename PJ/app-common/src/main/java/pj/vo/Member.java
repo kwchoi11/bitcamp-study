@@ -1,11 +1,10 @@
 package pj.vo;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Member implements Serializable, CsvObject {
+public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
-
-  public static int userId = 1;
 
   public static final char CATCHER = 'C';
   public static final char PITCHER = 'P';
@@ -21,52 +20,21 @@ public class Member implements Serializable, CsvObject {
   private String hand;
   private char position;
 
-  public Member() {
-    this.no = userId++;
-  }
-
-  public Member(int no) {
-    this.no = no;
-  }
-
-  public static Member fromCsv(String csv) {
-    String[] values = csv.split(",");
-
-    Member member = new Member(Integer.parseInt(values[0]));
-    member.setName(values[1]);
-    member.setBirthday(values[2]);
-    member.setHeight(values[3]);
-    member.setWeight(values[4]);
-    member.setCareer(values[5]);
-    member.setHand(values[6]);
-    member.setPosition(values[7].charAt(0));
-
-    if (Member.userId <= member.getNo()) {
-      Member.userId = member.getNo() + 1;
-    }
-
-    return member;
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
   }
 
   @Override
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s,%c", this.getNo(), this.getName(),
-        this.getBirthday(), this.getHeight(), this.getWeight(), this.getCareer(), this.getHand(),
-        this.getPosition());
-  }
-
   public boolean equals(Object obj) {
-    if (obj == null) {
+    if (this == obj)
+      return true;
+    if (obj == null)
       return false;
-    }
-    if (this.getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-    Member m = (Member) obj;
-    if (this.getNo() != m.getNo()) {
-      return false;
-    }
-    return true;
+    Member other = (Member) obj;
+    return no == other.no;
   }
 
   public int getNo() {
@@ -132,5 +100,4 @@ public class Member implements Serializable, CsvObject {
   public void setPosition(char position) {
     this.position = position;
   }
-
 }
