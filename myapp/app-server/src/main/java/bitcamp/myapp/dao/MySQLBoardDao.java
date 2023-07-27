@@ -4,39 +4,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import bitcamp.myapp.dao.BoardDao;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DataSource;
 
 public class MySQLBoardDao implements BoardDao {
 
+  SqlSessionFactory sqlSessionFactory;
   DataSource ds;
   int category;
 
-  public MySQLBoardDao(DataSource ds, int category) {
+  public MySQLBoardDao(SqlSessionFactory sqlSessionFactory, DataSource ds, int category) {
+    this.sqlSessionFactory = sqlSessionFactory;
     this.ds = ds;
     this.category = category;
   }
 
   @Override
   public void insert(Board board) {
-    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
-        "insert into myapp_board(title,content,writer,password,category)"
-            + " values(?,?,?,sha1(?),?)")) {
-
-      stmt.setString(1, board.getTitle());
-      stmt.setString(2, board.getContent());
-      stmt.setInt(3, board.getWriter().getNo());
-      stmt.setString(4, board.getPassword());
-      stmt.setInt(5, this.category);
-
-      stmt.executeUpdate();
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    sqlSession.insert("bitcamp.myapp.dao.BoardDao.insert", board);
   }
 
   /*
