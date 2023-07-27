@@ -6,7 +6,7 @@ import pj.vo.Member;
 public interface MemberDao {
   void insert(Member member);
   List<Member> list();
-  Member findBy(Member member);
+  Member findBy(int no);
   int update(Member member);
   int delete(int no);
 }

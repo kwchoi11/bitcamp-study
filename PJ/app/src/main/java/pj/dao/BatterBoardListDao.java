@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import pj.util.JsonDataHelper;
 import pj.vo.BatterBoard;
-import pj.vo.Board;
 
 public class BatterBoardListDao implements BatterBoardDao {
   String filename;
-  ArrayList<Board> list = new ArrayList<>();
+  ArrayList<BatterBoard> list = new ArrayList<>();
 
   public BatterBoardListDao(String filename) {
     this.filename = filename;

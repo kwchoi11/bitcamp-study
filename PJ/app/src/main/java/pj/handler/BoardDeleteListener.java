@@ -1,18 +1,20 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.BoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
-import pj.vo.Board;
 
-public class BoardDeleteListener extends AbstractBoardListener {
+public class BoardDeleteListener implements ActionListener {
 
-  public BoardDeleteListener(List<Board> list) {
-    super(list);
+  BoardDao boardDao;
+
+  public BoardDeleteListener(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    if (!this.list.remove(new Board(prompt.inputInt("번호? ")))) {
+    if (boardDao.delete(prompt.inputInt("번호? ")) == 0) {
       System.out.println("해당 번호의 게시글이 없습니다!");
     }
   }

@@ -1,13 +1,16 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.BoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.Board;
 
-public class BoardAddListener extends AbstractBoardListener {
+public class BoardAddListener implements ActionListener {
 
-  public BoardAddListener(List<Board> list) {
-    super(list);
+  BoardDao boardDao;
+
+  public BoardAddListener(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   @Override
@@ -17,7 +20,8 @@ public class BoardAddListener extends AbstractBoardListener {
     board.setContent(prompt.inputString("내용: "));
     board.setWriter(prompt.inputString("작성자: "));
     board.setPassword(prompt.inputString("암호: "));
-    this.list.add(board);
+
+    boardDao.insert(board);
   }
 }
 
