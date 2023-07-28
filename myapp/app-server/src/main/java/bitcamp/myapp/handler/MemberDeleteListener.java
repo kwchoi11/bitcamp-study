@@ -1,19 +1,19 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class MemberDeleteListener implements ActionListener {
 
   MemberDao memberDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MemberDeleteListener(MemberDao memberDao, DataSource ds) {
+  public MemberDeleteListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
     this.memberDao = memberDao;
-    this.ds = ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
