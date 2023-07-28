@@ -26,6 +26,19 @@ public abstract class AbstractMemberListener implements ActionListener {
     throw new IllegalArgumentException("유효하지 않은 포지션입니다.");
   }
 
+  protected static String toHandString(String hand) {
+    if (hand.equals("RR")) {
+      return "우투우타";
+    } else if (hand.equals("RL")) {
+      return "우투좌타";
+    } else if (hand.equals("LL")) {
+      return "좌투좌타";
+    } else if (hand.equals("LR")) {
+      return "좌투우타";
+    }
+    throw new IllegalArgumentException("다시 선택해주세요.");
+  }
+
   protected Member findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
       Member m = this.list.get(i);
@@ -59,6 +72,37 @@ public abstract class AbstractMemberListener implements ActionListener {
           return Member.OUTFIELDER;
         default:
           System.out.println("무효한 번호입니다. 다시 선택해주세요.");
+      }
+    }
+  }
+
+  protected String inputHand(String hand, BreadcrumbPrompt prompt) {
+    String label;
+    if (hand.equals("0")) {
+      label = "투타:\n";
+    } else {
+      label = String.format("투타(%s):\n", toHandString(hand));
+    }
+
+    while (true) {
+      String menuNo2 = this.prompt.inputString(label +
+          "  1. 우투우타\n" +
+          "  2. 우투좌타\n" +
+          "  3. 좌투좌타\n" +
+          "  4. 좌투우타\n" +
+          "> ");
+
+      switch (menuNo2) {
+        case "1":
+          return Member.RR;
+        case "2":
+          return Member.RL;
+        case "3":
+          return Member.LL;
+        case "4":
+          return Member.LR;
+        default:
+          System.out.println("무효한 번호입니다.");
       }
     }
   }

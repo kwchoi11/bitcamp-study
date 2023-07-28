@@ -1,14 +1,17 @@
 package pj.handler;
 
-import java.util.Iterator;
 import java.util.List;
+import pj.dao.PitcherBoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.PitcherBoard;
 
-public class PitcherListListener extends AbstractPitcherBoardListener {
+public class PitcherListListener implements ActionListener {
 
-  public PitcherListListener(List<PitcherBoard> list) {
-    super(list);
+  PitcherBoardDao pitcherBoardDao;
+
+  public PitcherListListener(PitcherBoardDao pitcherBoardDao) {
+    this.pitcherBoardDao = pitcherBoardDao;
   }
 
   @Override
@@ -19,13 +22,17 @@ public class PitcherListListener extends AbstractPitcherBoardListener {
     System.out.println(
         "----------------------------------------------------------------------------------");
 
-    Iterator<PitcherBoard> iterator = list.iterator();
+    List<PitcherBoard> list = pitcherBoardDao.list();
 
-    while (iterator.hasNext()) {
-      PitcherBoard pitcherBoard = iterator.next();
-      System.out.printf("%d, %s, %s, %s, %s, %d, %tY-%7$tm-%7$td\n", pitcherBoard.getNo(),
-          pitcherBoard.getName(), pitcherBoard.getEra(), pitcherBoard.getStrikeOut(),
-          pitcherBoard.getWhip(), pitcherBoard.getViewCount(), pitcherBoard.getCreatedDate());
+    for (PitcherBoard pitcherBoard : list) {
+      System.out.printf("%d, %s, %s, %s, %s, %d, %tY-%7$tm-%7$td\n",
+          pitcherBoard.getNo(),
+          pitcherBoard.getName(),
+          pitcherBoard.getEra(),
+          pitcherBoard.getStrikeOut(),
+          pitcherBoard.getWhip(),
+          pitcherBoard.getViewCount(),
+          pitcherBoard.getCreatedDate());
     }
   }
 }

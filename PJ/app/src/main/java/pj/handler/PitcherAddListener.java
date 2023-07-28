@@ -1,13 +1,16 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.PitcherBoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.PitcherBoard;
 
-public class PitcherAddListener extends AbstractPitcherBoardListener {
+public class PitcherAddListener implements ActionListener {
 
-  public PitcherAddListener(List<PitcherBoard> list) {
-    super(list);
+  PitcherBoardDao pitcherBoardDao;
+
+  public PitcherAddListener(PitcherBoardDao pitcherBoardDao) {
+    this.pitcherBoardDao = pitcherBoardDao;
   }
 
   @Override
@@ -17,7 +20,8 @@ public class PitcherAddListener extends AbstractPitcherBoardListener {
     pitcherBoard.setEra(prompt.inputString("평균자책점: "));
     pitcherBoard.setStrikeOut(prompt.inputString("탈삼진: "));
     pitcherBoard.setWhip(prompt.inputString("WHIP: "));
-    this.list.add(pitcherBoard);
+
+    pitcherBoardDao.insert(pitcherBoard);
   }
 }
 

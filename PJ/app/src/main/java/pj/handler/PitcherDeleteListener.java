@@ -1,18 +1,20 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.PitcherBoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
-import pj.vo.PitcherBoard;
 
-public class PitcherDeleteListener extends AbstractPitcherBoardListener {
+public class PitcherDeleteListener implements ActionListener {
 
-  public PitcherDeleteListener(List<PitcherBoard> list) {
-    super(list);
+  PitcherBoardDao pitcherBoardDao;
+
+  public PitcherDeleteListener(PitcherBoardDao pitcherBoardDao) {
+    this.pitcherBoardDao = pitcherBoardDao;
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    if (!this.list.remove(new PitcherBoard(prompt.inputInt("번호를 입력해주세요. ")))) {
+    if (pitcherBoardDao.delete(prompt.inputInt("번호를 입력해주세요. ")) == 0) {
       System.out.println("해당 번호의 선수 기록이 없습니다!");
     }
   }

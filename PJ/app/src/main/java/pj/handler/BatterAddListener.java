@@ -1,16 +1,16 @@
 package pj.handler;
 
-import pj.dao.BoardDao;
+import pj.dao.BatterBoardDao;
 import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.BatterBoard;
 
 public class BatterAddListener implements ActionListener {
 
-  BoardDao boardDao;
+  BatterBoardDao batterBoardDao;
 
-  public BatterAddListener(BoardDao boardDao) {
-    this.boardDao = boardDao;
+  public BatterAddListener(BatterBoardDao batterBoardDao) {
+    this.batterBoardDao = batterBoardDao;
   }
 
   @Override
@@ -20,7 +20,8 @@ public class BatterAddListener implements ActionListener {
     batterBoard.setBattingAvrg(prompt.inputString("타율: "));
     batterBoard.setRbi(prompt.inputString("타점: "));
     batterBoard.setHomerun(prompt.inputString("홈런: "));
-    this.list.add(batterBoard);
+
+    batterBoardDao.insert(batterBoard);
   }
 }
 

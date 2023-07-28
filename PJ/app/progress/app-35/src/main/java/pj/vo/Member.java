@@ -12,6 +12,11 @@ public class Member implements Serializable, CsvObject {
   public static final char INFIELDER = 'I';
   public static final char OUTFIELDER = 'O';
 
+  public static final String RR = "RR";
+  public static final String RL = "RL";
+  public static final String LL = "LL";
+  public static final String LR = "LR";
+
   private int no;
   private String name;
   private String birthday;

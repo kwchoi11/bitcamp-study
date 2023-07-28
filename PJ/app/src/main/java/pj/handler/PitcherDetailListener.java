@@ -1,20 +1,23 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.PitcherBoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.PitcherBoard;
 
-public class PitcherDetailListener extends AbstractPitcherBoardListener {
+public class PitcherDetailListener implements ActionListener {
 
-  public PitcherDetailListener(List<PitcherBoard> list) {
-    super(list);
+  PitcherBoardDao pitcherBoardDao;
+
+  public PitcherDetailListener(PitcherBoardDao pitcherBoardDao) {
+    this.pitcherBoardDao = pitcherBoardDao;
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
     int pitcherBoardNo = prompt.inputInt("번호: ");
 
-    PitcherBoard pitcherBoard = this.findBy(pitcherBoardNo);
+    PitcherBoard pitcherBoard = pitcherBoardDao.findBy(pitcherBoardNo);
     if (pitcherBoard == null) {
       System.out.println("해당 번호의 선수 기록이 없습니다!");
       return;
@@ -27,6 +30,7 @@ public class PitcherDetailListener extends AbstractPitcherBoardListener {
     System.out.printf("조회수: %s\n", pitcherBoard.getViewCount());
     System.out.printf("등록일: %tY-%1$tm-%1$td\n", pitcherBoard.getCreatedDate());
     pitcherBoard.setViewCount(pitcherBoard.getViewCount() + 1);
+    pitcherBoardDao.update(pitcherBoard);
   }
 }
 
