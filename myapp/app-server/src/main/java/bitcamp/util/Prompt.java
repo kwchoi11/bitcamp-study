@@ -14,7 +14,6 @@ public class Prompt {
   DataInputStream in;
   DataOutputStream out;
 
-  // default constructor 정의
   public Prompt(DataInputStream in, DataOutputStream out) {
     this.in = in;
     this.out = out;
@@ -61,3 +60,11 @@ public class Prompt {
     buf.setLength(0);
   }
 }
+
+
+
+
+
+
+
+

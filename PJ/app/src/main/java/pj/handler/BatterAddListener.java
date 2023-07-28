@@ -1,13 +1,16 @@
 package pj.handler;
 
-import java.util.List;
+import pj.dao.BoardDao;
+import pj.util.ActionListener;
 import pj.util.BreadcrumbPrompt;
 import pj.vo.BatterBoard;
 
-public class BatterAddListener extends AbstractBatterBoardListener {
+public class BatterAddListener implements ActionListener {
 
-  public BatterAddListener(List<BatterBoard> list) {
-    super(list);
+  BoardDao boardDao;
+
+  public BatterAddListener(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   @Override

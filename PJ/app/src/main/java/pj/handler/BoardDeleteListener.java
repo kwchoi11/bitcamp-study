@@ -14,7 +14,7 @@ public class BoardDeleteListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    if (boardDao.delete(prompt.inputInt("번호? ")) == 0) {
+    if (boardDao.delete(prompt.inputInt("게시글 번호: ")) == 0) {
       System.out.println("해당 번호의 게시글이 없습니다!");
     }
   }

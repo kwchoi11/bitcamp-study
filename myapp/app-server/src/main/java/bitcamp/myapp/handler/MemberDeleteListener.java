@@ -23,10 +23,10 @@ public class MemberDeleteListener implements ActionListener {
         prompt.println("해당 번호의 회원이 없습니다!");
       }
       prompt.println("삭제했습니다!");
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      try {ds.getConnection().rollback();} catch (Exception e2) {}
+      sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
   }
