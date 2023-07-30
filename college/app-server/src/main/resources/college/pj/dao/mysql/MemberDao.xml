@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bitcamp.myapp.dao.MemberDao">
+<mapper namespace="college.pj.dao.MemberDao">
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
   <resultMap type="member" id="memberMap">
@@ -15,7 +15,7 @@
   </resultMap>
 
   <insert id="insert" parameterType="member">
-    insert into myapp_member(name,email,password,gender)
+    insert into college_member(name,email,password,gender)
     values(#{name},#{email},sha1(#{password}),#{gender})
   </insert>
   
@@ -25,7 +25,7 @@
       name,
       email
     from
-      myapp_member 
+      college_member 
     order by
       name desc
   </select>
@@ -38,7 +38,7 @@
       gender,
       created_date
     from
-      myapp_member
+      college_member
     where
       member_no=#{no}
   </select>
@@ -51,14 +51,14 @@
       gender,
       created_date
     from
-      myapp_member
+      college_member
     where
       email=#{email}
       and password=sha1(#{password})
   </select>
   
   <update id="update" parameterType="member">
-    update myapp_member set
+    update college_member set
       name=#{name},
       email=#{email},
       password=sha1(#{password}),
@@ -68,7 +68,7 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from myapp_member
+    delete from college_member
     where 
       member_no=#{no}
   </delete>
