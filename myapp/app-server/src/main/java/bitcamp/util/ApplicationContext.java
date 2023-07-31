@@ -59,8 +59,9 @@ public class ApplicationContext {
     }
   }
 
-  private void processComponentScanAnnoation(ComponentScan componentScan) throws Exception {
+  private void processComponentScanAnnotation(ComponentScan componentScan) throws Exception {
     for (String basePackage : componentScan.basePackages()) {
+      System.out.println(basePackage + "-------------------------------------");
       createBeans(basePackage);
     }
   }
@@ -74,7 +75,6 @@ public class ApplicationContext {
       System.out.println(line);
       return false;
     });
-
   }
 
   public Object getBean(String name) {
