@@ -1,6 +1,7 @@
 // 애노테이션 프로퍼티 값 지정하기 - 프로퍼티 이름 생략
 package com.eomcs.annotation.ex4;
 
+//@MyAnnoataion3 // 오류 !
 //@MyAnnotation3(value = "홍길동", tel = "222-2222") // OK!
 
 @MyAnnotation3(tel = "222-2222", value = "홍길동") // OK!

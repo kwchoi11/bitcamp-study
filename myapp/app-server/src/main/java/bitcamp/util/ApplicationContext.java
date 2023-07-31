@@ -11,6 +11,15 @@ public class ApplicationContext {
   Map<String,Object> beanContainer = new HashMap<>();
 
   public ApplicationContext(Class<?> configClass) throws Exception {
+    processBeanAnnotation(configClass);
+
+    ComponentScan componentScan = configClass.getAnnotation(ComponentScan.class);
+    if (componentScan != null) {
+      processComponentScanAnnotation(componentScan);
+    }
+  }
+
+  private void processBeanAnnotation(Class<?> configClass) throws Exception {
     // 클래스의 기본 생성자를 알아낸다.
     Constructor<?> constructor = configClass.getConstructor();
 
@@ -20,18 +29,42 @@ public class ApplicationContext {
     // 해당 클래스에 정의된 메서드 목록만 가져온다.
     Method[] methods = configClass.getDeclaredMethods();
     for (Method m : methods) {
+
+      // 메서드의 리턴 타입이 없다면 무시한다.
       if (m.getReturnType() == void.class) {
-        // 메서드의 리턴 타입이 없다면 무시한다.
+        continue;
+      }
+
+      // @Bean 애노테이션이 붙지 않은 메서드라면 무시한다.
+      Bean beanAnnotation = m.getAnnotation(Bean.class);
+      if (beanAnnotation == null) {
         continue;
       }
 
       // 메서드 중에서 리턴 값이 있는 메서드를 호출한다.
-      // 오직 값을 리턴하는 메서드만 호출한다.
+      // 즉, 오직 값을 리턴하는 메서드만 호출한다.
       Object returnValue = m.invoke(obj);
 
-      // 리턴 값을 메서드 이름으로 빈 컨테이너에 저장한다.
-      beanContainer.put(m.getName(), returnValue);
+      // 메서드가 리턴한 값을 컨테이너에 저장한다.
+      if (beanAnnotation.value().length() > 0) {
+        // 애노테이션에 객체 이름이 지정되어 있다면 그 이름으로 객체를 저장한다.
+        beanContainer.put(beanAnnotation.value(), returnValue);
+      } else {
+        // 애노테이션에 설정된 이름이 없다면 메서드 이름을 사용하여 객체를 저장한다.
+        beanContainer.put(m.getName(), returnValue);
+      }
     }
+  }
+
+  private void processComponentScanAnnoation(ComponentScan componentScan) {
+    for (String basePackage : componentScan.basePackages()) {
+      createBeans(basePackage);
+    }
+  }
+
+  private void createBeans(String basePackage) {
+    //    ClassLoader.getSystemClassLoader().getResourceAsStream(basePackage.replaceAll("[.]", "/"));
+    System.out.println(basePackage.replaceAll("[.]", "/"));
   }
 
   public Object getBean(String name) {
@@ -44,7 +77,9 @@ public class ApplicationContext {
 
   public static void main(String[] args) throws Exception {
     ApplicationContext applicationContext = new ApplicationContext(AppConfig.class);
-
+    for (String name : applicationContext.getBeanNames()) {
+      System.out.println(name);
+    }
   }
 }
 
