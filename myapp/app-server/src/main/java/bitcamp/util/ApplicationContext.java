@@ -76,6 +76,9 @@ public class ApplicationContext {
 
     // 3) 클래스로더에게 패키지 경로에 해당하는 디렉토리 정보를 읽을 수 있는 도구를 달라고 요구한다.
     InputStream dirInputStream = systemClassLoader.getResourceAsStream(packagePath);
+    if (dirInputStream == null) {
+      return;
+    }
 
     // 4) 패키지 디렉토리 안에 들어있는 파일 이름이나 하위 디렉토리 이름을 읽을 도구를 준비한다.
     BufferedReader dirReader = new BufferedReader(new InputStreamReader(dirInputStream));
@@ -88,7 +91,6 @@ public class ApplicationContext {
         System.out.println(line);
       }
     }
-
     //    reader
     //    .lines()
     //    .filter(line -> {
