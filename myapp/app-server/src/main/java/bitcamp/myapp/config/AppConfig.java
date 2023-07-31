@@ -10,10 +10,10 @@ import bitcamp.util.SqlSessionFactoryProxy;
 public class AppConfig {
 
   // Mybatis 객체 준비
+  @Bean
   public SqlSessionFactory createSqlSessionFactory() throws Exception {
     return new SqlSessionFactoryProxy(
         new SqlSessionFactoryBuilder().build(
             Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
   }
-
 }
