@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import bitcamp.myapp.config.AppConfig;
 
 public class ApplicationContext {
@@ -85,11 +87,25 @@ public class ApplicationContext {
 
     // 5) 디렉토리 리더를 통해 해당 디렉토리에 들어있는 하위 디렉토리 또는 파일 이름을 알아낸다.
     //    - 한 줄씩 읽으면 된다.
+    Set<Class<?>> classes = new HashSet<>();
     String line = null;
     while ((line == dirReader.readLine()) != null) {
+
+      // 파일 확장자가 .class로 끝나는 파일만 처리한다.
       if (line.endsWith(".class")) {
-        System.out.println(line);
+
+        // 패키지 이름과 클래스 이름(.class 확장자를 뺀 이름)을 합쳐서
+        // Fully-Qualified class name을 만든 다음에
+        // Class.forName()을 사용하여 클래스를 메모리(Method Area)에 로딩한다.
+        Class<?> clazz = Class.forName(basePackage + "." + line.replace(".class", ""));
+
+        // 로딩한 클래스 정보를 Set 컬렉션에 담는다.
+        classes.add(clazz);
       }
+    }
+
+    for (Class<?> clazz : classes) {
+      System.out.println("#######" + clazz.getName());
     }
     //    reader
     //    .lines()
