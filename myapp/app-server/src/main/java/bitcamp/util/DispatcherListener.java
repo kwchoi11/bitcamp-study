@@ -24,18 +24,18 @@ import bitcamp.myapp.handler.MemberUpdateListener;
 
 public class DispatcherListener implements ActionListener {
 
-  // 객체 저장소
-  Map<String, Object> beanContainer = new HashMap<>();
-
+  // 객체 보관소
+  Map<String,Object> beanContainer = new HashMap<>();
 
   public DispatcherListener() throws Exception {
 
     // Mybatis 준비
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(new SqlSessionFactoryBuilder()
-        .build(Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(
+        new SqlSessionFactoryBuilder().build(
+            Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
     beanContainer.put("sqlSessionFactory", sqlSessionFactory);
 
-    // Dao 준비
+    // DAO 준비
     MemberDao memberDao = new MySQLMemberDao(sqlSessionFactory);
     BoardDao boardDao = new MySQLBoardDao(sqlSessionFactory);
     beanContainer.put("memberDao", memberDao);

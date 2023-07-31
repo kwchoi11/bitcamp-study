@@ -17,6 +17,7 @@ public class ServerApp {
 
   // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(2);
+
   MenuGroup mainMenu = new MenuGroup("/", "메인");
   DispatcherListener facadeListener = new DispatcherListener();
 
@@ -45,7 +46,6 @@ public class ServerApp {
         Socket socket = serverSocket.accept();
         threadPool.execute(() -> processRequest(socket));
       }
-
     } catch (Exception e) {
       System.out.println("서버 실행 오류!");
       e.printStackTrace();
@@ -62,7 +62,8 @@ public class ServerApp {
       InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
       System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
 
-      out.writeUTF("[나의 목록 관리 시스템]\n" + "-----------------------------------------");
+      out.writeUTF("[나의 목록 관리 시스템]\n"
+          + "-----------------------------------------");
 
       prompt.setAttribute("menuPath", "login");
       facadeListener.service(prompt);
@@ -105,5 +106,6 @@ public class ServerApp {
     readingMenu.add("reading/update", "변경", facadeListener);
     readingMenu.add("reading/delete", "삭제", facadeListener);
     mainMenu.add(readingMenu);
+
   }
 }
