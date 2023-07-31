@@ -1,5 +1,8 @@
 package bitcamp.util;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -56,15 +59,22 @@ public class ApplicationContext {
     }
   }
 
-  private void processComponentScanAnnoation(ComponentScan componentScan) {
+  private void processComponentScanAnnoation(ComponentScan componentScan) throws Exception {
     for (String basePackage : componentScan.basePackages()) {
       createBeans(basePackage);
     }
   }
 
-  private void createBeans(String basePackage) {
-    //    ClassLoader.getSystemClassLoader().getResourceAsStream(basePackage.replaceAll("[.]", "/"));
-    System.out.println(basePackage.replaceAll("[.]", "/"));
+  private void createBeans(String basePackage) throws Exception {
+    InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(basePackage.replaceAll("[.]", "/"));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+    reader
+    .lines()
+    .filter(line -> {
+      System.out.println(line);
+      return false;
+    });
+
   }
 
   public Object getBean(String name) {
