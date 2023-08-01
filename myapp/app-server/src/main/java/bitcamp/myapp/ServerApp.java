@@ -2,6 +2,8 @@ package bitcamp.myapp;
 
 
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherListener;
@@ -34,6 +36,7 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
+    Path file = Paths.get(ServerApp.class.getResource("/static/index.html").toURI());
     DisposableServer server = HttpServer
         .create()
         .port(8888)
@@ -41,7 +44,9 @@ public class ServerApp {
             .get("/hello", (request, response) -> response.sendString(Mono.just("Hello World")))
             .get("/board/list", (request, response) -> response.sendString(Mono.just("게시글 목록")))
             .get("/board/add", (request, response) -> response.sendString(Mono.just("게시글 등록")))
-            .get("/board/detail", (request, response) -> response.sendString(Mono.just("게시글 조회"))))
+            .get("/board/detail", (request, response) -> response.sendString(Mono.just("게시글 조회")))
+            .file("/index.html", file)
+            )
         .bindNow();
     System.out.println("서버 실행됨!");
 
