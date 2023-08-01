@@ -4,7 +4,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpRequest;
 
-
 public class ServerHandler  extends SimpleChannelInboundHandler {
   private HttpRequest request;
   StringBuilder responseData = new StringBuilder();

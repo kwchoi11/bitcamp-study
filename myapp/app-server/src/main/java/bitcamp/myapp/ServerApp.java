@@ -1,6 +1,5 @@
 package bitcamp.myapp;
 
-
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
