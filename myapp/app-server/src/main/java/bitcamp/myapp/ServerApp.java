@@ -2,7 +2,6 @@ package bitcamp.myapp;
 
 import java.net.Socket;
 import org.apache.ibatis.session.SqlSessionFactory;
-import bitcamp.myapp.config.AppConfig;
 import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherListener;
 import bitcamp.util.SqlSessionFactoryProxy;
@@ -16,8 +15,8 @@ public class ServerApp {
 
   public ServerApp(int port) throws Exception {
     this.port = port;
-    iocContainer = new ApplicationContext(AppConfig.class); // IoC 컨테이너
-    facadeListener = new DispatcherListener(iocContainer); // Facade Listener
+    //    iocContainer = new ApplicationContext(AppConfig.class); // IoC 컨테이너
+    //    facadeListener = new DispatcherListener(iocContainer); // Facade Listener
   }
 
   public void close() throws Exception {
