@@ -1,8 +1,6 @@
 package bitcamp.util;
 
 import java.io.PrintWriter;
-import reactor.netty.http.server.HttpServerRequest;
-import reactor.netty.http.server.HttpServerResponse;
 
 public class DispatcherServlet implements Servlet {
 
@@ -13,15 +11,14 @@ public class DispatcherServlet implements Servlet {
   }
 
   @Override
-  public void service(HttpServerRequest request, HttpServerResponse response) throws Exception {
-
-    PrintWriter out = response.getWriter();
-    out.println("Hello World");
-    out.println("반가워요");
-    //    ActionListener listener = (ActionListener) iocContainer.getBean((String) prompt.getAttribute("menuPath"));
-    //    if (listener == null) {
-    //      throw new RuntimeException("해당 요청을 처리할 수 없습니다.");
-    //    }
-    //    listener.service(prompt);
+  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    Servlet servlet = (Servlet) iocContainer.getBean("/" + request.path());
+    if (servlet == null) {
+      response.setContentType("text/plain;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+      out.println("해당 요청을 처리할 수 없습니다!");
+      return;
+    }
+    servlet.service(request, response);
   }
 }

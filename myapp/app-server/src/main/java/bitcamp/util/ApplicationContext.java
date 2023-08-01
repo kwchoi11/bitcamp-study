@@ -35,7 +35,7 @@ public class ApplicationContext {
   }
 
   private void processBeanAnnotation(Class<?> configClass) throws Exception {
-    System.out.println("@Bean ------------------------------");
+    System.out.println("@Bean --------------------------------");
 
     // 클래스의 기본 생성자를 알아낸다.
     Constructor<?> constructor = configClass.getConstructor();
@@ -100,6 +100,7 @@ public class ApplicationContext {
 
     // 5) 디렉토리 리더를 통해 해당 디렉토리에 들어 있는 하위 디렉토리 또는 파일 이름을 알아낸다.
     //    .class 파일을 로딩하여 Class 객체를 준비한다.
+    //
     // ==> 전통적인 컬렉션 데이터 가공 방식
     //    - 한 줄씩 읽으면 된다.
     //    Set<Class<?>> classes = new HashSet<>();
@@ -155,6 +156,7 @@ public class ApplicationContext {
 
     // 6) 로딩된 클래스 정보를 활용하여 객체를 생성한다.
     for (Class<?> clazz : classes) {
+      System.out.println(clazz.getName());
       if (clazz.isEnum() || clazz.isInterface() || clazz.isLocalClass() || clazz.isMemberClass()) {
         // 패키지 멤버 클래스가 아닌 경우 객체 생성 대상에서 제외한다.
         continue;
@@ -166,21 +168,21 @@ public class ApplicationContext {
         continue;
       }
 
-      // - 클래스의 생성자를 알아낸다.
+      // - 클래스 정보를 가지고 클래스의 생성자를 알아낸다.
       Constructor<?> constructor = clazz.getConstructors()[0];
 
       // - 생성자의 파라미터 정보를 알아낸다.
       Parameter[] params = constructor.getParameters();
 
-      // - 생성자를 호출할 때 넘겨 줄 아규먼트를 준비한다.
-      Object[] args = prepareArguments (params);
+      // - 생성자를 파라미터를 가지고 호출할 때 넘겨 줄 아규먼트를 준비한다.
+      Object[] args = prepareArguments(params);
 
       // - 준비한 아규먼트를 가지고 생성자를 통해 객체를 생성한다.
       Object obj = constructor.newInstance(args);
 
       // - 생성된 객체를 컨테이너에 저장한다.
       if (compAnno.value().length() > 0) {
-        // @Component 애노테이션에 객체 이름이 저장되어 있다면 그 이름으로 객체를 저장한다.
+        // @Component 애노테이션에 객체 이름이 지정되어 있다면 그 이름으로 객체를 저장한다.
         beanContainer.put(compAnno.value(), obj);
       } else {
         // 그렇지 않다면, 클래스 이름으로 객체를 저장한다.

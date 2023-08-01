@@ -26,7 +26,7 @@ public class BoardDeleteListener implements ActionListener {
     Board b = new Board();
     b.setNo(prompt.inputInt("번호? "));
     b.setWriter((Member) prompt.getAttribute("loginUser"));
-    b.setCategory(Integer.parseInt((String) prompt.getAttribute("category")));
+    b.setCategory(Integer.parseInt((String)prompt.getAttribute("category")));
 
     try {
       if (boardDao.delete(b) == 0) {

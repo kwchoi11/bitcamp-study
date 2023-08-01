@@ -4,23 +4,6 @@ import java.util.ArrayList;
 
 public class Menu {
 
-  public static void main(String[] args) {
-    String str1 = "/board/add?category=1&no=100&title=okok";
-    String str2 = "/board/add";
-
-    String[] values = str1.split("[?]");
-    System.out.println(str2.split("[?]")[0]);
-
-    if (values.length > 1) {
-      String[] params = values[1].split("&");
-
-      for (String param : params) {
-        String[] kv = param.split("=");
-        System.out.printf("%s=%s\n", kv[0], kv[1]);
-      }
-    }
-  }
-
   private String path; // 메뉴를 식별하는 경로
   private String title; // 메뉴의 제목
   private ArrayList<ActionListener> listeners = new ArrayList<>();
@@ -54,7 +37,7 @@ public class Menu {
       String[] values = this.path.split("[?]");
       prompt.setAttribute("menuPath", values[0]);
 
-      // 리스너가 기타 파라미터 값을 꺼낼 수 있도록 key-values로 분리하여 저장한다.
+      // 리스너가 기타 파라미터 값을 꺼낼 수 있도록 key-value로 분리하여 저장한다.
       if (values.length > 1) {
         String[] params = values[1].split("&");
 

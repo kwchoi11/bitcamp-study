@@ -3,6 +3,8 @@ package bitcamp.myapp;
 import bitcamp.myapp.config.AppConfig;
 import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherServlet;
+import bitcamp.util.HttpServletRequest;
+import bitcamp.util.HttpServletResponse;
 import reactor.core.publisher.Mono;
 import reactor.netty.DisposableServer;
 import reactor.netty.NettyOutbound;
@@ -19,8 +21,8 @@ public class ServerApp {
 
   public ServerApp(int port) throws Exception {
     this.port = port;
-    iocContainer = new ApplicationContext(AppConfig.class); // IoC 컨테이너
-    dispatcherServlet = new DispatcherServlet(iocContainer); // Facade Listener
+    iocContainer = new ApplicationContext(AppConfig.class);
+    dispatcherServlet = new DispatcherServlet(iocContainer);
   }
 
   public void close() throws Exception {
@@ -49,11 +51,17 @@ public class ServerApp {
     try {
       HttpServletRequest request2 = new HttpServletRequest(request);
       HttpServletResponse response2 = new HttpServletResponse(response);
-      dispatcherServlet.service(, new HttpServletRequest(request));
-      return response.sendString(Mono.just("response2.getContent()"));
+      dispatcherServlet.service(request2, response2);
+
+      // HTTP 응답 프로토콜의 헤더 설정
+      response.addHeader("Content-Type", response2.getContentType());
+
+      // 서블릿이 출력한 문자열을 버퍼에서 꺼내 HTTP 프로토콜에 맞춰 응답한다.
+      return response.sendString(Mono.just(response2.getContent()));
 
     } catch (Exception e) {
-      return response.sendString(Mono.just("Error"));
+      e.printStackTrace();
+      return response.sendString(Mono.just("Error!"));
 
     } finally {
       //      SqlSessionFactoryProxy sqlSessionFactoryProxy =
