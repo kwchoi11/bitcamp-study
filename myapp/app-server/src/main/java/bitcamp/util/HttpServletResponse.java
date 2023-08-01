@@ -46,7 +46,7 @@ public class HttpServletResponse {
   }
 
   @Override
-  public String toString() {
+  public String getContent() {
     return buf.toString();
   }
 

@@ -47,9 +47,10 @@ public class ServerApp {
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
     try {
-
+      HttpServletRequest request2 = new HttpServletRequest(request);
+      HttpServletResponse response2 = new HttpServletResponse(response);
       dispatcherServlet.service(, new HttpServletRequest(request));
-      return response.sendString(Mono.just("Hello World"));
+      return response.sendString(Mono.just("response2.getContent()"));
 
     } catch (Exception e) {
       return response.sendString(Mono.just("Error"));
