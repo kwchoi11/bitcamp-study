@@ -12,6 +12,7 @@ public class DispatcherListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) throws IOException {
+
     ActionListener listener = (ActionListener) iocContainer.getBean((String) prompt.getAttribute("menuPath"));
     if (listener == null) {
       throw new RuntimeException("해당 요청을 처리할 수 없습니다.");
