@@ -47,7 +47,7 @@ public class BoardUpdateServlet implements Servlet {
 
     try {
       if (boardDao.update(board) == 0) {
-        out.println("게시글이 없거나 변경 권한이 없습니다..");
+        out.println("게시글이 없거나 변경 권한이 없습니다.");
       } else {
         out.println("게시글을 변경했습니다!");
       }
