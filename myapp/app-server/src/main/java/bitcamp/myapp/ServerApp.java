@@ -50,7 +50,6 @@ public class ServerApp {
   }
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
-
     HttpServletRequest request2 = new HttpServletRequest(request);
     HttpServletResponse response2 = new HttpServletResponse(response);
 

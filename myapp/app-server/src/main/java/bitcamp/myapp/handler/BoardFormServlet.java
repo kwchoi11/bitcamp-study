@@ -27,7 +27,7 @@ public class BoardFormServlet implements Servlet {
     out.println("<form action='/board/add'>");
     out.println("제목 <input type='text' name='title'><br>");
     out.println("내용 <textarea name='content'></textarea><br>");
-    out.printf("<input type='hidden' name='category' value=%d>\n", category);
+    out.printf("<input type='hidden' name='category' value='%d'>\n", category);
     out.println("<button>등록</button>");
     out.println("</form>");
     out.println("</body>");
