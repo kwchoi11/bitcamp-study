@@ -1,5 +1,6 @@
 package bitcamp.myapp.handler;
 
+import java.io.PrintWriter;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
@@ -23,19 +24,33 @@ public class BoardAddServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
     Board board = new Board();
-    board.setTitle(prompt.inputString("제목? "));
-    board.setContent(prompt.inputString("내용? "));
-    board.setWriter((Member) prompt.getAttribute("loginUser"));
-    board.setCategory(Integer.parseInt((String)prompt.getAttribute("category")));
+    board.setTitle(request.getParameter("title"));
+    board.setContent(request.getParameter("content"));
+    board.setWriter((Member) request.getAttribute("loginUser"));
+    board.setCategory(Integer.parseInt(request.getParameter("category")));
 
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<meta charset='UTF-8'>");
+    out.println("<meta http-equiv='refresh' content='1;url=/board/list?category=1'>");
+    out.println("<title>게시글</title>");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<h1>게시글 등록</h1>");
     try {
       boardDao.insert(board);
       sqlSessionFactory.openSession(false).commit();
-
+      out.println("<p>등록 성공!</p>");
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
-      throw new RuntimeException(e);
+      out.println("<p>등록 실패!</p>");
+      e.printStackTrace();
     }
+    out.println("</body>");
+    out.println("</html>");
   }
 }
 

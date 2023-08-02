@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import bitcamp.myapp.dao.MemberDao;
 
 public class DispatcherServlet implements Servlet {
 
@@ -20,11 +21,11 @@ public class DispatcherServlet implements Servlet {
       if (request.getServletPath().endsWith("/")) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.print(getStaticContent(request.getServletPath() + "index.hetml"));
+        out.print(getStaticContent(request.getServletPath() + "index.html"));
         return;
       }
 
-      // HTML문서를 요청할 경우,
+      // HTML 문서를 요청할 경우,
       if (request.getServletPath().endsWith(".html")) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -32,11 +33,14 @@ public class DispatcherServlet implements Servlet {
         return;
       }
 
-      // 서블릿의 실행을 요구할 경우,
+      // Servlet의 실행을 요구할 경우,
       Servlet servlet = (Servlet) iocContainer.getBean(request.getServletPath());
       if (servlet == null) {
         throw new Exception("요청한 URL이 유효하지 않습니다.");
       }
+
+      MemberDao memberDao = iocContainer.getBean(MemberDao.class);
+      request.setAttribute("loginUser", memberDao.findBy(3));
       servlet.service(request, response);
 
     } catch (Exception e) {
@@ -61,7 +65,7 @@ public class DispatcherServlet implements Servlet {
     }
 
     // 버퍼에 담은 모든 데이터를 리턴한다.
-    // 즉 파일에서 읽은 데이터를 리턴하는 것이다.
+    // 즉, 파일에서 읽은 데이터를 리턴하는 것이다.
     return strBuf.toString();
   }
 
@@ -72,10 +76,10 @@ public class DispatcherServlet implements Servlet {
 
     // 클래스 정보를 담고 있는 객체를 알아낸다.
     // 어떤 클래스라도 상관없다.
-    // 일반 파일이 놓여있는 classPath에 존재하는 클래스면 된다.
+    // 일반 파일이 놓여 있는 classpath에 존재하는 클래스면 된다.
     Class<?> clazz = DispatcherServlet.class;
 
-    // Class.getRsource()는 주어진 경로의 파일의 실제 위치를 찾아준다.
+    // Class.getResource()는 주어진 경로의 파일의 실제 위치를 찾아준다.
     URL fileURL = clazz.getResource(staticResourcePath);
 
     // URL 객체에서 파일 경로를 문자열로 추출하여 리턴한다.
