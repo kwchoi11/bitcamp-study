@@ -24,6 +24,14 @@ public class DispatcherServlet implements Servlet {
         return;
       }
 
+      // HTML문서를 요청할 경우,
+      if (request.getServletPath().endsWith(".html")) {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print(getStaticContent(request.getServletPath()));
+        return;
+      }
+
       // 서블릿의 실행을 요구할 경우,
       Servlet servlet = (Servlet) iocContainer.getBean(request.getServletPath());
       if (servlet == null) {

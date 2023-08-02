@@ -1,27 +1,27 @@
 package bitcamp.myapp.handler;
 
-import java.io.IOException;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.ActionListener;
-import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Component;
+import bitcamp.util.HttpServletRequest;
+import bitcamp.util.HttpServletResponse;
+import bitcamp.util.Servlet;
 
 @Component("/board/add")
-public class BoardAddListener implements ActionListener {
+public class BoardAddServlet implements Servlet {
 
   BoardDao boardDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public BoardAddListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+  public BoardAddServlet(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
-  public void service(BreadcrumbPrompt prompt) throws IOException {
+  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
     Board board = new Board();
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
