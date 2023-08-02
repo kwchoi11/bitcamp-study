@@ -24,13 +24,13 @@ import reactor.netty.http.server.HttpServerRequest;
 
 public class HttpServletRequest {
 
-  QueryStringDecoder qsDecoder;
   HttpServerRequest original;
+  QueryStringDecoder qsDecoder;
   Map<String,Object> attrMap = new HashMap<>();
 
   public HttpServletRequest(HttpServerRequest original) {
     this.original = original;
-    this.qsDecoder  = new QueryStringDecoder(original.uri());
+    this.qsDecoder = new QueryStringDecoder(original.uri());
   }
 
   public void setAttribute(String name, Object value) {

@@ -43,10 +43,11 @@ public class BoardAddServlet implements Servlet {
     try {
       boardDao.insert(board);
       sqlSessionFactory.openSession(false).commit();
-      out.println("<p>등록 성공!</p>");
+      out.println("<p>등록 성공입니다!</p>");
+
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
-      out.println("<p>등록 실패!</p>");
+      out.println("<p>등록 실패입니다!</p>");
       e.printStackTrace();
     }
     out.println("</body>");
