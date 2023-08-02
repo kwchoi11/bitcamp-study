@@ -61,7 +61,6 @@ public class BoardListServlet implements Servlet {
           dateFormatter.format(board.getCreatedDate())
           );
     }
-    out.println("</tbody>");
     out.println("</body>");
     out.println("</html>");
   }
