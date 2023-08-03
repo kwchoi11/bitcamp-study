@@ -23,27 +23,28 @@ public class LoginServlet implements Servlet {
     m.setEmail(request.getParameter("email"));
     m.setPassword(request.getParameter("password"));
 
+    Member loginUser = memberDao.findByEmailAndPassword(m);
+    // login 성공 -> root (redirect)
+    if (loginUser == null) {
+      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 Session 보관소에 담아둔다.
+      request.getSession().setAttribute("loginUser", loginUser);
+      response.sendRedirect("/");
+      return;
+    }
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
+    // login meta tag
+    out.println("<meta http-equiv='refresh' content='1; url=/auth/form.html'>");
     out.println("<title>로그인</title>");
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>로그인</h1>");
-
-    Member loginUser = memberDao.findByEmailAndPassword(m);
-    if (loginUser == null) {
-      out.println("<p>회원 정보가 일치하지 않습니다.</p>");
-    } else {
-      out.println("<p>로그인 성공입니다!</p>");
-
-      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 Session 보관소에 담아둔다.
-      request.getSession().setAttribute("loginUser", loginUser);
-    }
-
+    out.println("<p>회원 정보가 일치하지 않습니다.</p>");
     out.println("</body>");
     out.println("</html>");
   }
