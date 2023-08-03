@@ -39,6 +39,9 @@ public class LoginLServlet implements Servlet {
       out.println("<p>회원 정보가 일치하지 않습니다.</p>");
     } else {
       out.println("<p>로그인 성공입니다!</p>");
+
+      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 세션 보관소에 담아 둔다.
+      request.getSession().setAttribute(("loginUser", loginUser);
     }
 
     out.println("</body>");

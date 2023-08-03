@@ -1,7 +1,9 @@
 package bitcamp.myapp;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.config.AppConfig;
@@ -9,6 +11,7 @@ import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherServlet;
 import bitcamp.util.HttpServletRequest;
 import bitcamp.util.HttpServletResponse;
+import bitcamp.util.HttpSession;
 import bitcamp.util.SqlSessionFactoryProxy;
 import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.cookie.DefaultCookie;
@@ -25,6 +28,7 @@ public class ServerApp {
 
   ApplicationContext iocContainer;
   DispatcherServlet dispatcherServlet;
+  Map<String,HttpSession> sessionMap = new HashMap<>();
 
   int port;
 
@@ -67,7 +71,7 @@ public class ServerApp {
 
       // 클라이언트가 보낸 쿠키들 중에서 세션 ID가 있는지 확인한다.
       List<Cookie> cookies = request2.allCookies().get(MYAPP_SESSION_ID);
-      if (cookies.size() > 0) {
+      if (cookies != null) {
         // 세션 ID가 있으면 이 값을 가지고 클라이언트를 구분한다.
         sessionId = cookies.get(0).value();
         firstVisit = false;
@@ -77,6 +81,16 @@ public class ServerApp {
         sessionId = UUID.randomUUID().toString();
         firstVisit = true;
       }
+
+      // 세션ID로 클라이언트에게 배정된 HttpSession 객체를 찾는다.
+      HttpSession session = sessionMap.get(sessionId);
+      if (session == null) {
+        // 현재 클라이언트가 사용할 HttpSession 객체가 배정되지 않았다면, 새로 만든다.
+        session = new HttpSession(sessionId);
+      }
+
+      // 서블릿에서 HttpSession 보관소를 사용할 수 있도록 HttpServletRequest에 담아 둔다.
+      request2.setSession(session);
 
       if (firstVisit) {
         // 세션ID가 없는 클라이언트를 위해 새로 발급한 세션 ID를 쿠키로 보낸다.
