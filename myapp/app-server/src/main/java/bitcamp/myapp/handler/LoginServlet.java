@@ -9,11 +9,11 @@ import bitcamp.util.HttpServletResponse;
 import bitcamp.util.Servlet;
 
 @Component("/auth/login")
-public class LoginLServlet implements Servlet {
+public class LoginServlet implements Servlet {
 
   MemberDao memberDao;
 
-  public LoginLServlet(MemberDao memberDao) {
+  public LoginServlet(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
@@ -40,8 +40,8 @@ public class LoginLServlet implements Servlet {
     } else {
       out.println("<p>로그인 성공입니다!</p>");
 
-      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 세션 보관소에 담아 둔다.
-      request.getSession().setAttribute(("loginUser", loginUser);
+      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 Session 보관소에 담아둔다.
+      request.getSession().setAttribute("loginUser", loginUser);
     }
 
     out.println("</body>");

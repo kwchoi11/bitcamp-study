@@ -87,6 +87,9 @@ public class ServerApp {
       if (session == null) {
         // 현재 클라이언트가 사용할 HttpSession 객체가 배정되지 않았다면, 새로 만든다.
         session = new HttpSession(sessionId);
+
+        // 새로 만든 세션 객체를 세션ID를 사용하여 맵에 보관한다.
+        sessionMap.put(sessionId, session);
       }
 
       // 서블릿에서 HttpSession 보관소를 사용할 수 있도록 HttpServletRequest에 담아 둔다.
