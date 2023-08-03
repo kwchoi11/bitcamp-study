@@ -9,11 +9,11 @@ import bitcamp.util.HttpServletResponse;
 import bitcamp.util.Servlet;
 
 @Component("/auth/login")
-public class LoginListener implements Servlet {
+public class LoginLServlet implements Servlet {
 
   MemberDao memberDao;
 
-  public LoginListener(MemberDao memberDao) {
+  public LoginLServlet(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
