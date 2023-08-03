@@ -24,9 +24,8 @@ public class LoginServlet implements Servlet {
     m.setPassword(request.getParameter("password"));
 
     Member loginUser = memberDao.findByEmailAndPassword(m);
-    // login 성공 -> root (redirect)
-    if (loginUser == null) {
-      // 로그인 정보를 다른 요청에서도 사용할 수 있도록 Session 보관소에 담아둔다.
+    if (loginUser != null) {
+      // 로그인 정보를 다른 요청에서도 사용할 있도록 세션 보관소에 담아 둔다.
       request.getSession().setAttribute("loginUser", loginUser);
       response.sendRedirect("/");
       return;
@@ -38,8 +37,7 @@ public class LoginServlet implements Servlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    // login meta tag
-    out.println("<meta http-equiv='refresh' content='1; url=/auth/form.html'>");
+    out.println("<meta http-equiv='refresh' content='1;url=/auth/form.html'>");
     out.println("<title>로그인</title>");
     out.println("</head>");
     out.println("<body>");
