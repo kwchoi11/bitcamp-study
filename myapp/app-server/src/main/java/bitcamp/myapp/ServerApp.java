@@ -24,7 +24,7 @@ import reactor.netty.http.server.HttpServerResponse;
 
 public class ServerApp {
 
-  public static final String MYAPP_SESSION_ID = "myapp_session-id";
+  public static final String MYAPP_SESSION_ID = "myapp_session_id";
 
   ApplicationContext iocContainer;
   DispatcherServlet dispatcherServlet;
@@ -61,6 +61,7 @@ public class ServerApp {
   }
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
+
     HttpServletRequest request2 = new HttpServletRequest(request);
     HttpServletResponse response2 = new HttpServletResponse(response);
 
@@ -69,13 +70,11 @@ public class ServerApp {
       String sessionId = null;
       boolean firstVisit = false;
 
-      // 클라이언트가 보낸 쿠키들 중에서 세션 ID가 있는지 확인한다.
+      // 클라이언트가 보낸 쿠키들 중에서 세션ID가 있는지 확인한다.
       List<Cookie> cookies = request2.allCookies().get(MYAPP_SESSION_ID);
       if (cookies != null) {
-        // 세션 ID가 있으면 이 값을 가지고 클라이언트를 구분한다.
+        // 세션ID가 있으면 이 값을 가지고 클라이언트를 구분한다.
         sessionId = cookies.get(0).value();
-        firstVisit = false;
-
       } else {
         // 세션ID가 없으면 이 클라이언트를 구분하기 위해 새 세션ID를 발급한다.
         sessionId = UUID.randomUUID().toString();
@@ -96,7 +95,7 @@ public class ServerApp {
       request2.setSession(session);
 
       if (firstVisit) {
-        // 세션ID가 없는 클라이언트를 위해 새로 발급한 세션 ID를 쿠키로 보낸다.
+        // 세션ID가 없는 클라이언트를 위해 새로 발급한 세션ID를 쿠키로 보낸다.
         // 웹브라우저는 이 값을 내부 메모리에 저장할 것이다.
         response.addCookie(new DefaultCookie(MYAPP_SESSION_ID, sessionId));
       }
@@ -119,13 +118,28 @@ public class ServerApp {
         return response.sendFile(Path.of(ServerApp.class.getResource(resourcePath).toURI()));
       }
 
-      dispatcherServlet.service(request2, response2);
+      if (request.isFormUrlencoded()) {
+        // POST 방식으로 요청했다면,
+        return response.sendString(request.receive()
+            .aggregate()
+            .asString()
+            .map(body -> {
+              try {
+                request2.parseFormBody(body);
+                dispatcherServlet.service(request2, response2);
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+              response.addHeader("Content-Type", response2.getContentType());
+              return response2.getContent();
+            }));
 
-      // HTTP 응답 프로토콜의 헤더 설정
-      response.addHeader("Content-Type", response2.getContentType());
-
-      // 서블릿이 출력한 문자열을 버퍼에서 꺼내 HTTP 프로토콜에 맞춰 응답한다.
-      return response.sendString(Mono.just(response2.getContent()));
+      } else {
+        // GET 방식으로 요청했다면,
+        dispatcherServlet.service(request2, response2);
+        response.addHeader("Content-Type", response2.getContentType());
+        return response.sendString(Mono.just(response2.getContent()));
+      }
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -136,5 +150,7 @@ public class ServerApp {
           (SqlSessionFactoryProxy) iocContainer.getBean(SqlSessionFactory.class);
       sqlSessionFactoryProxy.clean();
     }
+
   }
+
 }
