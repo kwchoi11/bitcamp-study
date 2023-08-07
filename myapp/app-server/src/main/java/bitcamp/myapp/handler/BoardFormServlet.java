@@ -1,16 +1,24 @@
 package bitcamp.myapp.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import bitcamp.util.AbstractServlet;
 
-@Component("/board/form")
-public class BoardFormServlet implements Servlet {
+@WebServlet("/board/form")
+public class BoardFormServlet extends AbstractServlet {
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+
+    HttpServletRequest request = (HttpServletRequest) req;
+    HttpServletResponse response = (HttpServletResponse) res;
 
     int category = Integer.parseInt(request.getParameter("category"));
 
