@@ -7,11 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import college.pj.vo.Board;
 import college.pj.vo.Member;
 
-@WebServlet("/board/add")
-public class BoardAddServlet extends HttpServlet {
+@WebServlet("/member/add")
+public class MemberAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -19,19 +18,11 @@ public class BoardAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      response.sendRedirect("/auth/form.html");
-      return;
-    }
-
-    int category = Integer.parseInt(request.getParameter("category"));
-
-    Board board = new Board();
-    board.setTitle(request.getParameter("title"));
-    board.setContent(request.getParameter("content"));
-    board.setWriter(loginUser);
-    board.setCategory(category);
+    Member m = new Member();
+    m.setName(request.getParameter("name"));
+    m.setEmail(request.getParameter("email"));
+    m.setPassword(request.getParameter("password"));
+    m.setGender(request.getParameter("gender").charAt(0));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -39,20 +30,20 @@ public class BoardAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n", category);
-    out.println("<title>게시글</title>");
+    out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
+    out.println("<title>회원</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 등록</h1>");
+    out.println("<h1>회원 등록</h1>");
 
     try {
-      InitServlet.boardDao.insert(board);
+      InitServlet.memberDao.insert(m);
       InitServlet.sqlSessionFactory.openSession(false).commit();
-      out.println("<p>게시글이 등록되었습니다.</p>");
+      out.println("<p>회원을 등록했습니다.</p>");
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
-      out.println("<p>게시글 등록에 실패했습니다.</p>");
+      out.println("<p>회원 등록에 실패했습니다.</p>");
       e.printStackTrace();
     }
     out.println("</body>");

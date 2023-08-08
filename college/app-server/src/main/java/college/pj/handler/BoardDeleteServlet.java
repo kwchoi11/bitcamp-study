@@ -15,11 +15,11 @@ public class BoardDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (liginUser == null) {
+    if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
       return;
     }
