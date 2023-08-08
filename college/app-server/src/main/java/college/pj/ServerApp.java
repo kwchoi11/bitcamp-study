@@ -16,11 +16,11 @@ import college.pj.dao.BoardDao;
 import college.pj.dao.MemberDao;
 import college.pj.dao.MySQLBoardDao;
 import college.pj.dao.MySQLMemberDao;
-import college.pj.handler.BoardAddListener;
-import college.pj.handler.BoardDeleteListener;
-import college.pj.handler.BoardDetailListener;
-import college.pj.handler.BoardListListener;
-import college.pj.handler.BoardUpdateListener;
+import college.pj.handler.BoardAddServlet;
+import college.pj.handler.BoardDeleteServlet;
+import college.pj.handler.BoardDetailServlet;
+import college.pj.handler.BoardListServlet;
+import college.pj.handler.BoardUpdateServlet;
 import college.pj.handler.LoginListener;
 import college.pj.handler.MemberAddListener;
 import college.pj.handler.MemberDeleteListener;
@@ -122,35 +122,35 @@ public class ServerApp {
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("공지사항");
-    boardMenu.add(new Menu("등록", new BoardAddListener(1, boardDao, sqlSessionFactory)));
-    boardMenu.add(new Menu("목록", new BoardListListener(1, boardDao)));
-    boardMenu.add(new Menu("조회", new BoardDetailListener(1, boardDao, sqlSessionFactory)));
-    boardMenu.add(new Menu("변경", new BoardUpdateListener(1, boardDao, sqlSessionFactory)));
-    boardMenu.add(new Menu("삭제", new BoardDeleteListener(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("등록", new BoardAddServlet(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("목록", new BoardListServlet(1, boardDao)));
+    boardMenu.add(new Menu("조회", new BoardDetailServlet(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("변경", new BoardUpdateServlet(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("삭제", new BoardDeleteServlet(1, boardDao, sqlSessionFactory)));
     mainMenu.add(boardMenu);
 
     MenuGroup recruitMenu = new MenuGroup("모집게시판");
-    recruitMenu.add(new Menu("등록", new BoardAddListener(2, boardDao, sqlSessionFactory)));
-    recruitMenu.add(new Menu("목록", new BoardListListener(2, boardDao)));
-    recruitMenu.add(new Menu("조회", new BoardDetailListener(2, boardDao, sqlSessionFactory)));
-    recruitMenu.add(new Menu("변경", new BoardUpdateListener(2, boardDao, sqlSessionFactory)));
-    recruitMenu.add(new Menu("삭제", new BoardDeleteListener(2, boardDao, sqlSessionFactory)));
+    recruitMenu.add(new Menu("등록", new BoardAddServlet(2, boardDao, sqlSessionFactory)));
+    recruitMenu.add(new Menu("목록", new BoardListServlet(2, boardDao)));
+    recruitMenu.add(new Menu("조회", new BoardDetailServlet(2, boardDao, sqlSessionFactory)));
+    recruitMenu.add(new Menu("변경", new BoardUpdateServlet(2, boardDao, sqlSessionFactory)));
+    recruitMenu.add(new Menu("삭제", new BoardDeleteServlet(2, boardDao, sqlSessionFactory)));
     mainMenu.add(recruitMenu);
 
     MenuGroup freeMenu = new MenuGroup("자유게시판");
-    freeMenu.add(new Menu("등록", new BoardAddListener(3, boardDao, sqlSessionFactory)));
-    freeMenu.add(new Menu("목록", new BoardListListener(3, boardDao)));
-    freeMenu.add(new Menu("조회", new BoardDetailListener(3, boardDao, sqlSessionFactory)));
-    freeMenu.add(new Menu("변경", new BoardUpdateListener(3, boardDao, sqlSessionFactory)));
-    freeMenu.add(new Menu("삭제", new BoardDeleteListener(3, boardDao, sqlSessionFactory)));
+    freeMenu.add(new Menu("등록", new BoardAddServlet(3, boardDao, sqlSessionFactory)));
+    freeMenu.add(new Menu("목록", new BoardListServlet(3, boardDao)));
+    freeMenu.add(new Menu("조회", new BoardDetailServlet(3, boardDao, sqlSessionFactory)));
+    freeMenu.add(new Menu("변경", new BoardUpdateServlet(3, boardDao, sqlSessionFactory)));
+    freeMenu.add(new Menu("삭제", new BoardDeleteServlet(3, boardDao, sqlSessionFactory)));
     mainMenu.add(freeMenu);
 
     MenuGroup archiveMenu = new MenuGroup("자료실");
-    archiveMenu.add(new Menu("등록", new BoardAddListener(4, boardDao, sqlSessionFactory)));
-    archiveMenu.add(new Menu("목록", new BoardListListener(4, boardDao)));
-    archiveMenu.add(new Menu("조회", new BoardDetailListener(4, boardDao, sqlSessionFactory)));
-    archiveMenu.add(new Menu("변경", new BoardUpdateListener(4, boardDao, sqlSessionFactory)));
-    archiveMenu.add(new Menu("삭제", new BoardDeleteListener(4, boardDao, sqlSessionFactory)));
+    archiveMenu.add(new Menu("등록", new BoardAddServlet(4, boardDao, sqlSessionFactory)));
+    archiveMenu.add(new Menu("목록", new BoardListServlet(4, boardDao)));
+    archiveMenu.add(new Menu("조회", new BoardDetailServlet(4, boardDao, sqlSessionFactory)));
+    archiveMenu.add(new Menu("변경", new BoardUpdateServlet(4, boardDao, sqlSessionFactory)));
+    archiveMenu.add(new Menu("삭제", new BoardDeleteServlet(4, boardDao, sqlSessionFactory)));
     mainMenu.add(archiveMenu);
   }
 }
