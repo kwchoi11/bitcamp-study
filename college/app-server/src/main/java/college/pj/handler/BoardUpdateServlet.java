@@ -25,7 +25,20 @@ public class BoardUpdateServlet extends HttpServlet {
       return;
     }
 
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+
     int category = Integer.parseInt(request.getParameter("category"));
+
+    if (category == 1 && loginUser.getLevel() != 2) {
+      out.println("<p>권한이 없습니다</p>");
+      out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n", category);
+      return;
+    } else if (category == 4 && loginUser.getLevel() != 2) {
+      out.println("<p>권한이 없습니다</p>");
+      out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n", category);
+      return;
+    }
 
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
@@ -34,8 +47,6 @@ public class BoardUpdateServlet extends HttpServlet {
     board.setWriter(loginUser);
     board.setCategory(category);
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");

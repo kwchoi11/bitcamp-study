@@ -17,6 +17,7 @@ public class MemberUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
     response.setContentType("text/html;charset=UTF-8");

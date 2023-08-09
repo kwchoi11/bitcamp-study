@@ -1,6 +1,7 @@
 package college.pj.handler;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,20 @@ public class BoardDeleteServlet extends HttpServlet {
       return;
     }
 
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+
     int category = Integer.parseInt(request.getParameter("category"));
+
+    if (category == 1 && loginUser.getLevel() != 2) {
+      out.println("<p>권한이 없습니다</p>");
+      out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n", category);
+      return;
+    } else if (category == 4 && loginUser.getLevel() != 2) {
+      out.println("<p>권한이 없습니다</p>");
+      out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n", category);
+      return;
+    }
 
     Board b = new Board();
     b.setNo(Integer.parseInt(request.getParameter("no")));
