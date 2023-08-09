@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import college.pj.vo.Board;
+import college.pj.vo.Member;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
@@ -21,10 +22,18 @@ public class BoardListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     int category = Integer.parseInt(request.getParameter("category"));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
+    if (loginUser ==  null) {
+      out.println("<p>로그인 후 이용해주세요.</p>");
+      out.println("<meta http-equiv='refresh' content='1;url=/'>");
+      return;
+    }
+
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");

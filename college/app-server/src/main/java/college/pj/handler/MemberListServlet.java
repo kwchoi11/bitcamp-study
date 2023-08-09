@@ -19,8 +19,17 @@ public class MemberListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
+    if (loginUser ==  null) {
+      out.println("<p>로그인 후 이용해주세요.</p>");
+      out.println("<meta http-equiv='refresh' content='1;url=/'>");
+      return;
+    }
+
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -30,7 +39,6 @@ public class MemberListServlet extends HttpServlet {
     out.println("<body>");
     out.println("<h1>회원 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.println("<a href='/member/form.html'>새 회원</a>");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
