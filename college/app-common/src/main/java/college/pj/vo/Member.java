@@ -16,6 +16,7 @@ public class Member implements Serializable {
   private String password;
   private char gender;
   private Date createdDate;
+  private int level;
 
   @Override
   public int hashCode() {
@@ -32,6 +33,12 @@ public class Member implements Serializable {
       return false;
     Member other = (Member) obj;
     return no == other.no;
+  }
+
+  @Override
+  public String toString() {
+    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
+        + ", gender=" + gender + ", createdDate=" + createdDate + ", level=" + level + "]";
   }
 
   public int getNo() {
@@ -80,5 +87,13 @@ public class Member implements Serializable {
 
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
   }
 }

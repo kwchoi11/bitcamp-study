@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     m.setPassword(request.getParameter("password"));
 
     Member loginUser = InitServlet.memberDao.findByEmailAndPassword(m);
-    if (loginUser == null) {
+    if (loginUser != null) {
       request.getSession().setAttribute("loginUser", loginUser);
       response.sendRedirect("/");
       return;
