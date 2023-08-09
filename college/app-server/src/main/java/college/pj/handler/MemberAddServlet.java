@@ -30,7 +30,7 @@ public class MemberAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
+    out.println("<meta http-equiv='refresh' content='1;url=/'>");
     out.println("<title>회원</title>");
     out.println("</head>");
     out.println("<body>");
