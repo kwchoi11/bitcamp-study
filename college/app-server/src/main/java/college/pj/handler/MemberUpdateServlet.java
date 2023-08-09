@@ -17,6 +17,18 @@ public class MemberUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+
+    // 로그인 사용자가 관리자가 아니고 로그인 사용자의 번호와 변경하려는 회원 번호가 같지 않을 때
+    // 변경 작업을 할 수 없다.
+    if (loginUser.getNo() != Integer.parseInt(request.getParameter("no"))  && loginUser.getLevel() != 2) {
+      out.println("<p>권한이 없습니다.</p>");
+      out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
+      return;
+    }
 
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
@@ -25,8 +37,6 @@ public class MemberUpdateServlet extends HttpServlet {
     member.setPassword(request.getParameter("password"));
     member.setGender(request.getParameter("gender").charAt(0));
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
