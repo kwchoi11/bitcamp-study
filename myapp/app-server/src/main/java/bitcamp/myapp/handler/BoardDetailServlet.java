@@ -53,15 +53,12 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<tr><th>첨부파일</th><td>");
 
       for (AttachedFile file : board.getAttachedFiles()) {
-        out.printf("<a href='/upload/board/%s'>%1$%s</a><br>\n", file.getFilePath());
+        out.printf("<a href='/upload/board/%s'>%1$s</a><br>\n", file.getFilePath());
       }
 
       out.println("</td></tr>");
       out.println("</table>");
 
-      for (AttachedFile file : board.getAttachedFiles()) {
-        System.out.println(file.getFilePath());
-      }
 
       out.println("<div>");
       out.println("<button>변경</button>");

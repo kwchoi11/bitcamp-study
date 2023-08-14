@@ -38,6 +38,7 @@ public class BoardFormServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
+
   }
 }
 

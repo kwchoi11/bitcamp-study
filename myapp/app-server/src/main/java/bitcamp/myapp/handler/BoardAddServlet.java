@@ -38,34 +38,31 @@ public class BoardAddServlet extends HttpServlet {
       // 멀티파트의 각 파트 데이터를 저장할 객체를 만드는 공장
       DiskFileItemFactory factory = new DiskFileItemFactory();
 
-      // 멀티파트 형식으로 넘어온 요청 파라미터를 분석하여 처리하는 객체
+      // 멀티파트 형식으로 넘어 온 요청 파라미터를 분석하여 처리하는 객체
       ServletFileUpload upload = new ServletFileUpload(factory);
 
       // 멀티파트 요청 파라미터를 분석
       List<FileItem> parts = upload.parseRequest(request);
 
+      // 각각의 파트에서 값을 꺼낸다.
       Board board = new Board();
       board.setWriter(loginUser);
 
-      // 웹 어플리케이션 환경 정보를 알고 있는 객체 꺼내기
-      ServletContext 웹어플리케이션환경정보 = request.getServletContext();
+      // 웹 애플리케이션 환경 정보를 알고 있는 객체 꺼내기
+      ServletContext 웹애플리케이션환경정보 = request.getServletContext();
 
-      // 웹 어플리케이션 환경정보에서 /upload/board 디렉토리의 실제 경로를 계산하여 추출한다.
-      String uploadDir = 웹어플리케이션환경정보.getRealPath("/upload/board");
+      // 웹 애플리케이션 환경정보에서 /upload/board 디렉토리의 실제 경로를 계산하여 추출한다.
+      String uploadDir = 웹애플리케이션환경정보.getRealPath("/upload/board/");
       //      System.out.println(uploadDir);
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
 
-      // 각각의 파트에서 값을 꺼낸다.
       for (FileItem part : parts) {
         if (part.isFormField()) { // 일반 데이터
-
           if (part.getFieldName().equals("title")) {
             board.setTitle(part.getString("UTF-8"));
-
           } else if (part.getFieldName().equals("content")) {
             board.setContent(part.getString("UTF-8"));
-
           } else if (part.getFieldName().equals("category")) {
             board.setCategory(Integer.parseInt(part.getString("UTF-8")));
           }
@@ -85,6 +82,7 @@ public class BoardAddServlet extends HttpServlet {
         }
       }
       board.setAttachedFiles(attachedFiles);
+
 
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -114,6 +112,7 @@ public class BoardAddServlet extends HttpServlet {
       }
       out.println("</body>");
       out.println("</html>");
+
     } catch (Exception e) {
       throw new ServletException(e);
     }
