@@ -5,6 +5,7 @@ import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
 public class app {
@@ -26,18 +27,23 @@ public class app {
     connector.setURIEncoding("UTF-8");
 
     // 톰캣 서버에 배포할 웹어플리케이션의 환경 정보 준비
-    StandardContext ctx = (StandardContext) tomcat.addWebapp("/",
-        new File("src/main/webapp").getAbsolutePath());
+    StandardContext ctx = (StandardContext) tomcat.addWebapp(
+        "/", // context 경로(웹 어플리케이션 경로)
+        new File("src/main/webapp").getAbsolutePath() // 웹 어플리케이션 파일이 있는 실제 경로
+        );
 
-    // 웹 어플리케이션 설정
+    // 웹 어플리케이션 기타 정보 설정
     WebResourceRoot resources = new StandardRoot(ctx);
 
-    // 웹 어플리케이션의 기타 자원 등록
-    //    File additionWebInfClass = new File("target/classes");
-    //    resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-    //        additionWebInfClass.getAbsolutePath(), "/"));
+    // 웹 어플리케이션의 서블릿 클래스 등록
+    resources.addPreResources(new DirResourceSet(
+        resources, // 루트 웹 어플리케이션 정보
+        "/WEB-INF/classes", // 서블릿 클래스 파일의 위치 정보
+        new File("bin/main").getAbsolutePath(), // 서블릿 클래스 파일이 있는 실제 경로
+        "/" // 웹 어플리케이션 내부 경로
+        ));
 
-    // 웹 어플리케이션을 환경 정보에 등록
+    // 웹 어플리케이션 설정 정보를 웹 어플리케이션 환경 정보에 등록
     ctx.setResources(resources);
 
     // 톰캣 서버 구동
