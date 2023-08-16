@@ -16,8 +16,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 
 @WebServlet("/board/update")
-// MultipartConfig 추가
-@MultipartConfig(maxFileSize = 1024 * 1024 * 50)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class BoardUpdateServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
@@ -44,7 +43,6 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("<h1>게시글 변경</h1>");
 
     try {
-
       Board board = new Board();
       board.setWriter(loginUser);
       board.setNo(Integer.parseInt(request.getParameter("no")));
@@ -57,7 +55,6 @@ public class BoardUpdateServlet extends HttpServlet {
 
       for (Part part : request.getParts()) {
         if (part.getName().equals("files") && part.getSize() > 0) {
-          // 첨부파일
           String filename = UUID.randomUUID().toString();
           part.write(uploadDir + filename);
           AttachedFile attachedFile = new AttachedFile();
@@ -88,3 +85,14 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("</html>");
   }
 }
+
+
+
+
+
+
+
+
+
+
+
