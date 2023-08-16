@@ -28,7 +28,6 @@ public class MySQLBoardDao implements BoardDao {
     return sqlSession.selectList("bitcamp.myapp.dao.BoardDao.findAll", category);
   }
 
-
   @Override
   public Board findBy(int category, int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
@@ -68,6 +67,12 @@ public class MySQLBoardDao implements BoardDao {
   public AttachedFile findFileBy(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.myapp.dao.BoardDao.findFileBy", no);
+  }
+
+  @Override
+  public int deleteFile(int no) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.delete("bitcamp.myapp.dao.BoardDao.deleteFile", no);
   }
 
 }
