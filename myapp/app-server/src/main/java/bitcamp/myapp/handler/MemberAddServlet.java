@@ -35,7 +35,6 @@ public class MemberAddServlet extends HttpServlet {
       m.setPhoto(uploadFileUrl);
     }
 
-
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
