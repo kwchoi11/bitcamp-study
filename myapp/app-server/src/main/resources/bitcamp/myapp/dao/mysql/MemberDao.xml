@@ -16,7 +16,7 @@
   </resultMap>
 
   <insert id="insert" parameterType="member">
-    insert into myapp_member(name,email,password,gender)
+    insert into myapp_member(name,email,password,gender,photo)
     values(#{name},#{email},sha1(#{password}),#{gender},#{photo})
   </insert>
   
