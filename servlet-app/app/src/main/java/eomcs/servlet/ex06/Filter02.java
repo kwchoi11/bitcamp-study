@@ -2,16 +2,14 @@
 package eomcs.servlet.ex06;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-@WebFilter(
-    value="/ex06/*",
-    initParams={
-        @WebInitParam(name="encoding", value="UTF-8"),
-        @WebInitParam(name="aaa", value="nono")
-    })
+//@WebFilter(
+//    value="/ex06/*",
+//    initParams={
+//        @WebInitParam(name="encoding", value="UTF-8"),
+//        @WebInitParam(name="aaa", value="nono")
+//    })
 public class Filter02 implements Filter {
 
   FilterConfig filterConfig;
