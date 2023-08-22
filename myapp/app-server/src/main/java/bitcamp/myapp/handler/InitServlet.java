@@ -15,9 +15,9 @@ import bitcamp.util.NcpObjectStorageService;
 import bitcamp.util.SqlSessionFactoryProxy;
 
 @WebServlet(
-    value="/init",
-    loadOnStartup = 1
-    )
+        value="/init",
+        loadOnStartup = 1
+)
 public class InitServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
@@ -33,12 +33,13 @@ public class InitServlet extends HttpServlet {
 
     try {
       sqlSessionFactory = new SqlSessionFactoryProxy(
-          new SqlSessionFactoryBuilder().build(
-              Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
+              new SqlSessionFactoryBuilder().build(
+                      Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
 
       boardDao = new MySQLBoardDao(sqlSessionFactory);
       memberDao = new MySQLMemberDao(sqlSessionFactory);
       ncpObjectStorageService = new NcpObjectStorageService(new NcpConfig());
+
 
     } catch (Exception e) {
       System.out.println("InitServlet.init() 실행 중 오류 발생!");

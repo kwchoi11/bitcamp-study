@@ -17,7 +17,7 @@ public class BoardFileDeleteServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -35,10 +35,10 @@ public class BoardFileDeleteServlet extends HttpServlet {
     // 첨부파일 데이터에 있는 게시글 번호로 게시글 데이터를 가져온다.
     Board board = InitServlet.boardDao.findBy(category, attachedFile.getBoardNo());
     //    System.out.println(board);
-    //
-    //    // 게시글 데이터에 작성자와 로그인한 작성자가 일치하는지 검사한다.
+
+    // 게시글 데이터의 작성자와 로그인 한 작성자가 일치하는지 검사한다.
     if (board.getWriter().getNo() != loginUser.getNo()) {
-      throw new ServletException("게시글 변경 권한이 없습니다.");
+      throw new ServletException("게시글 변경 권한이 없습니다!");
     }
 
     // 일치하면 첨부파일을 삭제한다.

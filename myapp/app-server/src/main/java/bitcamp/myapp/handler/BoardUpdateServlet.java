@@ -3,7 +3,6 @@ package bitcamp.myapp.handler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
@@ -23,7 +23,7 @@ public class BoardUpdateServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -50,15 +50,13 @@ public class BoardUpdateServlet extends HttpServlet {
       board.setContent(request.getParameter("content"));
       board.setCategory(Integer.parseInt(request.getParameter("category")));
 
-      String uploadDir = request.getServletContext().getRealPath("/upload/board/");
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-
       for (Part part : request.getParts()) {
         if (part.getName().equals("files") && part.getSize() > 0) {
-          String filename = UUID.randomUUID().toString();
-          part.write(uploadDir + filename);
+          String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile(
+                  "bitcamp-nc7-bucket-118", "board/", part);
           AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilePath(filename);
+          attachedFile.setFilePath(uploadFileUrl);
           attachedFiles.add(attachedFile);
         }
       }
@@ -87,3 +85,14 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("</html>");
   }
 }
+
+
+
+
+
+
+
+
+
+
+

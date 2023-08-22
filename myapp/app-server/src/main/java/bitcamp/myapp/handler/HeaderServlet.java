@@ -15,12 +15,12 @@ public class HeaderServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<div style='height:50px;background-color:orange;'>");
-    out.println("<img src ='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>");
+    out.println("<img src='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>");
     out.println("<a href='/member/list'>회원</a>");
     out.println("<a href='/board/list?category=1'>게시글</a>");
     out.println("<a href='/board/list?category=2'>독서록</a>");
