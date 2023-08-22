@@ -42,7 +42,7 @@ public class BoardAddServlet extends HttpServlet {
       for (Part part : request.getParts()) {
         if (part.getName().equals("files") && part.getSize() > 0) {
           String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile(
-                  "bitcamp-nc7-bucket-118", "board/", part);
+                  "bitcamp-nc7-bucket-04", "board/", part);
           AttachedFile attachedFile = new AttachedFile();
           attachedFile.setFilePath(uploadFileUrl);
           attachedFiles.add(attachedFile);
@@ -52,17 +52,16 @@ public class BoardAddServlet extends HttpServlet {
 
       InitServlet.boardDao.insert(board);
       if (attachedFiles.size() > 0) {
-        int count = InitServlet.boardDao.insertFiles(board);
+        InitServlet.boardDao.insertFiles(board);
       }
 
       InitServlet.sqlSessionFactory.openSession(false).commit();
-      response.sendRedirect("list?category=" + board.getCategory());
-      return;
+      response.sendRedirect("list?category=" + request.getParameter("category"));
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
 
-      // ErrorServlet으로 포워딩 하기 전에 ErrorServlet이 사용할 데이터를
+      // ErrorServlet 으로 포워딩 하기 전에 ErrorServlet이 사용할 데이터를
       // ServletRequest 보관소에 저장한다.
       request.setAttribute("error", e);
       request.setAttribute("message", "게시글 등록 오류!");

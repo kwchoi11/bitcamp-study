@@ -28,6 +28,7 @@ public class MySQLBoardDao implements BoardDao {
     return sqlSession.selectList("bitcamp.myapp.dao.BoardDao.findAll", category);
   }
 
+
   @Override
   public Board findBy(int category, int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
