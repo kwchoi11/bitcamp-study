@@ -1,15 +1,16 @@
 package bitcamp.myapp.handler;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.List;
+import bitcamp.myapp.vo.Board;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bitcamp.myapp.vo.Board;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
@@ -18,7 +19,7 @@ public class BoardListServlet extends HttpServlet {
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     int category = Integer.parseInt(request.getParameter("category"));
@@ -32,6 +33,10 @@ public class BoardListServlet extends HttpServlet {
     out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
+
+    // HeaderServlet의 출력 결과를 합친다.
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>게시글 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.printf("<a href='/board/form.jsp?category=%d'>새 글</a>\n", category);
@@ -63,6 +68,10 @@ public class BoardListServlet extends HttpServlet {
     out.println("</tbody>");
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
+
+    // FooterServlet의 출력 결과를 합친다.
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

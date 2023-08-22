@@ -77,6 +77,7 @@ public class BoardAddServlet extends HttpServlet {
         }
 
         InitServlet.sqlSessionFactory.openSession(false).commit();
+
         out.println("<p>등록 성공입니다!</p>");
 
       } catch (Exception e) {
