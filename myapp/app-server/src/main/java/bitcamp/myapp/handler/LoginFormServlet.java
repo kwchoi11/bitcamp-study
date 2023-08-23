@@ -48,8 +48,8 @@ public class LoginFormServlet extends HttpServlet {
     out.println("<tr>");
     out.printf("  <th>이메일</th> <td><input type='email' name='email' value='%s'></td>\n", email);
     out.println("</tr>");
-    out.println(" <tr>");
-    out.println(" <th>암호</th> <td><input type='password' name='password'></td>");
+    out.println("<tr>");
+    out.println("  <th>암호</th> <td><input type='password' name='password'></td>");
     out.println("</tr>");
     out.println("</table>");
     out.println("<button>로그인</button>");

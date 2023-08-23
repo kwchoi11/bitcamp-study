@@ -23,12 +23,12 @@ public class BoardDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
+    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+
     int category = Integer.parseInt(request.getParameter("category"));
     int no = Integer.parseInt(request.getParameter("no"));
 
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    
     Board board = boardDao.findBy(category, no);
 
     response.setContentType("text/html;charset=UTF-8");

@@ -4,6 +4,7 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MySQLBoardDao;
 import bitcamp.myapp.dao.MySQLMemberDao;
+import bitcamp.myapp.vo.Board;
 import bitcamp.util.NcpConfig;
 import bitcamp.util.NcpObjectStorageService;
 import bitcamp.util.SqlSessionFactoryProxy;
@@ -16,15 +17,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-// 웹 애플리케이션 실행에 필요한 설정이나 객체를 준비한다.
-// 언제? 웹 애플리케이션이 시작될 때!
+// 웹애플리케이션 실행에 필요한 설정이나 객체를 준비한다.
+// 언제? 웹애플리케이션 시작될 때!
 //
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
-    ServletContextListener.super.contextInitialized(sce);
 
     // 준비한 객체를 담을 수 있도록 보관소를 꺼낸다.
     ServletContext ctx = sce.getServletContext();
