@@ -1,32 +1,19 @@
-package bitcamp.myapp.handler;
+<%@ page
+    language="java"
+    pageEncoding="UTF-8"
+    contentType="text/html;charset=UTF-8"
+    trimDirectiveWhitespaces="true"
+    errorPage="/error.jsp"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="bitcamp.myapp.dao.BoardDao"%>
+<%@ page import="bitcamp.myapp.vo.AttachedFile"%>
+<%@ page import="bitcamp.myapp.vo.Board"%>
+<%@ page import="bitcamp.myapp.vo.Member"%>
+<%@ page import="bitcamp.util.NcpObjectStorageService"%>
+<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.vo.AttachedFile;
-import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-@WebServlet("/board/update")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class BoardUpdateServlet extends HttpServlet {
-
-  private static final long serialVersionUID = 1L;
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+<%
+    request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -38,7 +25,6 @@ public class BoardUpdateServlet extends HttpServlet {
     SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
     NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
 
-    try {
       Board board = new Board();
       board.setWriter(loginUser);
       board.setNo(Integer.parseInt(request.getParameter("no")));
@@ -68,28 +54,6 @@ public class BoardUpdateServlet extends HttpServlet {
         }
 
         sqlSessionFactory.openSession(false).commit();
-        response.sendRedirect("list?category=" + request.getParameter("category"));
+        response.sendRedirect("list.jsp?category=" + request.getParameter("category"));
       }
-
-    } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
-
-      request.setAttribute("error", e);
-      request.setAttribute("message", e.getMessage());
-      request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
-
-      request.getRequestDispatcher("/error").forward(request, response);
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
+%>
