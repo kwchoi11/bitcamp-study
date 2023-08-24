@@ -25,15 +25,15 @@
     SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
     NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
 
-      Board board = new Board();
-      board.setWriter(loginUser);
-      board.setNo(Integer.parseInt(request.getParameter("no")));
-      board.setTitle(request.getParameter("title"));
-      board.setContent(request.getParameter("content"));
-      board.setCategory(Integer.parseInt(request.getParameter("category")));
+    Board board = new Board();
+    board.setWriter(loginUser);
+    board.setNo(Integer.parseInt(request.getParameter("no")));
+    board.setTitle(request.getParameter("title"));
+    board.setContent(request.getParameter("content"));
+    board.setCategory(Integer.parseInt(request.getParameter("category")));
 
-      ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (Part part : request.getParts()) {
+    ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
+    for (Part part : request.getParts()) {
         if (part.getName().equals("files") && part.getSize() > 0) {
           String uploadFileUrl = ncpObjectStorageService.uploadFile(
                   "bitcamp-nc7-bucket-04", "board/", part);
@@ -41,19 +41,18 @@
           attachedFile.setFilePath(uploadFileUrl);
           attachedFiles.add(attachedFile);
         }
-      }
-      board.setAttachedFiles(attachedFiles);
+    }
+    board.setAttachedFiles(attachedFiles);
 
-      if (boardDao.update(board) == 0) {
+    if (boardDao.update(board) == 0) {
         throw new Exception("게시글이 없거나 변경 권한이 없습니다.");
-      } else {
+    } else {
         if (attachedFiles.size() > 0) {
-          // 게시글을 정상적으로 변경했으면, 그 게시글의 첨부파일을 추가한다.
           int count = boardDao.insertFiles(board);
           System.out.println(count);
         }
 
         sqlSessionFactory.openSession(false).commit();
         response.sendRedirect("list.jsp?category=" + request.getParameter("category"));
-      }
+    }
 %>
