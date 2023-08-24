@@ -36,7 +36,7 @@
       <th style='width:120px;'>사진</th>
       <td style='width:300px;'><%=
           member.getPhoto() == null ? "<img style='height:80px' src='/images/avatar.png'>" :
-            String.format("<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-04/member/member/%s'>"
+            String.format("<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-04/member/%s'>"
             + "<img src='http://bpcsktokyzyp19010751.cdn.ntruss.com/member/%1$s?type=f&w=60&h=80&faceopt=true&ttype=jpg'>"
             + "</a>", member.getPhoto())%>
           <input type='file' name='photo'></td></tr>
