@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/ex12/s02")
+@WebServlet("/ex12/s2")
 public class Servlet02 extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
