@@ -7,7 +7,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="bitcamp.myapp.vo.AttachedFile"%>
 <%@ page import="bitcamp.myapp.vo.Board"%>
-``
+
 <jsp:useBean id="boardDao" type="bitcamp.myapp.dao.BoardDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="ncpObjectStorageService" type="bitcamp.util.NcpObjectStorageService" scope="application"/>
