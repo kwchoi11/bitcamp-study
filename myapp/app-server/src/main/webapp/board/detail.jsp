@@ -2,20 +2,16 @@
     language="java"
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
-    trimDirectiveWhitespaces="true" %>
-<%@ page import="java.io.IOException"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.List"%>
-<%@ page import="bitcamp.myapp.dao.BoardDao"%>
+    trimDirectiveWhitespaces="true"
+    errorPage="/error.jsp"%>
 <%@ page import="bitcamp.myapp.vo.AttachedFile"%>
 <%@ page import="bitcamp.myapp.vo.Board"%>
-<%@ page import="bitcamp.util.NcpObjectStorageService"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
+
+<jsp:useBean id="boardDao" type="bitcamp.myapp.dao.BoardDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 
 <%
-    BoardDao boardDao = (BoardDao) application.getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) application.getAttribute("sqlSessionFactory");
-
+    request.setAttribute("refresh", "2;url=list.jsp?category" + request.getParameter("category"));
     int category = Integer.parseInt(request.getParameter("category"));
     int no = Integer.parseInt(request.getParameter("no"));
 
