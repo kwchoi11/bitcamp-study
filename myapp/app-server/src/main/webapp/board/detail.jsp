@@ -13,8 +13,8 @@
 <%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 
 <%
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+    BoardDao boardDao = (BoardDao) application.getAttribute("boardDao");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) application.getAttribute("sqlSessionFactory");
 
     int category = Integer.parseInt(request.getParameter("category"));
     int no = Integer.parseInt(request.getParameter("no"));

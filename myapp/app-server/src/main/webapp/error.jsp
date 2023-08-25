@@ -5,7 +5,7 @@
     isErrorPage="true"%>
 <%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 <%
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) application.getAttribute("sqlSessionFactory");
     sqlSessionFactory.openSession(false).commit();
 
     if (request.getAttribute("refresh") != null) {

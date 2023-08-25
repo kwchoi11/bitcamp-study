@@ -13,7 +13,7 @@
 
 <%
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
       return;
@@ -22,8 +22,8 @@
     int category = Integer.parseInt(request.getParameter("category"));
     int fileNo = Integer.parseInt(request.getParameter("no"));
 
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+    BoardDao boardDao = (BoardDao) application.getAttribute("boardDao");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) application.getAttribute("sqlSessionFactory");
 
     AttachedFile attachedFile = boardDao.findFileBy(fileNo);
     Board board = boardDao.findBy(category, attachedFile.getBoardNo());

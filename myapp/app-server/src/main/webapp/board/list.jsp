@@ -39,7 +39,7 @@
 </thead>
 
 <%
-  BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+  BoardDao boardDao = (BoardDao) application.getAttribute("boardDao");
   List<Board> list = boardDao.findAll(category);
 %>
 <tbody>
