@@ -11,7 +11,7 @@
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 
 <%
-    request.setAttribute("refresh", "2;url=list.jsp?category" + request.getParameter("category"));
+    request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
     int category = Integer.parseInt(request.getParameter("category"));
     int no = Integer.parseInt(request.getParameter("no"));
 

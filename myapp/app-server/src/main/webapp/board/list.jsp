@@ -14,7 +14,7 @@
 %>
 
 <%
-  request.setAttribute("refresh", "2;url=list.jsp?category" + request.getParameter("category"));
+  request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
   int category = Integer.parseInt(request.getParameter("category"));
 %>
 <!DOCTYPE html>

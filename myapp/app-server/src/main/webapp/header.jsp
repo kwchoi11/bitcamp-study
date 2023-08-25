@@ -2,8 +2,6 @@
     language="java"
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"%>
-<%@ page import="bitcamp.myapp.vo.Member"%>
-
 <div style='height:50px;background-color:orange;'>
     <img src='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>
     <a href='/member/list.jsp'>회원</a>
@@ -13,7 +11,7 @@
 <jsp:useBean id="loginUser" class="bitcamp.myapp.vo.Member" scope="session"/>
 
 <%
-    if (loginUser.get() == 0) {
+    if (loginUser.getNo() == 0) {
       out.println("<a href='/auth/form.jsp'>로그인</a>");
     } else {
       if (loginUser.getPhoto() == null) {
