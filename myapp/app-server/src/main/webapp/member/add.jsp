@@ -9,7 +9,6 @@
 <jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="ncpObjectStorageService" type="bitcamp.util.NcpObjectStorageService" scope="application"/>
-
 <%
     request.setAttribute("refresh", "2;url=list.jsp");
 
