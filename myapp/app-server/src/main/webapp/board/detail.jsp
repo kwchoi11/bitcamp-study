@@ -60,15 +60,10 @@
     <a href='/board/list.jsp?category=${param.category}'>목록</a>
     </div>
     </form>
+    <c:set target="${pageScope.board}" property="viewCount" value="${board.viewCount + 1}"/>
+    <c:set var="updateCount" value="${boardDao.updateCount(board)}"/>
 <%
-      try {
-        //board.setViewCount(board.getViewCount() + 1);
-        //boardDao.updateCount(board);
-        //sqlSessionFactory.openSession(false).commit();
-
-      } catch (Exception e) {
-        //sqlSessionFactory.openSession(false).rollback();
-      }
+      sqlSessionFactory.openSession(false).commit();
 %>
 </c:if>
 
