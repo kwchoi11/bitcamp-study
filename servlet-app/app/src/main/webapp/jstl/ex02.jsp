@@ -28,15 +28,3 @@ pageContext.setAttribute("name", "유관순");
 <c:out value="${name2}" default="홍길동"/><br>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
