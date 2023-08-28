@@ -4,9 +4,6 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.List"%>
-<%@ page import="bitcamp.myapp.vo.Board"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="refresh" value="2;url=list.jsp?category=${param.category}" scope="request"/>
