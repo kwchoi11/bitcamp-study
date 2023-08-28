@@ -6,15 +6,10 @@
     errorPage="/error.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<%@ page import="bitcamp.myapp.vo.AttachedFile"%>
-<%@ page import="bitcamp.myapp.vo.Board"%>
 <c:set var="refresh" value="2;url=list.jsp?category=${param.category}" scope="request"/>
-
 <jsp:useBean id="boardDao" type="bitcamp.myapp.dao.BoardDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <c:set var="board" value="${boardDao.findBy(param.category,param.no)}"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,9 +57,7 @@
     </form>
     <c:set target="${pageScope.board}" property="viewCount" value="${board.viewCount + 1}"/>
     <c:set var="updateCount" value="${boardDao.updateCount(board)}"/>
-<%
-      sqlSessionFactory.openSession(false).commit();
-%>
+    <% sqlSessionFactory.openSession(false).commit(); %>
 </c:if>
 
 <jsp:include page="../footer.jsp"/>
