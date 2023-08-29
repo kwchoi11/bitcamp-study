@@ -25,6 +25,8 @@
 
 <h1>실행 오류!</h1>
 
+<c:if test="$me
+
 <p><%=exception%></p>
 
 <jsp:include page="footer.jsp"/>
