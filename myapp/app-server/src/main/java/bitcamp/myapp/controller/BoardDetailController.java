@@ -3,10 +3,12 @@ package bitcamp.myapp.controller;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component("/board/detail")
 public class BoardDetailController implements PageController {
 
   BoardDao boardDao;
