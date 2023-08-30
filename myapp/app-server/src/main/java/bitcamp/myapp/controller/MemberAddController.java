@@ -1,6 +1,10 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.vo.Member;
+import bitcamp.util.NcpObjectStorageService;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -8,11 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
-import org.apache.ibatis.session.SqlSessionFactory;
+import java.io.IOException;
 
 @WebServlet("/member/add")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
@@ -23,7 +23,7 @@ public class MemberAddController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/member/form.jsp").include(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/member/form.jsp").include(request, response);
   }
 
   @Override

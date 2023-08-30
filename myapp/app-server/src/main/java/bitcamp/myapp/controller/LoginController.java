@@ -1,15 +1,15 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.vo.Member;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
+import java.io.IOException;
 
 @WebServlet("/auth/login")
 public class LoginController extends HttpServlet {
@@ -25,7 +25,7 @@ public class LoginController extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
 
     // View 컴포넌트를 인클루딩 한다.
-    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/auth/form.jsp").include(request, response);
   }
 
   @Override
