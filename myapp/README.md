@@ -363,5 +363,61 @@
 ## 57. 파일 업로드 다루기 - multipart/form-data POST 요청 파라미터 인코딩
 
 - apache.org의 라이브러리를 이용하여 multipart/form-data 파라미터를 다루는 방법
-- Servlet API를 이용하여 multipart/form-data 파라미터를 다루는 방법
 - 네이버클라우드 mysql DBMS 사용하기
+
+## 58. 파일 업로드 다루기 II - multipart/form-data POST 요청 파라미터 인코딩
+
+- Servlet API를 이용하여 multipart/form-data 파라미터를 다루는 방법
+
+## 59. 서블릿 컨테이너 삽입하기
+
+- 웹 애플리케이션에 서블릿 컨테이너를 포함시키는 방법
+
+## 60. 첨부파일을 네이버 클라우드의 스토리지 서비스에 저장하기
+
+- 네이버 스토리지 서비스 사용법
+- 첨부파일을 스토리지 서비스에 업로드하는 방법
+
+## 61. 네이버 클라우드의 Image Optimizer를 이용하여 썸네일 이미지 다루기
+
+- 네이버 클라우드의 Image Optimizer 사용법
+
+## 62. forward/include/refresh/redirect 다루기
+
+- 오류 메시지 출력에 forward 및 refresh 사용하기
+- 상단 메뉴 및 하단 정보 출력에 include 사용하기
+- 등록 완료 후 목록 페이지로 이동할 때 redirect 사용하기
+
+## 63. 쿠키와 ServletContext 보관소 활용하기
+
+- 쿠키를 이용하여 로그인 할 때 입력한 이메일을 보관하기
+- 서블릿들이 공통으로 사용하는 객체를 ServletContext 보관소에 보관하기
+
+## 64. JSP를 이용하여 MVC 모델1 구조로 변경하기
+
+- MVC 모델1 특징 이해
+- JSP 구동 원리 이해 및 사용법
+- EL 사용법
+- JSTL 사용법
+
+## 65. 서블릿을 결합하여 MVC 모델2 구조로 변경하기
+
+- MVC 모델2 특징 이해
+- 서블릿과 JSP의 역할 및 구동 원리
+
+## 66. Front Controller 디자인 패턴 도입하기
+
+- Front Controller 디자인 패턴의 효과 및 적용 방법
+- 프론트 컨트롤러와 페이지 컨트롤러의 역할 이해
+
+## 67. 페이지 컨트롤러를 POJO로 전환하기
+
+- 페이지 컨트롤러를 POJO 클래스로 변경
+  POJO? Plain Old Java Object (그냥 일반 자바 문법으로 만든 클래스)
+- 의존 객체 주입하기
+
+## 68. Spring IoC 컨테이너를 이용하여 페이지 컨트롤러를 관리하기
+
+- Spring IoC 컨테이너를 이용하여 객체를 자동 생성하는 방법
+- 의존 객체를 자동으로 주입하는 방법
+- Spring IoC 컨테이너에 들어 있는 객체를 꺼내 사용하는 방법
