@@ -34,7 +34,6 @@ public class DispatcherServlet extends HttpServlet {
     String viewUrl = (String) request.getAttribute("viewUrl");
     if (viewUrl.startsWith("redirect:")) {
       response.sendRedirect(viewUrl.substring(9)); // 예) redirect:/app/board/list
-      return;
     } else {
       request.getRequestDispatcher(viewUrl).include(request, response);
     }

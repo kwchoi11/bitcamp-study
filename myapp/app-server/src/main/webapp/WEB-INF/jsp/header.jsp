@@ -21,7 +21,7 @@
         <c:if test="${not empty sessionScope.loginUser.photo}">
             <img src='http://bpcsktokyzyp19010751.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
         </c:if>
-        ${loginUser.name} <a href='app/auth/logout'>로그아웃</a>
+        ${loginUser.name} <a href='/app/auth/logout'>로그아웃</a>
     </c:otherwise>
 </c:choose>
 </div>

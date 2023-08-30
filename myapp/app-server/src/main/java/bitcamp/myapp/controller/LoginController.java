@@ -19,7 +19,6 @@ public class LoginController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
     request.setAttribute("viewUrl", "/WEB-INF/jsp/auth/form.jsp");
   }
 
