@@ -12,6 +12,10 @@ public class LogBeanPostProcessor implements BeanPostProcessor {
     System.out.println("LogBeanPostProcessor()");
   }
 
+  static {
+    System.out.println("LogBeanPostProcessor 클래스 로딩!");
+  }
+
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
     System.out.printf("===> %s:%s\n",
