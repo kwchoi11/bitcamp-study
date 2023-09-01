@@ -36,12 +36,12 @@ import org.springframework.context.annotation.ComponentScan;
 //            value = org.springframework.stereotype.Controller.class
 //            )
 //    })
-// 위의 설정은 XML에서 다음과 같다.
+//위의 설정은 XML에서 다음과 같다.
 //<context:component-scan base-package="com.eomcs.spring.ioc.ex11">
-//  <context:exclude-filter type="regex"
-//    expression="com.eomcs.spring.ioc.ex11.p2.*"/>
-//  <context:exclude-filter type="annotation"
-//    expression="org.springframework.stereotype.Controller"/>
+//<context:exclude-filter type="regex"
+//expression="com.eomcs.spring.ioc.ex11.p2.*"/>
+//<context:exclude-filter type="annotation"
+//expression="org.springframework.stereotype.Controller"/>
 //</context:component-scan>
 
 
