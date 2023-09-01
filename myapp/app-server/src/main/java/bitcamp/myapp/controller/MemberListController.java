@@ -20,4 +20,5 @@ public class MemberListController implements PageController {
     request.setAttribute("list", memberDao.findAll());
     return "/WEB-INF/jsp/member/list.jsp";
   }
+
 }
