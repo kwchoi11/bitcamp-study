@@ -1,5 +1,12 @@
 package bitcamp.myapp.config;
 
+import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.DefaultBoardService;
+import bitcamp.myapp.service.DefaultMemberService;
+import bitcamp.myapp.service.MemberService;
+import bitcamp.util.TransactionProxyBuilder;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -16,7 +23,10 @@ import javax.sql.DataSource;
 
 // Application을 실행하는데 필요한 객체를 설정하는 일을 한다.
 //
-@ComponentScan(basePackages = {"bitcamp.myapp.dao", "bitcamp.myapp.controller", "bitcamp.myapp.service"})
+@ComponentScan(basePackages = {
+        "bitcamp.myapp.dao",
+        "bitcamp.myapp.controller",
+        "bitcamp.myapp.service"})
 @PropertySource({"classpath:bitcamp/myapp/config/ncloud/jdbc.properties"})
 @MapperScan("bitcamp.myapp.dao") // Mybatis가 자동으로 생성할 DAO 객체의 인터페이스 패키지 지정
 public class AppConfig {
@@ -24,15 +34,6 @@ public class AppConfig {
   public AppConfig() {
     System.out.println("AppConfig() 호출됨!");
   }
-
-  // Mybatis 객체 준비
-//  @Bean
-//  public SqlSessionFactory sqlSessionFactory() throws Exception {
-//    System.out.println("AppConfig.sqlSessionFactory() 호출됨!");
-//    return new SqlSessionFactoryProxy(
-//        new SqlSessionFactoryBuilder().build(
-//            Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
-//  }
 
   @Bean
   public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx) throws Exception {
@@ -57,17 +58,39 @@ public class AppConfig {
           @Value("${jdbc.username}") String username,
           @Value("${jdbc.password}") String password) {
     System.out.println("AppConfig.dataSource() 호출됨!");
+
     DriverManagerDataSource ds = new DriverManagerDataSource();
     ds.setDriverClassName(driver);
     ds.setUrl(url);
     ds.setUsername(username);
     ds.setPassword(password);
+
     return ds;
   }
 
   @Bean
   public PlatformTransactionManager transactionManager(DataSource dataSource) {
     System.out.println("AppConfig.transactionManager() 호출됨!");
+
     return new DataSourceTransactionManager(dataSource);
   }
+
+  @Bean
+  public TransactionProxyBuilder txProxyBuilder(PlatformTransactionManager txManager) {
+    // 주어진 객체에 트랜잭션 다루는 기능을 덧붙여서 새로운 객체를 만드는 일을 한다.
+    return new TransactionProxyBuilder(txManager);
+  }
+
+  @Bean
+  public BoardService boardService(TransactionProxyBuilder txProxyBuilder, BoardDao boardDao) {
+    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+    return (BoardService) txProxyBuilder.build(new DefaultBoardService(boardDao));
+  }
+
+  @Bean
+  public MemberService memberService(TransactionProxyBuilder txProxyBuilder, MemberDao memberDao) {
+    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+    return (MemberService) txProxyBuilder.build(new DefaultMemberService(memberDao));
+  }
+
 }

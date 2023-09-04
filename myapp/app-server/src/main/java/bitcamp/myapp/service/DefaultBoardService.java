@@ -3,32 +3,27 @@ package bitcamp.myapp.service;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
+import bitcamp.util.Transactional;
 
 import java.util.List;
 
-@Service
+//@Service
 public class DefaultBoardService implements BoardService {
 
   BoardDao boardDao;
-  TransactionTemplate txTemplate;
 
-  public DefaultBoardService(BoardDao boardDao, PlatformTransactionManager txManager) {
+  public DefaultBoardService(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.txTemplate = new TransactionTemplate(txManager);
   }
 
+  @Transactional // 이 메서드는 트랜잭션 상태에서 실행하라고 지정
   @Override
   public int add(Board board) throws Exception {
-    return (int) txTemplate.execute(status -> {
-      Integer rv = boardDao.insert(board);
-      if (board.getAttachedFiles().size() > 0) {
-        boardDao.insertFiles(board);
-      }
-      return rv;
-    });
+    int count = boardDao.insert(board);
+    if (board.getAttachedFiles().size() > 0) {
+      boardDao.insertFiles(board);
+    }
+    return count;
   }
 
   @Override
@@ -41,28 +36,27 @@ public class DefaultBoardService implements BoardService {
     return boardDao.findBy(boardNo);
   }
 
+  @Transactional
   @Override
   public int update(Board board) throws Exception {
-    return txTemplate.execute(status -> {
-      int count = boardDao.update(board);
-      if (count > 0 && board.getAttachedFiles().size() > 0) {
-        boardDao.insertFiles(board);
-      }
-      return count;
-    });
+    int count = boardDao.update(board);
+    if (count > 0 && board.getAttachedFiles().size() > 0) {
+      boardDao.insertFiles(board);
+    }
+    return count;
   }
 
+  @Transactional
   @Override
   public int delete(int boardNo) throws Exception {
-    return txTemplate.execute(status -> {
-      boardDao.deleteFiles(boardNo);
-      return boardDao.delete(boardNo);
-    });
+    boardDao.deleteFiles(boardNo);
+    return boardDao.delete(boardNo);
   }
 
+  @Transactional
   @Override
   public int increaseViewCount(int boardNo) throws Exception {
-    return txTemplate.execute(status -> boardDao.updateCount(boardNo));
+    return boardDao.updateCount(boardNo);
   }
 
   @Override
