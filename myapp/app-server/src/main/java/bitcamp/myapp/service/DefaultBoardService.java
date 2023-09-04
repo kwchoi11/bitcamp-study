@@ -117,6 +117,6 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public int deleteAttachedFile(int fileNo) throws Exception {
-    return 0;
+    return boardDao.deleteFile(fileNo);
   }
 }
