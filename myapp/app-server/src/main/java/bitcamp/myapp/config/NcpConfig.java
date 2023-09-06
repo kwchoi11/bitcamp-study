@@ -37,4 +37,6 @@ public class NcpConfig {
   public void setSecretKey(String secretKey) {
     this.secretKey = secretKey;
   }
+
+
 }
