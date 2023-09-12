@@ -1,7 +1,20 @@
 plugins {
     id 'java'
-    // id 'eclipse-wtp'
-    id 'war'
+    id 'org.springframework.boot' version '2.7.15'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'bitcamp'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
 }
 
 repositories {
@@ -17,6 +30,9 @@ dependencies {
     
     // Google JSON 라이브러리
     //implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Jackson Json 라이브러리
+    // implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
     // Mybatis 라이브러리
     implementation 'org.mybatis:mybatis:3.5.13'
@@ -59,20 +75,8 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8' 
-    sourceCompatibility = '17'
-    targetCompatibility = '17'
 }
 
 /*
